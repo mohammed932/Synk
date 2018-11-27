@@ -1,0 +1,7 @@
+{
+  "name": "synk",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
