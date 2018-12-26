@@ -1,0 +1,49 @@
+page-edit-profile {
+    .scroll-content{
+        background: white !important;
+    }
+    .avatar-img{
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        display: block;
+        margin-bottom: 3rem;
+        border-radius: 100%;
+        margin-top: 1rem;
+    }
+    .label{
+        font-size: 15px;
+    }
+
+    .select .select-icon .select-icon-inner{
+        border-top: 0; 
+        border-right: 0; 
+        border-left: 0; 
+    }
+
+    .select .select-icon .select-icon-inner:before{
+        font-family: Ionicons;
+        content: '\f3d0';
+        position: absolute;
+        right: -9px !important;
+        top: -10px !important;
+        font-size: 25px !important;
+    }
+    .select .select-icon{
+        position: relative;
+        width: 14px;
+        height: 18px;
+    }
+    .select-text{
+        margin-right: 1rem;
+    }
+
+    .save-btn{
+        width: 95%;
+        margin: auto;
+        margin-top: 3rem;
+        .button-inner{
+            font-size: 20px;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar color="gary">
+    <ion-title>My Friends</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="friendRequests()">
+        <div class="friend-requests">3 Friend Requests</div>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-searchbar [(ngModel)]="data.search" showCancelButton="false" placeholder="Search friends and SYNK community" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-row class="title-row">
+    <ion-col col-12 no-padding>
+      <div class="contact-title">A</div>
+    </ion-col>
+  </ion-row>
+  <ion-grid class="friends-wraaper" no-padding>
+    <ion-row *ngFor="let friend of Friends" class="friends-wraaper-row">
+      <ion-col no-padding col-3>
+        <img [src]="friend.img" class="friend-img">
+      </ion-col>
+      <ion-col no-padding col-6 align-self-center>
+        <div class="bold">{{friend.name}}</div>
+      </ion-col>
+      <ion-col no-padding col-3 align-self-center>
+        <button ion-button color="primary" round block class="accept-btn" *ngIf="!friend.isAdded">Invite</button>
+        <button ion-button color="secondary" round block class="accept-btn" *ngIf="friend.isAdded">Add</button>
+      </ion-col>
+      <ion-col no-padding col-12>
+        <hr class="hr">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-row>
+    <ion-col col-12 no-padding>
+      <div class="contact-title">B</div>
+    </ion-col>
+  </ion-row>
+  <ion-grid class="friends-wraaper" no-padding>
+    <ion-row *ngFor="let friend of Friends" class="friends-wraaper-row">
+      <ion-col no-padding col-3>
+        <img [src]="friend.img" class="friend-img">
+      </ion-col>
+      <ion-col no-padding col-6 align-self-center>
+        <div class="bold">{{friend.name}}</div>
+      </ion-col>
+      <ion-col no-padding col-3 align-self-center>
+        <button ion-button color="primary" round block class="accept-btn" *ngIf="!friend.isAdded">Invite</button>
+        <button ion-button color="secondary" round block class="accept-btn" *ngIf="friend.isAdded">Add</button>
+      </ion-col>
+      <ion-col no-padding col-12>
+        <hr class="hr">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

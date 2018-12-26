@@ -1,0 +1,109 @@
+page-create-activity {
+    .header,.scroll-content{
+        background: #2b292a !important;
+    }
+    ion-header{
+        background: #2b292a;
+    }
+    .title-1{
+        color: white;
+        text-align: center;
+        font-size: 24px;
+    }
+    .what-to-do{
+        color: #a9a4a6;
+        text-align: center;
+    }
+
+    .input-item{
+        border-radius: 2rem;
+        background: #585758;
+        width: 95%;
+        margin: auto;
+        margin-top: 3rem;
+    }
+
+    ion-input {
+        ::placeholder{
+            color:#259fa0 !important;
+        }
+    }
+    .item.item-block .item-inner{
+        border-bottom : 0;
+    }
+
+
+    .calender-wrapper-item{
+        margin-top: -7px;
+    }
+    .ScheduleDate{
+        .ion-ios-arrow-forward:before{
+            transform: rotate(0) !important; 
+        }
+    }
+
+    .calender-icon{
+        color: #9a5cb4;
+        margin-left: 10px !important;
+    }
+    .date-txt{
+        font-size: 13px;
+    }
+
+    .date-txt{
+        color: white !important;
+        direction: ltr !important;
+    }
+
+    .calender-wrapper-item{
+        background: #585758;
+        border-radius: 2rem;
+    }
+    .not-sure-item{
+        color: white;
+        margin-top: 2rem;
+        background-color: transparent !important;
+    }
+    ul.ion-alpha-sidebar{
+        top: -17px !important;
+    }
+    .item-divider{
+        color: white;
+        background-color: #565555;
+        text-align: left;
+        height: 1rem;
+    }
+    .contact-item{
+        color: white;
+        background-color: #2b292a;
+    }
+    
+
+    .choose-friends{
+        font-size: 23px;
+        margin-left: 2rem;
+        color: white;
+        font-weight: bold;
+    }
+ 
+    .scroll-content {
+        margin-bottom: 0!important;
+    }
+    .done-btn{
+        width: 95%;
+        margin: auto;
+        margin-bottom: 3rem;
+        .button-inner{
+            font-size: 1.7rem;
+            font-weight: bold;
+        }
+    }
+    .contact-wrapper{
+        margin-bottom: 10rem;
+        margin-top: 10rem;
+    }
+    .contact-item{
+        color: white;
+        background-color: #2b292a;
+    }
+}

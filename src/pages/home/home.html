@@ -1,17 +1,76 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-</ion-content>
+    <ion-navbar color="gray">
+      <ion-title>Happening</ion-title>
+    </ion-navbar>
+    <ion-searchbar [(ngModel)]="data.search" showCancelButton="false" placeholder="Search" (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-row class="find-persons-wrapper-row">
+      <ion-col col-12 class="find-persons-wrapper-col">
+        <div class="bold">FRIENDS 20 MIN AWAY</div>
+        <ion-slides slidesPerView="4.4">
+          <ion-slide *ngFor="let person of Persons">
+            <img [src]="person.img" class="avatar-img">
+            <div class="avatar-name">Sara hatam</div>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col col-12>
+        <div class="bold">TODAY TUESDAY 10 NOV</div>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row class="all-eevnt-row-wrapper">
+      <ion-col col-12 no-padding class="all-eevnt-col-wrapper">
+        <ion-list>
+          <ion-item-sliding #item *ngFor="let event of Events" (click)="eventDetails(event)">
+            <ion-item>
+              <ion-row class="item-slide-row" [class.customSynkBg]="event.isSynked" [class.customInvitedBg]="event.isInvited">
+                <ion-col col-12 no-padding>
+                  <ion-row class="sec-1" [class.customSynkBg]="event.isSynked" [class.customInvitedBg]="event.isInvited">
+                    <ion-col col-6>
+                      <div class="event-name">Coffee</div>
+                      <div class="invited-by">Sara hatem invited you</div>
+                    </ion-col>
+                    <ion-col col-6>
+                      <div class="event-time" ion-text float-right>2:45 pm</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-12 class="sec-2" [class.customSynkBg]="event.isSynked" [class.customInvitedBg]="event.isInvited">
+                  <ion-row>
+                    <ion-col col-9>
+                      <div item-start class="address">
+                        <ion-icon name="custom-Location"></ion-icon>
+                        Starbucks , Tivoli, Helipolis
+                      </div>
+                      <div class="synked-people">
+                        <ion-icon name="custom-people"></ion-icon>
+                        10/10 people synked
+                      </div>
+                    </ion-col>
+                    <ion-col col-3 align-self-end>
+                      <button ion-button round block color="primary" class="my-btn" *ngIf="event.isInvited">INVITE</button>
+                      <button ion-button round block color="primary" class="my-btn" *ngIf="event.isSynked">SYNK</button>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+  
+            <ion-item-options side="right">
+              <button ion-button color="red" (click)="unread(item)">Delete</button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  
+  
+  </ion-content>

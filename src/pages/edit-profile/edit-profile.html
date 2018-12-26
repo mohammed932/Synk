@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-row>
+    <ion-col col-12>
+      <img src="assets/imgs/2.jpg" class="avatar-img">
+    </ion-col>
+  </ion-row>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label fixed>Full name</ion-label>
+      <ion-input type="text" text-right value="Sara Hatem"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Email address</ion-label>
+      <ion-input type="text" text-right value="sara@gmai.com"></ion-input>
+    </ion-item>
+
+    <button ion-item (click)="changePassword()">
+      Change Password
+    </button>
+
+    <ion-item>
+      <ion-label>Gender</ion-label>
+      <ion-select [(ngModel)]="data.gender">
+        <ion-option value="f">Female</ion-option>
+        <ion-option value="m">Male</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Phone Number</ion-label>
+      <ion-input type="text" text-right value="01028734848"></ion-input>
+    </ion-item>
+
+    <button ion-button color="primary" round block class="save-btn">Save</button>
+  </ion-list>
+</ion-content>

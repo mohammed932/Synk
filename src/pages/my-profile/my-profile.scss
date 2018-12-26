@@ -1,0 +1,55 @@
+page-my-profile {
+    .scroll-content{
+        background: white !important;
+    }
+    .avatar-img{
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        display: block;
+        border-radius: 100%;
+        margin-top: 1rem;
+    }
+    .user-name-wrapper{
+        text-align: center;
+        margin-top: 5px;
+    }
+    .username{
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .total-synks{
+        color: gray;
+        margin-left: 5px;    
+    }
+    .user-bio{
+        text-align: center;
+        color: gray;
+        width: 95%;
+        margin: auto;
+    }
+    .complete{
+        background: #62d7e1;
+        color: white;
+        text-align: center;
+        padding: 5px;
+        font-size: 14px;
+    }
+    .crown-wrapper{
+        text-align: center;
+        .crown-1{
+            width: 60px;
+        }
+        .crown-2{
+            width: 80px;
+        }
+        .crown-3{
+            width: 60px;
+        }
+        .crwon-img-wrapper{
+            display: inline-block;
+            margin-right: 2rem;
+            color: gray;
+        }
+    }
+}

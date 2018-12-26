@@ -1,0 +1,118 @@
+<ion-header>
+
+  <ion-navbar transparent>
+    <ion-title></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <div class="choose-friends" *ngIf="data.showDoneBtn">Choose Friends</div>
+  <ion-searchbar *ngIf="data.showDoneBtn" [(ngModel)]="data.search" showCancelButton="false" placeholder="Search" (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-slides>
+        <!-- Slide 1 -->
+        <ion-slide>
+
+          <ion-row>
+            <ion-col col-12>
+              <h3 class="title-1 bold">What are you up for now?</h3>
+              <div class="what-to-do-wrapper">
+                <div class="what-to-do">Craete activity with friends</div>
+                <div class="what-to-do">or tap a suggestion</div>
+              </div>
+            </ion-col>
+
+
+            <ion-col col-12>
+              <ion-item class="input-item">
+                <ion-input placeholder="Create activity title here"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+
+        <!-- Slide 2 -->
+        <ion-slide>
+          <ion-row>
+            <ion-col col-12>
+              <h3 class="title-1 bold">When is your activity?</h3>
+            </ion-col>
+
+            <ion-col col-12>
+              <ion-item ion-datepicker dir="rtl" [(value)]="initDate" clear full="true" calendar="true" (ionChanged)="setDate($event)"
+                [modalOptions] class="calender-wrapper-item">
+                <ion-icon class="calender-icon" name="custom-calender" item-start></ion-icon>
+                <div ion-text item-end color="gray" class="date-txt"> Activity Date:</div>
+                <div ion-text item-start class="date-txt">
+                  <span class="ScheduleDate">
+                    {{initDate | customDate:0}} {{formatDate(initDate)}}
+                  </span>
+                </div>
+              </ion-item>
+
+              <ion-list>
+                <ion-item class="not-sure-item">
+                  <ion-label item-end>Not sure yet.</ion-label>
+                  <ion-checkbox item-start [(ngModel)]="data.isSureDay"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+
+         <!-- Slide 3 -->
+         <ion-slide>
+            <ion-row>
+              <ion-col col-12>
+                <h3 class="title-1 bold">Who can join your activity?</h3>
+              </ion-col>
+  
+              <ion-col col-12>
+                <button ion-button round color="secondary" class="done-btn" (click)="dismiss()">SYNK COMMUNITY</button>
+                <button ion-button round color="primary" class="done-btn" (click)="step(3)">CHOOSE FRIENDS</button>
+              </ion-col>
+            </ion-row>
+          </ion-slide>
+
+        <!-- Slide 4 -->
+        <ion-slide>
+          <div class="contact-wrapper" *ngIf="data.showDoneBtn">
+            <ion-item-group *ngFor="let group of groupedContacts">
+              <ion-item-divider light>{{group.letter}}</ion-item-divider>
+              <ion-item *ngFor="let contact of group.contacts" class="contact-item">
+                <ion-avatar item-start>
+                  <img [src]="contact.img">
+                </ion-avatar>
+                <div item-start>{{contact.name}}</div>
+                <ion-checkbox item-end></ion-checkbox>
+              </ion-item>
+            </ion-item-group>
+          </div>
+
+        </ion-slide>
+
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer text-center no-border transparent>
+  <ion-row>
+    <ion-col col-12>
+      <button ion-button color="primary" class="done-btn" round block (click)="step(1)" *ngIf="data.showCreateActivtyBtn">CREATE
+        ACTIVITY</button>
+      <button ion-button color="primary" class="done-btn" round block (click)="step(2)" *ngIf="data.showNextBtn">Next</button>
+      <button ion-button color="primary" class="done-btn" round block *ngIf="data.showDoneBtn" (click)="dismiss()">Done</button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

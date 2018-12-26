@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Notifications</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <button ion-item (click)="Notification()" *ngFor="let notification of Notifications">
+      <ion-row>
+        <ion-col col-12>
+          <div class="time">{{notification.time}}</div>
+        </ion-col>
+        <ion-col col-2>
+          <img src="assets/imgs/{{notification.img}}" class="noti-icon">
+        </ion-col>
+        <ion-col col-10 class="noti-txt">
+          {{notification.noti}}
+        </ion-col>
+      </ion-row>
+    </button>
+  </ion-list>
+</ion-content>

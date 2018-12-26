@@ -1,0 +1,66 @@
+page-activity-details {
+  .scroll-content{
+    background: #f1eff0 !important;
+  }
+  .invited-by{
+    font-size: 13px;
+  }
+  .location-txt{
+    font-size: 14px;
+  }
+  ion-icon[class*="custom-Location"]{
+    color: #f9695a;
+  }
+  .item-ios.item-block .item-inner{
+    border-bottom : 0 !important;
+  }
+  .hr{
+    height: 1.15px;
+    width: 86%;
+    margin: auto;
+  }
+  ion-icon[class*="custom-chat"], ion-icon[class*="custom-tasks"]{
+    margin-right: 1rem;
+    color: #00f4ff !important;
+  }
+  .button-outline{
+    border-width: 2px;
+  }
+  .desc{
+    width: 90%;
+    margin: auto;
+    color: gray;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  .find-persons-wrapper-row{
+    background: white;
+    padding: 5px;
+    margin-top: 1rem;
+  }
+  .find-persons-wrapper-col{
+    margin-bottom: 2rem;
+  }
+  .list{
+    margin: -1px 0 13px;
+  }
+  .synk-txt{
+    margin-left: 1rem;
+  }
+  .avatar-img{
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+  }
+  .avatar-name{
+    font-size: 13px;
+  }
+  .unsynk{
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: red;
+    font-size: 16px;
+  }
+}

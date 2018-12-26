@@ -1,16 +1,123 @@
-// http://ionicframework.com/docs/theming/
+
+@font-face {
+    font-family: 'proxima';
+    src: url('../assets/fonts/Proxima Nova Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'proxima';
+}
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+// custom ionic icons
+ion-icon {
+    &[class*="custom-"] {
+      mask-size: contain;
+      mask-position: 50% 50%;
+      mask-repeat: no-repeat;
+      background: currentColor;
+      width: 1em;
+      height: 1em;
+    }
+  
+    &[class*="custom-happening"] {
+        mask-image: url(../assets/imgs/Happening.png);
+    }
+    &[class*="custom-Friends"] {
+        mask-image: url(../assets/imgs/Friends.png);
+    }
+    &[class*="custom-Notifications"] {
+        mask-image: url(../assets/imgs/Notifications.png);
+    }
+
+    &[class*="custom-add"] {
+        mask-image: url(../assets/imgs/add.png);
+    }
+
+    &[class*="custom-calender"] {
+        mask-image: url(../assets/imgs/calender.svg);
+    }
+
+    &[class*="custom-edit"] {
+        mask-image: url(../assets/imgs/edit.png);
+    }
+
+    &[class*="custom-Location"] {
+        mask-image: url(../assets/imgs/Location.png);
+    }
+    &[class*="custom-chat"] {
+        mask-image: url(../assets/imgs/chat.png);
+    }
+    &[class*="custom-tasks"] {
+        mask-image: url(../assets/imgs/tasks.png);
+    }
+    &[class*="custom-people"] {
+        mask-image: url(../assets/imgs/People.png);
+    }
+}
+
+.tabs .tabbar{
+    border-top : 0;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.header .toolbar-background, .footer .toolbar-background{
+    border-style: none;
+}
+
+ion-label{
+    overflow: initial;
+    white-space: initial;
+}
+
+.tabs .tab-button-icon{
+    margin-top: 4px;
+    margin-bottom: 1px;
+    min-width: 35px;
+    height: 24px;
+    font-size: 14px;
+    color: #8c8c8c;
+}
+
+.ion-ios-close:before{
+    color: white;
+    font-size: 42px;
+    margin-right: 10px;
+}
+
+.searchbar{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.searchbar-ios{
+    padding: 0 8px;
+    min-height: 44px;
+    border-top: 0;
+    border-bottom: 0;
+    background: #2b292a;
+    .searchbar-input{
+        padding: 0 28px;
+        border-radius: 20px;
+        height: 4rem;
+        width: 96%;
+        margin: auto;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: white;
+        background-color: #585557;
+    }
+    .searchbar-search-icon{
+        left: 16px;
+        top: 13px;
+        background-size: 14px;
+        background-image: url(../assets/imgs/search.svg) !important;
+    }
+}
+.searchbar-ios.searchbar-left-aligned .searchbar-input{
+    padding-left: 48px;
+}
