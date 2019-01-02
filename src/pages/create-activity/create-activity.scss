@@ -15,6 +15,9 @@ page-create-activity {
         text-align: center;
     }
 
+    .next-back-wrapper{
+        margin-top: 2rem;
+    }
     .input-item{
         border-radius: 2rem;
         background: #585758;
@@ -106,4 +109,18 @@ page-create-activity {
         color: white;
         background-color: #2b292a;
     }
+    .time-item{
+        background: #403d3e !important;
+        color: white;
+    }
+
+    .activity-option{
+        display: inline-block;
+        padding: 10px;
+        color: white;
+        margin: 6px;
+        border-radius: 20px;
+    }
+
+  
 }

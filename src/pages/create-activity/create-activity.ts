@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import * as moment from 'moment';
 
@@ -9,23 +9,42 @@ import * as moment from 'moment';
   templateUrl: 'create-activity.html',
 })
 export class CreateActivityPage {
-
+  randomActivities: any = []
   contacts: any
   groupedContacts = [];
   tabBarElement: any
+  slideIndex: number = 0
   data: any = {
-    showCreateActivtyBtn: true,
     showDoneBtn: false,
-    showNextBtn: false
+    showArrowBack: false
   }
   initDate: any
+
   @ViewChild(Slides) slides: Slides;
   constructor(public navCtrl: NavController,
     private viewCtrl: ViewController,
+    private alertCtrl: AlertController,
     public navParams: NavParams) {
+    this.data.Time = this.calculateTime('+2');
     this.intializeCalender()
+    this.createRandomActivity()
     this.generateContacts()
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar')
+  }
+
+  createRandomActivity() {
+    this.randomActivities = [
+      { name: 'Yoga' ,color:"#38ceb6"},
+      { name: 'Coffee' ,color:'#ff5c53'},
+      { name: 'Dish Party',color:'#484647' },
+      { name: 'Feluka ride' ,color:'#6276f9'},
+      { name: 'Bar hopping' ,color:'#42d3d4'},
+      { name: 'Tennis' ,color:'#4ad53c'},
+      { name: 'Bowling' ,color:'#484647'},
+      { name: 'Shopping' ,color:'#38ceb6'},
+      { name: 'ICe skating' ,color:'#6276f9'},
+      { name: 'Pottery' ,color:'#ff5c53'},
+    ]
   }
 
   intializeCalender() {
@@ -41,38 +60,31 @@ export class CreateActivityPage {
   }
 
   dismiss() {
-    this.navCtrl.setRoot('TabsPage')
+    this.navCtrl.setRoot('TabsPage', { activityCreated: true })
   }
 
   step(index) {
-    console.log('indexindexindex : ', index);
-
+    this.slideIndex = index
     switch (index) {
       case 1:
-        this.data.showCreateActivtyBtn = false
-        this.data.showDoneBtn = false
-        this.data.showNextBtn = true
+        this.data.showArrowBack = true
         break;
       case 2:
-        this.data.showCreateActivtyBtn = false
-        this.data.showDoneBtn = false
-        this.data.showNextBtn = false
+        this.data.showArrowBack = true
         break;
       case 3:
-        this.data.showCreateActivtyBtn = false
-        this.data.showDoneBtn = true
-        this.data.showNextBtn = false
+        this.data.showArrowBack = true
         break;
-      default:
+      case 4:
+        this.data.showDoneBtn = true
+        this.data.showArrowBack = true
         break;
     }
     this.navigateToNextSlide(index)
   }
 
   navigateToNextSlide(num) {
-    console.log('numnumnumnum : ', num);
     this.slides.slideTo(num)
-    // this.slides.lockSwipes(true)
   }
 
   setDate(date) {
@@ -108,27 +120,48 @@ export class CreateActivityPage {
   }
 
   groupContacts(contacts) {
-
     let sortedContacts = contacts.sort();
     let currentLetter = false;
     let currentContacts = [];
     sortedContacts.forEach((value, index) => {
-
       if (value.name.charAt(0) != currentLetter) {
-
         currentLetter = value.name.charAt(0);
-
         let newGroup = {
           letter: currentLetter,
           contacts: []
         };
-
         currentContacts = newGroup.contacts;
         this.groupedContacts.push(newGroup);
-
       }
       currentContacts.push(value);
     });
-
   }
+
+  calculateTime(offset: any) {
+    let d = new Date();
+    let nd = new Date(d.getTime() + (3600000 * offset));
+    return nd.toISOString();
+  }
+
+  checkContact(event, contact) {
+    contact.active = event._value
+  }
+
+  back(index) {
+    switch (index) {
+      case 1:
+        this.data.showDoneBtn = false
+        break;
+      case 2:
+        this.data.showDoneBtn = false
+        break;
+      case 3:
+        this.data.showDoneBtn = false
+        break;
+    }
+    this.navigateToNextSlide(index)
+  }
+
+
+
 }
