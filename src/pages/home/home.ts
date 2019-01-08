@@ -14,7 +14,7 @@ export class HomePage {
     { img: 'assets/imgs/4.jpg' },
     { img: 'assets/imgs/5.jpg' },
   ]
-  data : any = {}
+  data: any = {}
   Events: any[] = [
     { isSynked: false, isInvited: false },
     { isSynked: true, isInvited: false },
@@ -25,7 +25,11 @@ export class HomePage {
 
   }
 
-  eventDetails(event){
-     this.navCtrl.push('ActivityDetailsPage')
+  eventDetails(event) {
+    this.navCtrl.push('ActivityDetailsPage')
+  }
+
+  onInput(event) {
+    console.log("eventeventevent :", event);
   }
 }

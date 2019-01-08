@@ -14,7 +14,7 @@
 }
 .toolbar-ios ion-title{
     padding: 0 33px 1px !important;
-    line-height: 0.9;
+    // line-height: 0.9;
     font-family: 'Helvetica';
 }
 // custom ionic icons
@@ -143,9 +143,14 @@ ion-label{
   }
   .alert-ios .alert-head{
       background: #00abb5;
+      padding: 6px 16px 7px;
   }
 
   .alert-ios .alert-wrapper{
       max-width: 322px !important;
       background-color: #2c292a;
+  }
+
+  .toolbar-title-ios{
+    margin-top: 2rem !important;
   }

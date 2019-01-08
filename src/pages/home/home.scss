@@ -1,5 +1,14 @@
 
 page-home {
+    .toolbar-ios{
+      padding: 30px;
+      padding-left: 4px;
+      padding-right: 4px;
+      min-height: 66px;
+    }
+    .toolbar-title-ios{
+      margin-top: 4rem !important;
+    }
     ion-header{
       background: #f1eff0;
     }
@@ -37,6 +46,9 @@ page-home {
       margin: auto;
       border-radius: 10px;
       margin-bottom: 1rem;
+    }
+    .searchbar-ios .searchbar-input{
+      color: black;
     }
   
     .item-slide-row{
@@ -102,3 +114,12 @@ page-home {
     }
   }
   
+
+
+  .searchbar-ios .searchbar-search-icon{
+    width: 22px;
+    height: 22px;
+    background-size: 22px;
+    top: 9px;
+    left: 17px;
+  }

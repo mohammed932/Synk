@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
+import {DateTime } from 'ionic-angular';
+
 import * as moment from 'moment';
 
 @IonicPage()
@@ -11,6 +13,7 @@ import * as moment from 'moment';
 export class CreateActivityPage {
   randomActivities: any = []
   contacts: any
+  chromeReleased = '2008-09-02';
   groupedContacts = [];
   tabBarElement: any
   slideIndex: number = 0
@@ -21,6 +24,8 @@ export class CreateActivityPage {
   initDate: any
 
   @ViewChild(Slides) slides: Slides;
+  @ViewChild('date') datePicker:DateTime;
+  @ViewChild('time') timePicker:DateTime;
   constructor(public navCtrl: NavController,
     private viewCtrl: ViewController,
     private alertCtrl: AlertController,
@@ -34,16 +39,16 @@ export class CreateActivityPage {
 
   createRandomActivity() {
     this.randomActivities = [
-      { name: 'Yoga' ,color:"#38ceb6"},
-      { name: 'Coffee' ,color:'#ff5c53'},
-      { name: 'Dish Party',color:'#484647' },
-      { name: 'Feluka ride' ,color:'#6276f9'},
-      { name: 'Bar hopping' ,color:'#42d3d4'},
-      { name: 'Tennis' ,color:'#4ad53c'},
-      { name: 'Bowling' ,color:'#484647'},
-      { name: 'Shopping' ,color:'#38ceb6'},
-      { name: 'ICe skating' ,color:'#6276f9'},
-      { name: 'Pottery' ,color:'#ff5c53'},
+      { name: 'Yoga', color: "#38ceb6" },
+      { name: 'Coffee', color: '#ff5c53' },
+      { name: 'Dish Party', color: '#484647' },
+      { name: 'Feluka ride', color: '#6276f9' },
+      { name: 'Bar hopping', color: '#42d3d4' },
+      { name: 'Tennis', color: '#4ad53c' },
+      { name: 'Bowling', color: '#484647' },
+      { name: 'Shopping', color: '#38ceb6' },
+      { name: 'ICe skating', color: '#6276f9' },
+      { name: 'Pottery', color: '#ff5c53' },
     ]
   }
 
@@ -68,9 +73,11 @@ export class CreateActivityPage {
     switch (index) {
       case 1:
         this.data.showArrowBack = true
+        this.datePicker.open()
         break;
       case 2:
         this.data.showArrowBack = true
+        this.timePicker.open()
         break;
       case 3:
         this.data.showArrowBack = true
@@ -162,6 +169,9 @@ export class CreateActivityPage {
     this.navigateToNextSlide(index)
   }
 
+  onInput(event) {
+    console.log("eventevent :", event);
+  }
 
 
 }

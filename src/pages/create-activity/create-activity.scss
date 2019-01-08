@@ -122,5 +122,51 @@ page-create-activity {
         border-radius: 20px;
     }
 
+    .back-btn{
+        float: left;
+        color: #00f4ff;
+        font-size: 3rem;
+        margin-left: 1rem;
+    
+    }
+
+
+
+
+
+
   
+}
+
+
+.picker-ios .picker-wrapper::after{
+    content: '';
+    width: 100px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% - 5px);
+    transform: translateX(-50%)
+
+}
+
+button.picker-opt.picker-opt-selected{
+    background: #fff !important;
+}
+.picker-ios .picker-above-highlight,
+.picker-ios .picker-toolbar,
+button.picker-opt.picker-opt-selected,
+.picker-ios .picker-wrapper,
+.picker-ios .picker-below-highlight{
+    background: transparent !important;
+    border: transparent !important
+}
+.picker-ios .picker-opt{
+    color: #505050 !important
+}
+button.picker-opt.picker-opt-selected,
+.picker-ios .picker-button, .picker-ios .picker-button.activated{
+    color: #fff !important;
 }

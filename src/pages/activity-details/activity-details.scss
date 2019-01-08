@@ -1,4 +1,14 @@
 page-activity-details {
+  
+  .toolbar-ios{
+    padding: 30px;
+    padding-left: 4px;
+    padding-right: 4px;
+    min-height: 66px;
+  }
+  .toolbar-title-ios{
+    margin-top: 4rem !important;
+  }
   .scroll-content{
     background: #f1eff0 !important;
   }
@@ -62,5 +72,11 @@ page-activity-details {
     margin-bottom: 2rem;
     color: red;
     font-size: 16px;
+  }
+  .list{
+    background: white;
+  }
+  .text{
+    font-size: 1.5rem;
   }
 }

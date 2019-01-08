@@ -7,6 +7,12 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-buttons start *ngIf="data.showDoneBtn">
+      <button ion-button icon-only (click)="back(3)">
+        <ion-icon class="back-btn" name="arrow-back" item-left></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 
@@ -41,7 +47,7 @@
               </ion-item>
             </ion-col>
             <ion-col col-12>
-               <div class="activity-option" *ngFor="let activity of randomActivities" [style.background-color]="activity.color">{{activity.name}}</div>
+              <div class="activity-option" *ngFor="let activity of randomActivities" [style.background-color]="activity.color">{{activity.name}}</div>
             </ion-col>
           </ion-row>
           <ion-col col-12>
@@ -53,20 +59,18 @@
         <!-- Slide 2 -->
         <ion-slide>
           <ion-row>
+            <ion-col col-6>
+              <ion-icon class="back-btn" name="arrow-back" item-left (click)="back(0)"></ion-icon>
+            </ion-col>
             <ion-col col-12>
               <h3 class="title-1 bold">When is your activity?</h3>
             </ion-col>
 
             <ion-col col-12>
-              <ion-item ion-datepicker dir="rtl" [(value)]="initDate" clear full="true" calendar="true" (ionChanged)="setDate($event)"
-                [modalOptions] class="calender-wrapper-item">
-                <ion-icon class="calender-icon" name="custom-calender" item-start></ion-icon>
-                <div ion-text item-end color="gray" class="date-txt"> Activity Date:</div>
-                <div ion-text item-start class="date-txt">
-                  <span class="ScheduleDate">
-                    {{initDate | customDate:0}} {{formatDate(initDate)}}
-                  </span>
-                </div>
+
+              <ion-item class="time-item">
+                <ion-label>Date</ion-label>
+                <ion-datetime #date displayFormat="DDDD MMM D, YYYY" min="2019" max="2050" [(ngModel)]="chromeReleased"></ion-datetime>
               </ion-item>
 
               <ion-list>
@@ -76,10 +80,7 @@
                 </ion-item>
               </ion-list>
             </ion-col>
-            <ion-col col-6>
-              <button ion-button color="primary" class="done-btn" round block (click)="back(0)">Back</button>
-            </ion-col>
-            <ion-col col-6>
+            <ion-col col-12>
               <button ion-button color="primary" class="done-btn" round block (click)="step(2)">Next</button>
             </ion-col>
           </ion-row>
@@ -88,19 +89,19 @@
         <!-- Slide 3 -->
         <ion-slide>
           <ion-row>
+            <ion-col col-6>
+              <ion-icon class="back-btn" name="arrow-back" item-left (click)="back(1)"></ion-icon>
+            </ion-col>
             <ion-col col-12>
               <h3 class="title-1 bold">What time is your activity?</h3>
             </ion-col>
             <ion-item class="time-item">
               <ion-label>Time</ion-label>
-              <ion-datetime displayFormat="hh:mm A" [(ngModel)]="data.Time"></ion-datetime>
+              <ion-datetime #time displayFormat="hh:mm A" [(ngModel)]="data.Time"></ion-datetime>
             </ion-item>
           </ion-row>
           <ion-row class="next-back-wrapper">
-            <ion-col col-6>
-              <button ion-button color="primary" class="done-btn" round block (click)="back(1)">Back</button>
-            </ion-col>
-            <ion-col col-6>
+            <ion-col col-12>
               <button ion-button color="primary" class="done-btn" round block (click)="step(3)">Next</button>
             </ion-col>
           </ion-row>
@@ -109,6 +110,9 @@
         <!-- Slide 4 -->
         <ion-slide>
           <ion-row>
+            <ion-col col-6>
+              <ion-icon class="back-btn" name="arrow-back" item-left (click)="back(2)"></ion-icon>
+            </ion-col>
             <ion-col col-12>
               <h3 class="title-1 bold">Who can join your activity?</h3>
             </ion-col>
@@ -116,7 +120,6 @@
             <ion-col col-12>
               <button ion-button round color="secondary" class="done-btn" (click)="dismiss()">SYNK COMMUNITY</button>
               <button ion-button round color="primary" class="done-btn" (click)="step(4)">CHOOSE FRIENDS</button>
-              <button ion-button color="primary" class="done-btn" round block (click)="back(2)">Back</button>
             </ion-col>
 
           </ion-row>
@@ -145,10 +148,7 @@
 
 <ion-footer text-center no-border transparent *ngIf="data.showDoneBtn">
   <ion-row>
-    <ion-col col-6>
-      <button ion-button color="primary" class="done-btn" round block (click)="back(3)">Back</button>
-    </ion-col>
-    <ion-col col-6>
+    <ion-col col-12>
       <button ion-button color="primary" class="done-btn" round block (click)="dismiss()">Done</button>
     </ion-col>
   </ion-row>
