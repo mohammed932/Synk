@@ -1,0 +1,135 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>
+      <div>Coffee</div>
+      <div>Todat at 2:45 A.M.</div>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-grid no-padding class="activity-wrapper-grid">
+    <ion-row>
+      <!-- Invited by -->
+      <ion-col col-2>
+        <img src="assets/imgs/1.jpg" class="avatar-img">
+      </ion-col>
+      <ion-col col-10 align-self-center>
+        <div item-start class="invited-by">Invited By You</div>
+      </ion-col>
+      <ion-col col-12 no-padding>
+        <hr class="hr">
+      </ion-col>
+
+      <!-- Location -->
+      <ion-col col-1 align-self-center>
+        <img src="assets/imgs/custom-location.svg" class="custom-location">
+      </ion-col>
+      <ion-col col-7 align-self-center>
+        <div class="location-txt">Starbucks , Tivoli , Helipolis</div>
+      </ion-col>
+      <ion-col col-4 align-self-center>
+        <div class="take-me">Take me there</div>
+      </ion-col>
+      <ion-col col-12 no-padding>
+        <hr class="hr">
+      </ion-col>
+
+      <!-- Pricing -->
+      <ion-col col-1 align-self-center>
+        <img src="assets/imgs/money-bag.svg" class="custom-location">
+      </ion-col>
+      <ion-col col-11 align-self-center>
+        <div class="location-txt">300 LE per person</div>
+      </ion-col>
+      <ion-col col-12 no-padding>
+        <hr class="hr">
+      </ion-col>
+      <!-- Persons Number -->
+      <ion-col col-6>
+        <ion-item class="custom-person-item">
+          <ion-label>
+            <ion-icon name="custom-Location"></ion-icon>
+            <span class="person-number">Min Persons</span>
+          </ion-label>
+          <ion-select [(ngModel)]="data.minPersons">
+            <ion-option [value]="index" *ngFor="let person of Persons;let index = index">{{index+1}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <hr class="hr">
+      </ion-col>
+      <ion-col col-6>
+        <ion-item class="custom-person-item">
+          <ion-label>
+            <ion-icon name="custom-Location"></ion-icon>
+            <span class="person-number">Max Persons</span>
+          </ion-label>
+          <ion-select [(ngModel)]="data.maxPersons">
+            <ion-option [value]="index" *ngFor="let person of Persons;let index = index">{{index+1}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <hr class="hr">
+      </ion-col>
+
+      <!-- Phone Number -->
+      <ion-col col-12>
+        <ion-item class="custom-phone-item">
+          <ion-label>
+            <ion-icon name="custom-phone"></ion-icon>
+            <span class="custom-phone">01061999239</span>
+          </ion-label>
+          <ion-toggle [(ngModel)]="data.phone"></ion-toggle>
+        </ion-item>
+        <hr class="hr">
+      </ion-col>
+
+      <!-- Description -->
+      <ion-col col-12>
+        <ion-item class="custom-textarea-item">
+          <ion-textarea placeholder="Type comment here"></ion-textarea>
+        </ion-item>
+        <hr class="hr">
+      </ion-col>
+
+      <!-- chat & tasks -->
+      <ion-col col-6>
+        <button ion-button outline round block>
+          <ion-icon name="custom-chat"></ion-icon>
+          <span class="bold">Chat</span>
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button outline round block (click)="goToTask()">
+          <ion-icon name="custom-tasks"></ion-icon>
+          <span class="bold">Tasks</span>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="bold synk-txt">5/7 people synked to activity</div>
+  <ion-row class="find-persons-wrapper-row">
+    <ion-col col-12 class="find-persons-wrapper-col">
+      <ion-slides slidesPerView="4.4">
+        <ion-slide *ngFor="let synk of Synks">
+          <img [src]="synk.img" class="avatar-synk-img">
+          <div class="avatar-name">Sara hatam</div>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+
+    <ion-col col-12>
+      <button ion-button round block color="secondary" class="invite-btn">
+        <span class="bold">INVITE FRIENDS</span>
+      </button>
+      <hr class="hr">
+      <button ion-button round outline block color="danger" class="invite-btn">
+        <span class="bold">Delete Activity</span>
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

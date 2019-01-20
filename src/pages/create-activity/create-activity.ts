@@ -68,27 +68,7 @@ export class CreateActivityPage {
     this.navCtrl.setRoot('TabsPage', { activityCreated: true })
   }
 
-  step(index) {
-    this.slideIndex = index
-    switch (index) {
-      case 1:
-        this.data.showArrowBack = true
-        this.datePicker.open()
-        break;
-      case 2:
-        this.data.showArrowBack = true
-        this.timePicker.open()
-        break;
-      case 3:
-        this.data.showArrowBack = true
-        break;
-      case 4:
-        this.data.showDoneBtn = true
-        this.data.showArrowBack = true
-        break;
-    }
-    this.navigateToNextSlide(index)
-  }
+ 
 
   navigateToNextSlide(num) {
     this.slides.slideTo(num)
@@ -154,13 +134,37 @@ export class CreateActivityPage {
     contact.active = event._value
   }
 
+  step(index) {
+    this.slideIndex = index
+    switch (index) {
+      case 1:
+        this.data.showArrowBack = true
+        this.datePicker.open()
+        break;
+      case 2:
+        this.data.showArrowBack = true
+        this.timePicker.open()
+        break;
+      case 3:
+        this.data.showArrowBack = true
+        break;
+      case 4:
+        this.data.showDoneBtn = true
+        this.data.showArrowBack = true
+        break;
+    }
+    this.navigateToNextSlide(index)
+  }
+
   back(index) {
     switch (index) {
       case 1:
         this.data.showDoneBtn = false
+        this.datePicker.open()
         break;
       case 2:
         this.data.showDoneBtn = false
+        this.timePicker.open()
         break;
       case 3:
         this.data.showDoneBtn = false

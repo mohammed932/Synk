@@ -43,7 +43,7 @@
 
             <ion-col col-12>
               <ion-item class="input-item">
-                <ion-input placeholder="Create activity title here"></ion-input>
+                <ion-input class="activity-input" placeholder="Create activity title here"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-12>
@@ -70,18 +70,15 @@
 
               <ion-item class="time-item">
                 <ion-label>Date</ion-label>
-                <ion-datetime #date displayFormat="DDDD MMM D, YYYY" min="2019" max="2050" [(ngModel)]="chromeReleased"></ion-datetime>
+                <ion-datetime #date displayFormat="DDDD MMM D, YYYY" min="2019" max="2050" [(ngModel)]="chromeReleased" (ionChange)="step(2)"></ion-datetime>
               </ion-item>
 
               <ion-list>
                 <ion-item class="not-sure-item">
                   <ion-label item-end>Not sure yet.</ion-label>
-                  <ion-checkbox item-start [(ngModel)]="data.isSureDay"></ion-checkbox>
+                  <ion-checkbox item-start [(ngModel)]="data.isSureDay" (click)="step(2)"></ion-checkbox>
                 </ion-item>
               </ion-list>
-            </ion-col>
-            <ion-col col-12>
-              <button ion-button color="primary" class="done-btn" round block (click)="step(2)">Next</button>
             </ion-col>
           </ion-row>
         </ion-slide>
@@ -97,14 +94,10 @@
             </ion-col>
             <ion-item class="time-item">
               <ion-label>Time</ion-label>
-              <ion-datetime #time displayFormat="hh:mm A" [(ngModel)]="data.Time"></ion-datetime>
+              <ion-datetime #time displayFormat="hh:mm A" [(ngModel)]="data.Time" (ionChange)="step(3)"></ion-datetime>
             </ion-item>
           </ion-row>
-          <ion-row class="next-back-wrapper">
-            <ion-col col-12>
-              <button ion-button color="primary" class="done-btn" round block (click)="step(3)">Next</button>
-            </ion-col>
-          </ion-row>
+    
         </ion-slide>
 
         <!-- Slide 4 -->

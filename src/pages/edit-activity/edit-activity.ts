@@ -4,11 +4,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-activity-details',
-  templateUrl: 'activity-details.html',
+  selector: 'page-edit-activity',
+  templateUrl: 'edit-activity.html',
 })
-export class ActivityDetailsPage {
-  Persons: any[] = [
+export class EditActivityPage {
+  data: any = {
+    minPersons : 2,
+    maxPersons : 7
+  }
+  Persons: Array<any> = new Array(10);
+  Synks: any[] = [
     { img: 'assets/imgs/1.jpg' },
     { img: 'assets/imgs/2.jpg' },
     { img: 'assets/imgs/3.jpg' },
@@ -18,12 +23,6 @@ export class ActivityDetailsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  goToTask(){
-    this.navCtrl.push('TasksPage')
-  }
 
-  editActivity(){
-    this.navCtrl.push('EditActivityPage')
-  }
 
 }

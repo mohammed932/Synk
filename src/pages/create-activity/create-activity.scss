@@ -132,6 +132,9 @@ page-create-activity {
 
 
 
+    .activity-input{
+        color: white;
+    }
 
 
 
@@ -149,7 +152,6 @@ page-create-activity {
     left: 50%;
     bottom: calc(100% - 5px);
     transform: translateX(-50%)
-
 }
 
 button.picker-opt.picker-opt-selected{

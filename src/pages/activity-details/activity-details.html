@@ -6,7 +6,7 @@
       <div>Todat at 2:45 A.M.</div>
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="editActivity()">
         <ion-icon name="custom-edit"></ion-icon>
       </button>
     </ion-buttons>
@@ -76,6 +76,7 @@
       </ion-col>
     </ion-row>
   </ion-list>
+
   <div class="bold synk-txt">5/7 people synked to activity</div>
   <ion-row class="find-persons-wrapper-row">
     <ion-col col-12 class="find-persons-wrapper-col">

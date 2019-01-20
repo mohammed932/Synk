@@ -34,6 +34,11 @@ ion-icon {
     &[class*="custom-Friends"] {
         mask-image: url(../assets/imgs/Friends.png);
     }
+
+    &[class*="custom-phone"] {
+        mask-image: url(../assets/imgs/phone.svg);
+    }
+
     &[class*="custom-Notifications"] {
         mask-image: url(../assets/imgs/Notifications.png);
     }
@@ -129,28 +134,4 @@ ion-label{
 }
 
 
-// 
-.alert-ios .alert-title{
-    font-size: 20px;
-    padding: 0.5rem;
-    margin-top: 0;
-    color: white;
-  }
-  .alert-ios .alert-message{
-    font-size: 2.1rem;
-    color: white;
-    margin-top: 2rem;
-  }
-  .alert-ios .alert-head{
-      background: #00abb5;
-      padding: 6px 16px 7px;
-  }
 
-  .alert-ios .alert-wrapper{
-      max-width: 322px !important;
-      background-color: #2c292a;
-  }
-
-  .toolbar-title-ios{
-    margin-top: 2rem !important;
-  }
