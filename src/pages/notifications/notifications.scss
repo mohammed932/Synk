@@ -3,7 +3,6 @@ page-notifications {
         border-top: 0;
     }
     .toolbar-title-ios{
-        margin-top: 2rem !important;
     }
     .time{
         font-size: 15px;
@@ -17,5 +16,13 @@ page-notifications {
     }
     .noti-txt{
         margin-left: -1rem;
+    }
+    .not-read{
+        background: #484647;
+        color: white;
+    }
+    .invited-by{
+        color: #00dae4;
+        font-weight: bold;
     }
 }

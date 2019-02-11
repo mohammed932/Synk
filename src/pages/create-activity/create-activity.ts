@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
-import {DateTime } from 'ionic-angular';
-
+import { DateTime } from 'ionic-angular';
+import * as _ from "lodash";
 import * as moment from 'moment';
-
+import { ContactList } from './mocks';
 @IonicPage()
 @Component({
   selector: 'page-create-activity',
@@ -12,7 +12,7 @@ import * as moment from 'moment';
 })
 export class CreateActivityPage {
   randomActivities: any = []
-  contacts: any
+  contacts: any = ContactList
   chromeReleased = '2008-09-02';
   groupedContacts = [];
   tabBarElement: any
@@ -24,8 +24,8 @@ export class CreateActivityPage {
   initDate: any
 
   @ViewChild(Slides) slides: Slides;
-  @ViewChild('date') datePicker:DateTime;
-  @ViewChild('time') timePicker:DateTime;
+  @ViewChild('date') datePicker: DateTime;
+  @ViewChild('time') timePicker: DateTime;
   constructor(public navCtrl: NavController,
     private viewCtrl: ViewController,
     private alertCtrl: AlertController,
@@ -68,7 +68,7 @@ export class CreateActivityPage {
     this.navCtrl.setRoot('TabsPage', { activityCreated: true })
   }
 
- 
+
 
   navigateToNextSlide(num) {
     this.slides.slideTo(num)
@@ -84,30 +84,11 @@ export class CreateActivityPage {
   }
 
   generateContacts() {
-    this.contacts = [
-      { name: "Kate Beckett", img: "assets/imgs/1.jpg" },
-      { name: "Richard Castle", img: "assets/imgs/2.jpg" },
-      { name: "Alexis Castle", img: "assets/imgs/3.jpg" },
-      { name: "Lanie Parish", img: "assets/imgs/4.jpg" },
-      { name: "Javier Esposito'", img: "assets/imgs/1.jpg" },
-      { name: "Kevin Ryan", img: "assets/imgs/1.jpg" },
-      { name: "Martha Rodgers", img: "assets/imgs/5.jpg" },
-      { name: "Roy Montgomery", img: "assets/imgs/1.jpg" },
-      { name: "Jim Beckett", img: "assets/imgs/1.jpg" },
-      { name: "Stana Katic", img: "assets/imgs/3.jpg" },
-      { name: "Nathan Fillion", img: "assets/imgs/1.jpg" },
-      { name: "Molly Quinn", img: "assets/imgs/2.jpg" },
-      { name: "Tamala Jones", img: "assets/imgs/5.jpg" },
-      { name: "Jon Huertas", img: "assets/imgs/1.jpg" },
-      { name: "Seamus Dever", img: "assets/imgs/3.jpg" },
-      { name: "Susan Sullivan", img: "assets/imgs/1.jpg" }
-    ];
-
     this.groupContacts(this.contacts);
   }
 
   groupContacts(contacts) {
-    let sortedContacts = contacts.sort();
+    let sortedContacts = _.orderBy(contacts, ['name'], ['asc']);
     let currentLetter = false;
     let currentContacts = [];
     sortedContacts.forEach((value, index) => {

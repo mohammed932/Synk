@@ -7,14 +7,13 @@ page-home {
       min-height: 66px;
     }
     .toolbar-title-ios{
-      margin-top: 4rem !important;
     }
     ion-header{
       background: #f1eff0;
     }
     .avatar-img{
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 100%;
     }
 
@@ -115,47 +114,7 @@ page-home {
       }
     }
 
-    // Alert
-    .alert-ios .alert-title{
-      font-size: 20px;
-      padding: 0.5rem;
-      margin-top: 0;
-      color: white;
-    }
-    .alert-ios .alert-message{
-      font-size: 2.1rem;
-      color: white;
-      margin-top: 2rem;
-    }
-    .alert-ios .alert-head{
-        background: #00abb5;
-        padding: 6px 16px 7px;
-    }
-  
-    .alert-ios .alert-wrapper{
-        max-width: 300px !important;
-        background-color: #2c292a;
-    }
-  
-    .toolbar-title-ios{
-      margin-top: 2rem !important;
-    }
-  
-    .alert-ios .alert-button-group{
-      width: 50%;
-      background: #00adb7;
-      margin: auto;
-      border-radius: 2rem;
-      margin-bottom: 3rem;
-    }
-    .alert-ios .alert-button{
-      border-top : 0 !important;
-    }
-  
-    .alert-ios .alert-button:last-child{
-      color: white;
-    }
-    // end alert
+
   }
   
 
@@ -167,3 +126,45 @@ page-home {
     top: 9px;
     left: 17px;
   }
+
+      // Alert
+      .alert-ios .alert-title{
+        font-size: 20px;
+        padding: 0.5rem;
+        margin-top: 0;
+        color: white;
+      }
+      .alert-ios .alert-message{
+        font-size: 2.1rem;
+        color: white;
+        margin-top: 2rem;
+      }
+      .alert-ios .alert-head{
+          background: #00abb5;
+          padding: 6px 16px 7px;
+      }
+    
+      .alert-ios .alert-wrapper{
+          max-width: 300px !important;
+          background-color: #2c292a;
+      }
+    
+      .toolbar-title-ios{
+    
+      .alert-ios .alert-button-group{
+        width: 50%;
+        background: #00adb7;
+        margin: auto;
+        border-radius: 2rem;
+        margin-bottom: 3rem;
+      }
+      .alert-ios .alert-button{
+        border-top : 0 !important;
+        height: 34px;
+      }
+    
+      .alert-ios .alert-button:last-child{
+        color: white;
+      }
+      // end alert
+    }

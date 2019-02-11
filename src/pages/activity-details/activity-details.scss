@@ -7,7 +7,6 @@ page-activity-details {
     min-height: 66px;
   }
   .toolbar-title-ios{
-    margin-top: 4rem !important;
   }
   .scroll-content{
     background: #f1eff0 !important;
@@ -47,7 +46,7 @@ page-activity-details {
   .find-persons-wrapper-row{
     background: white;
     padding: 5px;
-    margin-top: 1rem;
+    margin-top: 8px;
   }
   .find-persons-wrapper-col{
     margin-bottom: 2rem;
@@ -59,8 +58,8 @@ page-activity-details {
     margin-left: 1rem;
   }
   .avatar-img{
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     border-radius: 100%;
   }
   .avatar-name{
@@ -78,5 +77,21 @@ page-activity-details {
   }
   .text{
     font-size: 1.5rem;
+  }
+  ion-avatar{
+    margin: 8px 9px 8px 0 !important;
+  }
+  ion-icon.icon.icon-ios.ion-ios-custom-Location.item-icon{
+    margin-right: 6px !important;
+  }
+
+  .details-list{
+    margin: -1px 0 8px !important;
+  }
+  .custom-btn{
+    width: 93%;
+  }
+  .custom-chat-btn{
+    margin-left: 1rem;
   }
 }

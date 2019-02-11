@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 @IonicPage()
 @Component({
-  selector: 'page-my-profile',
-  templateUrl: 'my-profile.html',
+  selector: "page-my-profile",
+  templateUrl: "my-profile.html"
 })
 export class MyProfilePage {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  Edit() {
+    console.log("hey");
+
+    this.navCtrl.push("EditProfilePage");
   }
-
-  Edit(){
-    this.navCtrl.push('EditProfilePage')
-  }
-
 }

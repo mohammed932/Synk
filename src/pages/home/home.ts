@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+
 @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
+
+  // Signal R
+  message: string = "type your response";
+  response: string = "Response";
+  name: string = "Client";
+
   Persons: any[] = [
     { img: 'assets/imgs/1.jpg' },
     { img: 'assets/imgs/2.jpg' },
@@ -21,8 +28,14 @@ export class HomePage {
     { isSynked: false, isInvited: true },
     { isSynked: true, isInvited: false },
   ]
+
+
   constructor(public navCtrl: NavController) {
 
+  }
+
+  ionViewDidEnter() {
+  
   }
 
   eventDetails(event) {
@@ -32,4 +45,5 @@ export class HomePage {
   onInput(event) {
     console.log("eventeventevent :", event);
   }
+
 }

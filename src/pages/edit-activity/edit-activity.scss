@@ -1,120 +1,120 @@
 page-edit-activity {
-     .toolbar-ios{
-        padding: 30px;
-        padding-left: 4px;
-        padding-right: 4px;
-        min-height: 66px;
-      }
-      .toolbar-title-ios{
-        margin-top: 4rem !important;
-      }
-      .scroll-content{
-        background: #f1eff0 !important;
-      }
+  .toolbar-ios {
+    padding: 30px;
+    padding-left: 4px;
+    padding-right: 4px;
+    min-height: 66px;
+  }
+  .toolbar-title-ios {
+  }
+  .scroll-content {
+    background: #f1eff0 !important;
+  }
 
-      .invited-by{
-        font-size: 13px;
-      }
+  .invited-by {
+    font-size: 13px;
+  }
 
-      .activity-wrapper-grid{
-        background: white;
-      }
-      .avatar-img{
-        width: 50px;
-        height: 50px;
-        border-radius: 100%;
-        margin-left: 1rem;
-        margin-top: 1rem;
-        display: inline-block;
-      }
-      .invited-by{
-        display: inline-block;   
-        margin-left: 1rem;
-      }
-      ion-icon[class*="custom-Location"]{
-        color: #f9695a;
-      }
-      .location-txt{
-        font-size: 14px;
-      }
+  .activity-wrapper-grid {
+    background: white;
+  }
+  .avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  .invited-by {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+  ion-icon[class*="custom-Location"] {
+    color: #f9695a;
+  }
+  .location-txt {
+    font-size: 14px;
+  }
 
-      .item-ios.item-block .item-inner{
-        border-bottom : 0;
-      }
-      .custom-location{
-        width: 2.5rem;
-        margin-left: 0.3rem;
-      }
-      .take-me{
-          text-align: center;
-          color: #3ef0ff;
-      }
-      .hr{
-        height: 1.05px;
-        width: 95%;
-      }
+  .item-ios.item-block .item-inner {
+    border-bottom: 0;
+  }
+  .custom-location {
+    width: 2.5rem;
+    margin-left: 0.3rem;
+  }
+  .take-me {
+    text-align: center;
+    color: #3ef0ff;
+  }
+  .hr {
+    height: 1.05px;
+    width: 95%;
+  }
 
-    .person-number {
-        font-size: 14px;
-        vertical-align: super;
-    }
-    .label{
-        margin : 0;
-    }
-    .custom-person-item{
-        padding-left: 6px;
-    }
-    .custom-phone{
-        vertical-align: top;
-    }
-    .custom-phone-item{
-        padding-left: 6px;
-    }
+  .person-number {
+    font-size: 14px;
+    vertical-align: super;
+  }
+  .label {
+    margin: 0;
+  }
+  .custom-person-item {
+    padding-left: 6px;
+  }
+  .custom-phone {
+    vertical-align: top;
+  }
+  .custom-phone-item {
+    padding-left: 6px;
+  }
 
-    .custom-textarea-item{
-        background: #e6e6e6;
-        width: 90%;
-        margin: auto;
-        border-radius: 10px;
-        margin-top: 1rem;
-        margin-bottom: 1.6rem;
-    }
-    ion-icon[class*="custom-chat"], ion-icon[class*="custom-tasks"]{
-        margin-right: 1rem;
-        color: #00f4ff !important;
-    }
-    .button-outline{
-        border-width: 2px;
-        width: 90%;
-        margin: auto;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-    }
-    ion-textarea.input.input-ios{
-        height: 12rem;
-    }
-    .synk-txt{
-        margin-left: 1rem;
-        margin-top: 1rem;
-    }
-    .find-persons-wrapper-row{
-        background: white;
-        padding: 5px;
-        margin-top: 1rem;
-    }
-    .find-persons-wrapper-col{
-        margin-bottom: 2rem;
-    }
-    .avatar-synk-img{
-        width: 60px;
-        height: 60px;
-        border-radius: 100%;
-    }
-    .avatar-name{
-        font-size: 13px;
-    }
+  .custom-textarea-item {
+    background: #e6e6e6;
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1.6rem;
+  }
+  ion-icon[class*="custom-chat"],
+  ion-icon[class*="custom-tasks"] {
+    margin-right: 1rem;
+    color: #00f4ff !important;
+  }
+  .button-outline {
+    border-width: 2px;
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  ion-textarea.input.input-ios {
+    height: 12rem;
+  }
+  .synk-txt {
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+  .find-persons-wrapper-row {
+    background: white;
+    padding: 5px;
+    margin-top: 1rem;
+  }
+  .find-persons-wrapper-col {
+    margin-bottom: 2rem;
+  }
+  .avatar-synk-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+  }
+  .avatar-name {
+    font-size: 13px;
+  }
 
-    .invite-btn{
-        width: 100%;
-    }
+  .invite-btn {
+    width: 100%;
+  }
 }
