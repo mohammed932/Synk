@@ -1,82 +1,76 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
-import { Slides } from 'ionic-angular';
-import { DateTime } from 'ionic-angular';
+import { Component, ViewChild } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ViewController,
+  AlertController,
+  Events
+} from "ionic-angular";
+import { Slides } from "ionic-angular";
+import { DateTime } from "ionic-angular";
 import * as _ from "lodash";
-import * as moment from 'moment';
-import { ContactList } from './mocks';
+import * as moment from "moment";
+import { ContactList, randomActivities } from "./mocks";
+import { ApiProvider } from "../../providers/api/api";
 @IonicPage()
 @Component({
-  selector: 'page-create-activity',
-  templateUrl: 'create-activity.html',
+  selector: "page-create-activity",
+  templateUrl: "create-activity.html"
 })
 export class CreateActivityPage {
-  randomActivities: any = []
-  contacts: any = ContactList
-  chromeReleased = '2008-09-02';
+  randomActivities: any[] = randomActivities;
+  contacts: any = ContactList;
   groupedContacts = [];
-  tabBarElement: any
-  slideIndex: number = 0
+  isWaiting: boolean = false;
+  tabBarElement: any;
+  slideIndex: number = 0;
   data: any = {
     showDoneBtn: false,
-    showArrowBack: false
-  }
-  initDate: any
-
+    showArrowBack: false,
+    event_date: moment(new Date()).format("YYYY-MM-DD")
+  };
+  initDate: any;
   @ViewChild(Slides) slides: Slides;
-  @ViewChild('date') datePicker: DateTime;
-  @ViewChild('time') timePicker: DateTime;
-  constructor(public navCtrl: NavController,
+  @ViewChild("date") datePicker: DateTime;
+  @ViewChild("time") timePicker: DateTime;
+  constructor(
+    public navCtrl: NavController,
     private viewCtrl: ViewController,
+    private event: Events,
+    private api: ApiProvider,
     private alertCtrl: AlertController,
-    public navParams: NavParams) {
-    this.data.Time = this.calculateTime('+2');
-    this.intializeCalender()
-    this.createRandomActivity()
-    this.generateContacts()
-    this.tabBarElement = document.querySelector('.tabbar.show-tabbar')
-  }
-
-  createRandomActivity() {
-    this.randomActivities = [
-      { name: 'Yoga', color: "#38ceb6" },
-      { name: 'Coffee', color: '#ff5c53' },
-      { name: 'Dish Party', color: '#484647' },
-      { name: 'Feluka ride', color: '#6276f9' },
-      { name: 'Bar hopping', color: '#42d3d4' },
-      { name: 'Tennis', color: '#4ad53c' },
-      { name: 'Bowling', color: '#484647' },
-      { name: 'Shopping', color: '#38ceb6' },
-      { name: 'ICe skating', color: '#6276f9' },
-      { name: 'Pottery', color: '#ff5c53' },
-    ]
+    public navParams: NavParams
+  ) {
+    this.data.event_time = this.calculateTime("+2");
+    this.intializeCalender();
+    this.generateContacts();
+    this.tabBarElement = document.querySelector(".tabbar.show-tabbar");
   }
 
   intializeCalender() {
-    this.initDate = moment()['_d']
+    this.initDate = moment()["_d"];
     this.data.event_date = moment(this.initDate).format("YYYY-MM-DD");
   }
 
   ionViewWillEnter() {
-    this.tabBarElement.style.display = 'none';
+    this.tabBarElement.style.display = "none";
   }
   ionViewWillLeave() {
-    this.tabBarElement.style.display = 'flex';
+    this.tabBarElement.style.display = "flex";
   }
 
   dismiss() {
-    this.navCtrl.setRoot('TabsPage', { activityCreated: true })
+    this.navCtrl.setRoot("TabsPage", { activityCreated: true });
   }
 
-
-
   navigateToNextSlide(num) {
-    this.slides.slideTo(num)
+    this.slides.slideTo(num);
   }
 
   setDate(date) {
     console.log("event : ", date);
-    this.initDate = date
+    this.initDate = date;
   }
 
   formatDate(date) {
@@ -88,7 +82,7 @@ export class CreateActivityPage {
   }
 
   groupContacts(contacts) {
-    let sortedContacts = _.orderBy(contacts, ['name'], ['asc']);
+    let sortedContacts = _.orderBy(contacts, ["name"], ["asc"]);
     let currentLetter = false;
     let currentContacts = [];
     sortedContacts.forEach((value, index) => {
@@ -107,56 +101,76 @@ export class CreateActivityPage {
 
   calculateTime(offset: any) {
     let d = new Date();
-    let nd = new Date(d.getTime() + (3600000 * offset));
+    let nd = new Date(d.getTime() + 3600000 * offset);
     return nd.toISOString();
   }
 
   checkContact(event, contact) {
-    contact.active = event._value
+    contact.active = event._value;
   }
 
   step(index) {
-    this.slideIndex = index
+    this.slideIndex = index;
     switch (index) {
       case 1:
-        this.data.showArrowBack = true
-        this.datePicker.open()
+        this.data.showArrowBack = true;
+        this.datePicker.open();
         break;
       case 2:
-        this.data.showArrowBack = true
-        this.timePicker.open()
+        this.data.showArrowBack = true;
+        this.timePicker.open();
         break;
       case 3:
-        this.data.showArrowBack = true
+        this.data.showArrowBack = true;
         break;
       case 4:
-        this.data.showDoneBtn = true
-        this.data.showArrowBack = true
+        this.data.showDoneBtn = true;
+        this.data.showArrowBack = true;
         break;
     }
-    this.navigateToNextSlide(index)
+    this.navigateToNextSlide(index);
   }
 
   back(index) {
     switch (index) {
       case 1:
-        this.data.showDoneBtn = false
-        this.datePicker.open()
+        this.data.showDoneBtn = false;
+        this.datePicker.open();
         break;
       case 2:
-        this.data.showDoneBtn = false
-        this.timePicker.open()
+        this.data.showDoneBtn = false;
+        this.timePicker.open();
         break;
       case 3:
-        this.data.showDoneBtn = false
+        this.data.showDoneBtn = false;
         break;
     }
-    this.navigateToNextSlide(index)
+    this.navigateToNextSlide(index);
   }
 
   onInput(event) {
     console.log("eventevent :", event);
   }
 
-
+  Done() {
+    console.log("final data is : ", this.data);
+    this.data.place = "place1";
+    this.data.description = "description1";
+    this.data.min_number = 2;
+    this.data.max_number = 40;
+    this.isWaiting = true;
+    this.api.createEvent(this.data).subscribe(
+      data => {
+        console.log("return data is : ", data);
+        if (data.status) {
+          this.event.publish("eventCreated");
+          this.dismiss();
+        }
+        this.isWaiting = false;
+      },
+      err => {
+        this.isWaiting = false;
+      }
+    );
+  }
 }

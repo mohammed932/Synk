@@ -1,49 +1,66 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
+import { ApiProvider } from "../../providers/api/api";
+import * as moment from "moment";
+import { Persons } from "./mocks";
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
-
-  // Signal R
   message: string = "type your response";
   response: string = "Response";
   name: string = "Client";
+  Events: any;
+  isLoading: boolean = true;
+  Persons: any[] = Persons;
+  data: any = {};
 
-  Persons: any[] = [
-    { img: 'assets/imgs/1.jpg' },
-    { img: 'assets/imgs/2.jpg' },
-    { img: 'assets/imgs/3.jpg' },
-    { img: 'assets/imgs/4.jpg' },
-    { img: 'assets/imgs/5.jpg' },
-  ]
-  data: any = {}
-  Events: any[] = [
-    { isSynked: false, isInvited: false },
-    { isSynked: true, isInvited: false },
-    { isSynked: false, isInvited: true },
-    { isSynked: true, isInvited: false },
-  ]
-
-
-  constructor(public navCtrl: NavController) {
-
+  constructor(
+    public navCtrl: NavController,
+    private api: ApiProvider,
+    private event: Events
+  ) {
+    this.checkEvents();
   }
 
   ionViewDidEnter() {
-  
+    this.getAllEvents();
+  }
+
+  checkEvents() {
+    this.event.subscribe("eventCreated", () => {
+      this.getAllEvents;
+    });
   }
 
   eventDetails(event) {
-    this.navCtrl.push('ActivityDetailsPage')
+    this.navCtrl.push("ActivityDetailsPage", { eventId: event.id });
   }
 
-  onInput(event) {
-    console.log("eventeventevent :", event);
+  onInput(event) {}
+
+  send() {}
+
+  getAllEvents() {
+    this.api.getAllEvents().subscribe(
+      data => {
+        console.log("happenings data : ", data);
+        if (data.stauts) {
+          this.Events = data.events;
+        }
+        this.isLoading = false;
+      },
+      err => {
+        console.log("event error is : ", err);
+        this.isLoading = false;
+      }
+    );
   }
 
+  formatTime(time) {
+    return moment(time, "HH:mm").format("hh:mm A");
+  }
 }

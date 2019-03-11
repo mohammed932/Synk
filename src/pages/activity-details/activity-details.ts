@@ -1,29 +1,43 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Persons } from "./mocks";
+import { ApiProvider } from "../../providers/api/api";
+import * as moment from "moment";
+import { SettingProvider } from "../../providers/setting/setting";
 
 @IonicPage()
 @Component({
-  selector: 'page-activity-details',
-  templateUrl: 'activity-details.html',
+  selector: "page-activity-details",
+  templateUrl: "activity-details.html"
 })
 export class ActivityDetailsPage {
-  Persons: any[] = [
-    { img: 'assets/imgs/1.jpg' },
-    { img: 'assets/imgs/2.jpg' },
-    { img: 'assets/imgs/3.jpg' },
-    { img: 'assets/imgs/4.jpg' },
-    { img: 'assets/imgs/5.jpg' },
-  ]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  Persons: any[] = Persons;
+  event: any;
+  eventId: any = this.navParams.get("eventId");
+  constructor(
+    public navCtrl: NavController,
+    private setting: SettingProvider,
+    private api: ApiProvider,
+    public navParams: NavParams
+  ) {
+    this.showEventById();
   }
 
-  goToTask(){
-    this.navCtrl.push('TasksPage')
+  goToTask() {
+    this.navCtrl.push("TasksPage");
   }
 
-  editActivity(){
-    this.navCtrl.push('EditActivityPage')
+  showEventById() {
+    this.api.showEventById(this.eventId).subscribe(data => {
+      console.log("event data : ", data);
+      this.event = data.event;
+    });
   }
 
+  editActivity() {
+    this.navCtrl.push("EditActivityPage");
+  }
+  formatTime(time) {
+    return moment(time, "HH:mm").format("hh:mm A");
+  }
 }

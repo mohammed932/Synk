@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-navbar transparent>
     <ion-title></ion-title>
     <ion-buttons end>
@@ -12,18 +11,19 @@
         <ion-icon class="back-btn" name="arrow-back" item-left></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-navbar>
 
-
   <div class="choose-friends" *ngIf="data.showDoneBtn">Choose Friends</div>
-  <ion-searchbar *ngIf="data.showDoneBtn" [(ngModel)]="data.search" showCancelButton="false" placeholder="Search"
-    (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+  <ion-searchbar
+    *ngIf="data.showDoneBtn"
+    [(ngModel)]="data.search"
+    showCancelButton="false"
+    placeholder="Search"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)"
+  >
   </ion-searchbar>
-
-
 </ion-header>
-
 
 <ion-content>
   <ion-grid no-padding>
@@ -31,7 +31,6 @@
       <ion-slides>
         <!-- Slide 1 -->
         <ion-slide>
-
           <ion-row>
             <ion-col col-12>
               <h3 class="title-1 bold">What are you up for?</h3>
@@ -43,41 +42,74 @@
 
             <ion-col col-12>
               <ion-item class="input-item">
-                <ion-input class="activity-input" placeholder="Create activity title here"></ion-input>
+                <ion-input
+                  class="activity-input"
+                  [(ngModel)]="data.name"
+                  placeholder="Create activity title here"
+                ></ion-input>
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <div class="activity-option" *ngFor="let activity of randomActivities" [style.background-color]="activity.color">{{activity.name}}</div>
+              <div
+                class="activity-option"
+                *ngFor="let activity of randomActivities"
+                [style.background-color]="activity.color"
+              >
+                {{ activity.name }}
+              </div>
             </ion-col>
           </ion-row>
           <ion-col col-12>
-            <button ion-button color="primary" class="done-btn" round block (click)="step(1)">Create Activity</button>
+            <button
+              ion-button
+              color="primary"
+              class="done-btn"
+              round
+              block
+              (click)="step(1)"
+            >
+              Create Activity
+            </button>
           </ion-col>
-
         </ion-slide>
 
         <!-- Slide 2 -->
         <ion-slide>
           <ion-row>
             <ion-col col-6>
-              <ion-icon class="back-btn" name="arrow-back" item-left (click)="back(0)"></ion-icon>
+              <ion-icon
+                class="back-btn"
+                name="arrow-back"
+                item-left
+                (click)="back(0)"
+              ></ion-icon>
             </ion-col>
             <ion-col col-12>
               <h3 class="title-1 bold">When is your activity?</h3>
             </ion-col>
 
             <ion-col col-12>
-
               <ion-item class="time-item">
                 <ion-label>Date</ion-label>
-                <ion-datetime #date displayFormat="DDDD MMM D, YYYY" min="2019" max="2050" [(ngModel)]="chromeReleased" (ionChange)="step(2)"></ion-datetime>
+                <ion-datetime
+                  #date
+                  displayFormat="DDDD MMM D, YYYY"
+                  min="2019"
+                  max="2050"
+                  [(ngModel)]="data.event_date"
+                  (ionChange)="step(2)"
+                ></ion-datetime>
               </ion-item>
 
               <!-- <ion-list> -->
-                <ion-item class="not-sure-item">
-                  <ion-label item-end>Not sure yet.</ion-label>
-                  <ion-checkbox item-start [(ngModel)]="data.isSureDay" (click)="step(2)"></ion-checkbox>
-                </ion-item>
+              <ion-item class="not-sure-item">
+                <ion-label item-end>Not sure yet.</ion-label>
+                <ion-checkbox
+                  item-start
+                  [(ngModel)]="data.isSureDay"
+                  (click)="step(2)"
+                ></ion-checkbox>
+              </ion-item>
               <!-- </ion-list> -->
             </ion-col>
           </ion-row>
@@ -87,42 +119,74 @@
         <ion-slide>
           <ion-row>
             <ion-col col-6>
-              <ion-icon class="back-btn" name="arrow-back" item-left (click)="back(1)"></ion-icon>
+              <ion-icon
+                class="back-btn"
+                name="arrow-back"
+                item-left
+                (click)="back(1)"
+              ></ion-icon>
             </ion-col>
             <ion-col col-12>
               <h3 class="title-1 bold">What time is your activity?</h3>
             </ion-col>
             <ion-item class="time-item">
               <ion-label>Time</ion-label>
-              <ion-datetime #time displayFormat="hh:mm A" [(ngModel)]="data.Time" (ionChange)="step(3)"></ion-datetime>
+              <ion-datetime
+                #time
+                displayFormat="hh:mm A"
+                [(ngModel)]="data.event_time"
+                (ionChange)="step(3)"
+              ></ion-datetime>
             </ion-item>
 
             <!-- <ion-list> -->
-              <ion-item class="not-sure-item">
-                <ion-label item-end>Not sure yet.</ion-label>
-                <ion-checkbox item-start [(ngModel)]="data.isSureTime" (click)="step(3)"></ion-checkbox>
-              </ion-item>
+            <ion-item class="not-sure-item">
+              <ion-label item-end>Not sure yet.</ion-label>
+              <ion-checkbox
+                item-start
+                [(ngModel)]="data.isSureTime"
+                (click)="step(3)"
+              ></ion-checkbox>
+            </ion-item>
             <!-- </ion-list> -->
-
           </ion-row>
-    
         </ion-slide>
 
         <!-- Slide 4 -->
         <ion-slide>
           <ion-row>
             <ion-col col-6>
-              <ion-icon class="back-btn" name="arrow-back" item-left (click)="back(2)"></ion-icon>
+              <ion-icon
+                class="back-btn"
+                name="arrow-back"
+                item-left
+                (click)="back(2)"
+              ></ion-icon>
             </ion-col>
             <ion-col col-12>
               <h3 class="title-1 bold">Who can join your activity?</h3>
             </ion-col>
 
             <ion-col col-12>
-              <button ion-button round color="secondary" class="done-btn" (click)="dismiss()">SYNK COMMUNITY</button>
-              <button ion-button round color="primary" class="done-btn" (click)="step(4)">CHOOSE FRIENDS</button>
+              <button
+                ion-button
+                round
+                color="secondary"
+                class="done-btn"
+                (click)="dismiss()"
+              >
+                SYNK COMMUNITY
+              </button>
+              <button
+                ion-button
+                round
+                color="primary"
+                class="done-btn"
+                (click)="step(4)"
+              >
+                CHOOSE FRIENDS
+              </button>
             </ion-col>
-
           </ion-row>
         </ion-slide>
 
@@ -130,14 +194,20 @@
         <ion-slide>
           <div class="contact-wrapper">
             <ion-item-group *ngFor="let group of groupedContacts">
-              <ion-item-divider light>{{group.letter}}</ion-item-divider>
-              <ion-item *ngFor="let contact of group.contacts" [style.background-color]="contact.active ? '#464545' : ''"
-                class="contact-item">
+              <ion-item-divider light>{{ group.letter }}</ion-item-divider>
+              <ion-item
+                *ngFor="let contact of group.contacts"
+                [style.background-color]="contact.active ? '#464545' : ''"
+                class="contact-item"
+              >
                 <ion-avatar item-start>
-                  <img [src]="contact.img">
+                  <img [src]="contact.img" />
                 </ion-avatar>
-                <div item-start>{{contact.name}}</div>
-                <ion-checkbox item-end (ionChange)="checkContact($event,contact)"></ion-checkbox>
+                <div item-start>{{ contact.name }}</div>
+                <ion-checkbox
+                  item-end
+                  (ionChange)="checkContact($event, contact)"
+                ></ion-checkbox>
               </ion-item>
             </ion-item-group>
           </div>
@@ -150,7 +220,21 @@
 <ion-footer text-center no-border transparent *ngIf="data.showDoneBtn">
   <ion-row>
     <ion-col col-12>
-      <button ion-button color="primary" class="done-btn" round block (click)="dismiss()">Done</button>
+      <button
+        ion-button
+        color="primary"
+        class="done-btn"
+        round
+        block
+        (click)="Done()"
+      >
+        <span *ngIf="!isWaiting">Done</span>
+        <ion-spinner
+          name="ios-small"
+          *ngIf="isWaiting"
+          color="light"
+        ></ion-spinner>
+      </button>
     </ion-col>
   </ion-row>
 </ion-footer>

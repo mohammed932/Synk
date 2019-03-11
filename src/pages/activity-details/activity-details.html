@@ -1,8 +1,11 @@
 <ion-header>
   <ion-navbar color="danger">
     <ion-title class="custom-big-title">
-      <div>Coffee</div>
-      <div>Todat at 2:45 A.M.</div>
+      <div>{{ event?.name }}</div>
+      <div>
+        {{ setting.formatNormalDate(event?.event_date) }} at
+        {{ formatTime(event?.event_time) }}
+      </div>
     </ion-title>
     <!-- <ion-buttons end>
       <button ion-button icon-only (click)="editActivity()">
@@ -19,7 +22,6 @@
         <img src="assets/imgs/1.jpg" />
       </ion-avatar>
       <div item-start class="invited-by">Invited By Sara Hatam</div>
-      <div item-end ion-text color="primary">01028734848</div>
     </ion-item>
     <hr class="hr" />
     <ion-item>
