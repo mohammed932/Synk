@@ -1,25 +1,15 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SignInPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 @IonicPage()
 @Component({
-  selector: 'page-sign-in',
-  templateUrl: 'sign-in.html',
+  selector: "page-sign-in",
+  templateUrl: "sign-in.html"
 })
 export class SignInPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  data: any = {};
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  Login() {
+    this.navCtrl.setRoot("TabsPage");
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
-  }
-
 }

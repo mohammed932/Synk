@@ -37,7 +37,7 @@ export class HomePage {
   }
 
   eventDetails(event) {
-    this.navCtrl.push("ActivityDetailsPage", { eventId: event.id });
+    this.navCtrl.push("ActivityDetailsPage", { event: event });
   }
 
   onInput(event) {}

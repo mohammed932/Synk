@@ -1,18 +1,40 @@
-<!--
-  Generated template for the SignInPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>sign-in</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Sign In</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="dark" stacked>Email</ion-label>
+      <ion-input
+        type="password"
+        [(ngModel)]="data.email"
+        placeholder="Email Address"
+      ></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label color="dark" stacked>Password</ion-label>
+      <ion-input
+        type="password"
+        [(ngModel)]="data.password"
+        placeholder="Password"
+      ></ion-input>
+    </ion-item>
+    <div class="forget-password">
+      Forget my password
+    </div>
+    <button
+      class="sign-in-btn"
+      (click)="Login()"
+      ion-button
+      color="primary"
+      round
+      full
+    >
+      Sign In
+    </button>
+  </ion-list>
 </ion-content>

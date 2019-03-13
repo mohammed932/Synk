@@ -5,46 +5,35 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 
-
 @import "ionic.globals";
 
 $colors: (
-  primary:    #3ef0ff,
-  secondary:  #67dec1,
-  danger:     #e87261,
-  light:      #f4f4f4,
-  dark:       #222,
-  red :       #e8271b,
-  gray:       #f1eff0
+  primary: #3ef0ff,
+  secondary: #67dec1,
+  danger: #e87261,
+  light: #f4f4f4,
+  dark: #222,
+  red: #e8271b,
+  gray: #f1eff0,
+  blue: #3b5998
 );
-
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-
-
-
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
-
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
-
 
 // App Theme
 // --------------------------------------------------
@@ -55,14 +44,12 @@ $colors: (
 
 @import "ionic.theme.default";
 
-
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
 
 @import "ionic.ionicons";
-
 
 // Fonts
 // --------------------------------------------------

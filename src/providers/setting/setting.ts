@@ -18,4 +18,13 @@ export class SettingProvider {
   formatNormalDate(date) {
     return moment(date).format("MM/DD/YYYY");
   }
+
+  presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: "top"
+    });
+    toast.present();
+  }
 }

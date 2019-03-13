@@ -19,6 +19,13 @@ export class ApiProvider {
     return this.http.post(`${this.settingService.URL}create_event`, params);
   }
 
+  updateEvent(params): Observable<any> {
+    return this.http.post(
+      `${this.settingService.URL}update_event/${params.id}`,
+      params
+    );
+  }
+
   showEventById(id): Observable<any> {
     return this.http.get(`${this.settingService.URL}show_event/${id}`);
   }

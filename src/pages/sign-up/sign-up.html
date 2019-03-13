@@ -1,18 +1,149 @@
-<!--
-  Generated template for the SignUpPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>sign-up</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Sign Up</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-slides>
+        <!-- Slide 1 -->
+        <ion-slide>
+          <ion-list>
+            <ion-item>
+              <ion-label color="dark" stacked>Full name</ion-label>
+              <ion-input
+                type="text"
+                [(ngModel)]="data.name"
+                placeholder="Full name"
+              ></ion-input>
+            </ion-item>
 
+            <ion-item>
+              <ion-label color="dark" stacked>Email address</ion-label>
+              <ion-input
+                type="email"
+                [(ngModel)]="data.email"
+                placeholder="xx@xx.com"
+              ></ion-input>
+            </ion-item>
+
+            <ion-row radio-group [(ngModel)]="data.gender">
+              <ion-col col-12>
+                <div class="select-gender">Select gender</div>
+              </ion-col>
+              <ion-item>
+                <ion-label>Male</ion-label>
+                <ion-radio value="male" checked="true"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Female</ion-label>
+                <ion-radio value="female"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Other</ion-label>
+                <ion-radio value="other"></ion-radio>
+              </ion-item>
+            </ion-row>
+
+            <button
+              class="next-btn"
+              ion-button
+              color="primary"
+              (click)="next(1)"
+              round
+              full
+            >
+              Next
+            </button>
+          </ion-list>
+        </ion-slide>
+        <!-- Slide 2 -->
+        <ion-slide>
+          <ion-row>
+            <ion-icon
+              class="back-btn"
+              name="arrow-back"
+              item-left
+              (click)="back(0)"
+            ></ion-icon>
+          </ion-row>
+          <ion-list>
+            <ion-item>
+              <ion-label color="dark" stacked>Password</ion-label>
+              <ion-input
+                type="password"
+                [(ngModel)]="data.password"
+                placeholder="pizzs34fd"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="dark" stacked>Confirm Password</ion-label>
+              <ion-input
+                type="password"
+                [(ngModel)]="data.confirm_password"
+                placeholder="pizzs34fd"
+              ></ion-input>
+            </ion-item>
+
+            <button
+              class="next-btn"
+              ion-button
+              color="primary"
+              (click)="next(2)"
+              round
+              full
+            >
+              Next
+            </button>
+          </ion-list>
+        </ion-slide>
+        <!-- Slide 3 -->
+        <ion-slide>
+          <ion-row>
+            <ion-icon
+              class="back-btn"
+              name="arrow-back"
+              item-left
+              (click)="back(1)"
+            ></ion-icon>
+          </ion-row>
+
+          <ion-list>
+            <ion-item>
+              <ion-label color="dark" stacked>Phone number</ion-label>
+              <ion-input
+                type="tel"
+                [(ngModel)]="data.phone"
+                placeholder="0124534646"
+              ></ion-input>
+            </ion-item>
+
+            <div class="phone-txt">
+              Your phone number remains confidential unless you choose otherwise
+              upon activity creation.
+            </div>
+
+            <button
+              class="next-btn"
+              ion-button
+              color="primary"
+              (click)="Done()"
+              round
+              full
+            >
+              Done
+            </button>
+          </ion-list>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
 </ion-content>

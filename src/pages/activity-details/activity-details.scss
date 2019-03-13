@@ -1,41 +1,47 @@
 page-activity-details {
-  
-  .toolbar-ios{
+  .toolbar-ios {
     padding: 30px;
     padding-left: 4px;
     padding-right: 4px;
     min-height: 66px;
   }
-  .toolbar-title-ios{
+  .toolbar-title-ios {
   }
-  .scroll-content{
+  .scroll-content {
     background: #f1eff0 !important;
   }
-  .invited-by{
+  .invited-by {
     font-size: 13px;
   }
-  .location-txt{
+  .location-txt {
     font-size: 14px;
   }
-  ion-icon[class*="custom-Location"]{
+  ion-icon[class*="custom-Location"] {
     color: #f9695a;
   }
-  .item-ios.item-block .item-inner{
-    border-bottom : 0 !important;
+  .edit-event {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 1rem;
+    margin-top: 4rem;
   }
-  .hr{
+  .item-ios.item-block .item-inner {
+    border-bottom: 0 !important;
+  }
+  .hr {
     height: 1.15px;
     width: 86%;
     margin: auto;
   }
-  ion-icon[class*="custom-chat"], ion-icon[class*="custom-tasks"]{
+  ion-icon[class*="custom-chat"],
+  ion-icon[class*="custom-tasks"] {
     margin-right: 1rem;
     color: #00f4ff !important;
   }
-  .button-outline{
+  .button-outline {
     border-width: 2px;
   }
-  .desc{
+  .desc {
     width: 90%;
     margin: auto;
     color: gray;
@@ -43,55 +49,61 @@ page-activity-details {
     margin-top: 1rem;
   }
 
-  .find-persons-wrapper-row{
+  .find-persons-wrapper-row {
     background: white;
     padding: 5px;
     margin-top: 8px;
   }
-  .find-persons-wrapper-col{
+  .find-persons-wrapper-col {
     margin-bottom: 2rem;
   }
-  .list{
+  .list {
     margin: -1px 0 13px;
   }
-  .synk-txt{
+  .synk-txt {
     margin-left: 1rem;
   }
-  .avatar-img{
+  .avatar-img {
     width: 65px;
     height: 65px;
     border-radius: 100%;
   }
-  .avatar-name{
+  .avatar-name {
     font-size: 13px;
   }
-  .unsynk{
+  .unsynk {
     text-align: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
     color: red;
     font-size: 16px;
   }
-  .list{
+  .list {
     background: white;
   }
-  .text{
+  .text {
     font-size: 1.5rem;
   }
-  ion-avatar{
+  ion-avatar {
     margin: 8px 9px 8px 0 !important;
   }
-  ion-icon.icon.icon-ios.ion-ios-custom-Location.item-icon{
+  ion-icon.icon.icon-ios.ion-ios-custom-Location.item-icon {
     margin-right: 6px !important;
   }
 
-  .details-list{
+  .details-list {
     margin: -1px 0 8px !important;
   }
-  .custom-btn{
+  .custom-btn {
     width: 93%;
   }
-  .custom-chat-btn{
+  .custom-chat-btn {
     margin-left: 1rem;
+  }
+  .label-ios-light,
+  .item-input .label-ios-light,
+  .item-select .label-ios-light,
+  .item-datetime .label-ios-light {
+    color: black;
   }
 }

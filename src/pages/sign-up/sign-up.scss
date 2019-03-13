@@ -1,3 +1,24 @@
 page-sign-up {
-
+  .next-btn {
+    margin-top: 3rem;
+  }
+  .select-gender {
+    text-align: left;
+    margin-top: 3rem;
+  }
+  .ion-ios-arrow-back:before {
+    content: "\f3cf";
+    position: relative;
+    left: 0;
+    color: #3df0ff;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+  .phone-txt {
+    width: 95%;
+    margin-top: 5rem;
+    font-size: 14px;
+    color: gray;
+    line-height: 1.5;
+  }
 }

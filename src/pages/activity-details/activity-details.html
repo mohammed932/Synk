@@ -26,38 +26,65 @@
     <hr class="hr" />
     <ion-item>
       <ion-icon item-start name="custom-Location"></ion-icon>
-      <div item-start class="location-txt">Starbucks , Tivoli , Helipolis</div>
-      <div item-end ion-text color="primary">Take me there</div>
+      <ion-input
+        type="text"
+        placeholder="Happening Location"
+        [(ngModel)]="data.place"
+      ></ion-input>
     </ion-item>
     <hr class="hr" />
     <ion-item>
       <ion-icon item-start name="custom-Location"></ion-icon>
-      <div item-start class="location-txt">300 LE per person</div>
+      <ion-input
+        type="text"
+        placeholder="Happening Price"
+        [(ngModel)]="data.cost"
+      ></ion-input>
     </ion-item>
     <hr class="hr" />
     <ion-row>
       <ion-col col-6 no-padding>
         <ion-item>
-          <ion-icon item-start name="custom-Location"></ion-icon>
-          <div item-start class="location-txt">Min. 2 people</div>
+          <ion-label color="light" stacked>Min</ion-label>
+          <ion-select [(ngModel)]="data.min_number">
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+          </ion-select>
         </ion-item>
         <hr class="hr" />
       </ion-col>
       <ion-col col-6 no-padding>
         <ion-item>
-          <ion-icon item-start name="custom-Location"></ion-icon>
-          <div item-start class="location-txt">Max. 10 people</div>
+          <ion-label color="light" stacked>Max</ion-label>
+          <ion-select [(ngModel)]="data.max_number">
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+          </ion-select>
         </ion-item>
         <hr class="hr" />
       </ion-col>
 
       <ion-col col-12 style="background: white">
         <div class="desc">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
+          <ion-label>Description</ion-label>
+          <ion-textarea [(ngModel)]="data.description"></ion-textarea>
         </div>
+        <div class="desc"></div>
+        <button
+          ion-button
+          color="danger"
+          class="edit-event"
+          full
+          round
+          (click)="editEvent()"
+        >
+          <span *ngIf="!isWaiting">Submit</span>
+          <ion-spinner
+            name="ios-small"
+            *ngIf="isWaiting"
+            color="light"
+          ></ion-spinner>
+        </button>
       </ion-col>
       <hr class="hr" />
       <ion-col col-12 style="background: white">
