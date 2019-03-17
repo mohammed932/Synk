@@ -8,7 +8,7 @@ import { Keyboard } from "@ionic-native/keyboard";
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = "IntroductionPage";
+  rootPage: any = "";
 
   constructor(
     platform: Platform,
@@ -16,6 +16,7 @@ export class MyApp {
     private keyboard: Keyboard,
     private splashScreen: SplashScreen
   ) {
+    this.checkDefaultRoute();
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -44,5 +45,14 @@ export class MyApp {
         status: true
       }
     ];
+  }
+
+  checkDefaultRoute() {
+    let isLogin = localStorage.getItem("isLogin");
+    if (isLogin) {
+      this.rootPage = "HomePage";
+    } else {
+      this.rootPage = "IntroductionPage";
+    }
   }
 }

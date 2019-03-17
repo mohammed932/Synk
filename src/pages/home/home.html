@@ -36,28 +36,22 @@
   <ion-row *ngIf="!isLoading" class="all-eevnt-row-wrapper">
     <ion-col col-12 no-padding class="all-eevnt-col-wrapper">
       <ion-list>
-        <ion-item-sliding
-          #item
-          *ngFor="let event of Events"
-          (click)="eventDetails(event)"
-        >
+        <ion-item-sliding #item *ngFor="let event of Events">
           <ion-item>
             <ion-row
               class="item-slide-row"
-              [class.customSynkBg]="event.isSynked"
               [class.customInvitedBg]="event.isInvited"
             >
               <ion-col col-12 no-padding>
                 <ion-row
                   class="sec-1"
-                  [class.customSynkBg]="event.isSynked"
                   [class.customInvitedBg]="event.isInvited"
                 >
-                  <ion-col col-6>
+                  <ion-col col-6 (click)="eventDetails(event)">
                     <div class="event-name">{{ event.name }}</div>
                     <div class="invited-by">Sara hatem invited you</div>
                   </ion-col>
-                  <ion-col col-6>
+                  <ion-col col-6 (click)="eventDetails(event)">
                     <div class="event-time" ion-text float-right>
                       {{ formatTime(event.event_time) }}
                     </div>
@@ -67,16 +61,19 @@
               <ion-col
                 col-12
                 class="sec-2"
-                [class.customSynkBg]="event.isSynked"
                 [class.customInvitedBg]="event.isInvited"
               >
                 <ion-row>
                   <ion-col col-9>
-                    <div item-start class="address">
+                    <div
+                      item-start
+                      class="address"
+                      (click)="eventDetails(event)"
+                    >
                       <ion-icon name="custom-Location"></ion-icon>
                       {{ event.place }}
                     </div>
-                    <div class="synked-people">
+                    <div class="synked-people" (click)="eventDetails(event)">
                       <ion-icon name="custom-people"></ion-icon>
                       {{ event.going_count }}/{{ event.max_number }} people
                       synked
@@ -89,7 +86,7 @@
                       block
                       color="primary"
                       class="my-btn"
-                      *ngIf="event.isInvited"
+                      *ngIf="event.isSynked"
                     >
                       INVITE
                     </button>
@@ -97,11 +94,17 @@
                       ion-button
                       round
                       block
+                      *ngIf="!event.isSynked"
                       color="primary"
                       class="my-btn"
-                      *ngIf="event.isSynked"
+                      (click)="synk(event)"
                     >
-                      SYNK
+                      <span *ngIf="!event.waitingSynk">SYNK</span>
+                      <ion-spinner
+                        name="ios-small"
+                        *ngIf="event.waitingSynk"
+                        color="light"
+                      ></ion-spinner>
                     </button>
                   </ion-col>
                 </ion-row>

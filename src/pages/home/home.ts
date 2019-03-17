@@ -17,7 +17,7 @@ export class HomePage {
   isLoading: boolean = true;
   Persons: any[] = Persons;
   data: any = {};
-
+  userData: any = JSON.parse(localStorage.getItem("userData"));
   constructor(
     public navCtrl: NavController,
     private api: ApiProvider,
@@ -62,5 +62,25 @@ export class HomePage {
 
   formatTime(time) {
     return moment(time, "HH:mm").format("hh:mm A");
+  }
+
+  synk(event) {
+    let params: any = {
+      event_id: event.id,
+      user_id: this.userData.id
+    };
+    event.waitingSynk = true; // trigger spinner
+    // this.api.goingToEvent(params).subscribe(
+    //   data => {
+    //     console.log("response goting to event data : ", data);
+    //     if (data.status) {
+    //       event.isSynked = true; // replace synk button to invite button.
+    //     }
+    //     event.waitingSynk = false; // dismiss spinner
+    //   },
+    //   err => {
+    //     event.waitingSynk = false; // dismiss spinner
+    //   }
+    // );
   }
 }

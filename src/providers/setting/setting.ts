@@ -27,4 +27,24 @@ export class SettingProvider {
     });
     toast.present();
   }
+
+  showError(errors) {
+    let text = "";
+    for (let key in errors) {
+      if (errors.hasOwnProperty(key)) {
+        console.log(key + " -> " + errors[key]);
+        text += errors[key] + "<br><br>";
+      }
+    }
+    this.showAlert(text);
+  }
+
+  async showAlert(text) {
+    this.alertCtrl
+      .create({
+        subTitle: text,
+        buttons: ["Ok"]
+      })
+      .present();
+  }
 }

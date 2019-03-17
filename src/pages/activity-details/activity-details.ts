@@ -13,6 +13,7 @@ import { SettingProvider } from "../../providers/setting/setting";
 export class ActivityDetailsPage {
   Persons: any[] = Persons;
   isWaiting: boolean = false;
+  userData = JSON.parse(localStorage.getItem("userData"));
   data: any = { max_number: 1, min_number: 1 };
   event: any = this.navParams.get("event");
   constructor(
@@ -21,15 +22,15 @@ export class ActivityDetailsPage {
     private api: ApiProvider,
     public navParams: NavParams
   ) {
+    console.log("user Data : ", this.userData);
+
     if (this.event) {
       this.data = this.event;
-      console.log("kok");
-      console.log("a7a this.data :", this.data);
     }
   }
 
   goToTask() {
-    this.navCtrl.push("TasksPage");
+    this.navCtrl.push("TasksPage", { event: this.event });
   }
 
   editActivity() {

@@ -88,7 +88,7 @@
               <ion-label color="dark" stacked>Confirm Password</ion-label>
               <ion-input
                 type="password"
-                [(ngModel)]="data.confirm_password"
+                [(ngModel)]="data.password_confirm"
                 placeholder="pizzs34fd"
               ></ion-input>
             </ion-item>
@@ -139,7 +139,12 @@
               round
               full
             >
-              Done
+              <span *ngIf="!isWaiting">Done</span>
+              <ion-spinner
+                name="ios-small"
+                *ngIf="isWaiting"
+                color="light"
+              ></ion-spinner>
             </button>
           </ion-list>
         </ion-slide>

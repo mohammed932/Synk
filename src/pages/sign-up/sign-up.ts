@@ -6,6 +6,8 @@ import {
   ViewController
 } from "ionic-angular";
 import { Slides } from "ionic-angular";
+import { ApiProvider } from "../../providers/api/api";
+import { SettingProvider } from "../../providers/setting/setting";
 @IonicPage()
 @Component({
   selector: "page-sign-up",
@@ -14,8 +16,11 @@ import { Slides } from "ionic-angular";
 export class SignUpPage {
   @ViewChild(Slides) slides: Slides;
   data: any = {};
+  isWaiting: boolean = false;
   constructor(
     public navCtrl: NavController,
+    private api: ApiProvider,
+    private setting: SettingProvider,
     private viewCtrl: ViewController,
     public navParams: NavParams
   ) {}
@@ -37,7 +42,21 @@ export class SignUpPage {
   }
 
   Done() {
+    this.isWaiting = true;
     console.log("sign up data : ", this.data);
-    this.navCtrl.setRoot("SignInPage");
+    this.api.registration(this.data).subscribe(
+      data => {
+        console.log("response register data is : ", data);
+        if (data.status) {
+          this.navCtrl.setRoot("SignInPage");
+        } else {
+          this.setting.showError(data.message);
+        }
+        this.isWaiting = false;
+      },
+      err => {
+        this.isWaiting = false;
+      }
+    );
   }
 }

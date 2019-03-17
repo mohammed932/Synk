@@ -9,7 +9,7 @@
     <ion-item>
       <ion-label color="dark" stacked>Email</ion-label>
       <ion-input
-        type="password"
+        type="email"
         [(ngModel)]="data.email"
         placeholder="Email Address"
       ></ion-input>
@@ -34,7 +34,12 @@
       round
       full
     >
-      Sign In
+      <span *ngIf="!isWaiting">Sign In</span>
+      <ion-spinner
+        name="ios-small"
+        *ngIf="isWaiting"
+        color="light"
+      ></ion-spinner>
     </button>
   </ion-list>
 </ion-content>

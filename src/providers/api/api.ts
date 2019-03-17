@@ -26,7 +26,22 @@ export class ApiProvider {
     );
   }
 
+  registration(params): Observable<any> {
+    return this.http.post(`${this.settingService.URL}register`, params);
+  }
+
+  login(params): Observable<any> {
+    return this.http.post(`${this.settingService.URL}login`, params);
+  }
+
   showEventById(id): Observable<any> {
     return this.http.get(`${this.settingService.URL}show_event/${id}`);
+  }
+  createTask(params): Observable<any> {
+    return this.http.post(`${this.settingService.URL}create_task`, params);
+  }
+
+  goingToEvent(params): Observable<any> {
+    return this.http.post(`${this.settingService.URL}going_to_event`, params);
   }
 }

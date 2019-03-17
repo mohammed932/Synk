@@ -1,25 +1,39 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the TasksPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { ApiProvider } from "../../providers/api/api";
 
 @IonicPage()
 @Component({
-  selector: 'page-tasks',
-  templateUrl: 'tasks.html',
+  selector: "page-tasks",
+  templateUrl: "tasks.html"
 })
 export class TasksPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  event: any = this.navParams.get("event");
+  isWaiting: boolean = false;
+  userData: any = JSON.parse(localStorage.getItem("userData"));
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private api: ApiProvider
+  ) {
+    console.log("task page event : ", this.event);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TasksPage');
+  createTask() {
+    this.isWaiting = true;
+    let params: any = {
+      user_id: this.userData.id,
+      event_id: this.event.id
+    };
+    console.log("task params is : ", params);
+    this.api.createTask(params).subscribe(
+      data => {
+        console.log("task response is : ", data);
+        this.isWaiting = false;
+      },
+      err => {
+        this.isWaiting = false;
+      }
+    );
   }
-
 }
