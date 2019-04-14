@@ -12,6 +12,7 @@ import { ApiProvider } from "../providers/api/api";
 import { globalInterceptor } from "../providers/global-headers/global-headers";
 import { SettingProvider } from "../providers/setting/setting";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { Contacts } from "@ionic-native/contacts";
 
 @NgModule({
   declarations: [MyApp],
@@ -39,6 +40,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
       multi: true
     },
     ApiProvider,
+    Contacts,
     SettingProvider
   ]
 })

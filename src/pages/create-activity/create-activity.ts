@@ -28,6 +28,8 @@ export class CreateActivityPage {
   data: any = {
     showDoneBtn: false,
     showArrowBack: false,
+    friends_id: [],
+    invite_status: 0,
     event_date: moment(new Date()).format("YYYY-MM-DD")
   };
   initDate: any;
@@ -107,6 +109,7 @@ export class CreateActivityPage {
 
   checkContact(event, contact) {
     contact.active = event._value;
+    this.data.friends_id.push(contact.id);
   }
 
   step(index) {
@@ -126,6 +129,7 @@ export class CreateActivityPage {
       case 4:
         this.data.showDoneBtn = true;
         this.data.showArrowBack = true;
+        this.data.invite_status = 1;
         break;
     }
     this.navigateToNextSlide(index);
@@ -153,7 +157,8 @@ export class CreateActivityPage {
   }
 
   Done() {
-    console.log("final data is : ", this.data);
+    // this.data.friends_id.join();
+    // console.log("final data is : ", this.data);
     this.data.place = "place1";
     this.data.description = "description1";
     this.data.min_number = 2;
@@ -172,5 +177,12 @@ export class CreateActivityPage {
         this.isWaiting = false;
       }
     );
+  }
+  allSynkCommunity() {
+    this.data.invite_status = 0;
+    this.Done();
+    if (!this.isWaiting) {
+      this.dismiss();
+    }
   }
 }

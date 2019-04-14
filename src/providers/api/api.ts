@@ -15,7 +15,7 @@ export class ApiProvider {
   }
 
   createEvent(params): Observable<any> {
-    params.user_id = 1;
+    // params.user_id = 1;
     return this.http.post(`${this.settingService.URL}create_event`, params);
   }
 

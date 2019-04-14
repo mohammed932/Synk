@@ -173,9 +173,14 @@
                 round
                 color="secondary"
                 class="done-btn"
-                (click)="dismiss()"
+                (click)="allSynkCommunity()"
               >
-                SYNK COMMUNITY
+                <span *ngIf="!isWaiting">SYNK COMMUNITY</span>
+                <ion-spinner
+                  name="ios-small"
+                  *ngIf="isWaiting"
+                  color="light"
+                ></ion-spinner>
               </button>
               <button
                 ion-button
