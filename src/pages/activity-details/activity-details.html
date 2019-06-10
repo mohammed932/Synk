@@ -1,93 +1,98 @@
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title class="custom-big-title">
-      <div>{{ event?.name }}</div>
-      <div>
-        {{ setting.formatNormalDate(event?.event_date) }} at
-        {{ formatTime(event?.event_time) }}
-      </div>
+    <ion-title>
+      <div>Coffee</div>
     </ion-title>
-    <!-- <ion-buttons end>
+    <ion-buttons end>
       <button ion-button icon-only (click)="editActivity()">
         <ion-icon name="custom-edit"></ion-icon>
       </button>
-    </ion-buttons> -->
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list class="details-list">
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="assets/imgs/1.jpg" />
-      </ion-avatar>
-      <div item-start class="invited-by">Invited By Sara Hatam</div>
-    </ion-item>
-    <hr class="hr" />
-    <ion-item>
-      <ion-icon item-start name="custom-Location"></ion-icon>
-      <ion-input
-        type="text"
-        placeholder="Happening Location"
-        [(ngModel)]="data.place"
-      ></ion-input>
-    </ion-item>
-    <hr class="hr" />
-    <ion-item>
-      <ion-icon item-start name="custom-Location"></ion-icon>
-      <ion-input
-        type="text"
-        placeholder="Happening Price"
-        [(ngModel)]="data.cost"
-      ></ion-input>
-    </ion-item>
-    <hr class="hr" />
-    <ion-row>
-      <ion-col col-6 no-padding>
-        <ion-item>
-          <ion-label color="light" stacked>Min</ion-label>
-          <ion-select [(ngModel)]="data.min_number">
-            <ion-option value="1">1</ion-option>
-            <ion-option value="2">2</ion-option>
-          </ion-select>
-        </ion-item>
-        <hr class="hr" />
+  <ion-grid class="event-details-grid">
+    <ion-row class="custom-row">
+      <ion-col col-1 align-self-center>
+        <img src="assets/imgs/user.svg" class="small-avatar-img" />
       </ion-col>
-      <ion-col col-6 no-padding>
-        <ion-item>
-          <ion-label color="light" stacked>Max</ion-label>
-          <ion-select [(ngModel)]="data.max_number">
-            <ion-option value="1">1</ion-option>
-            <ion-option value="2">2</ion-option>
-          </ion-select>
-        </ion-item>
-        <hr class="hr" />
+      <ion-col col-6>
+        <p>invited by {{ event.user.name }}</p>
       </ion-col>
+      <ion-col col-5>
+        <p ion-text text-end color="primary" (click)="call()">
+          {{ event.user.mobile }}
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="custom-row">
+      <ion-col col-1 align-self-center>
+        <img src="assets/imgs/location.svg" class="location-img" />
+      </ion-col>
+      <ion-col col-7>
+        <p ion-text text-start>{{ event.location }}</p>
+      </ion-col>
+      <ion-col col-4>
+        <p ion-text text-end>Take me there</p>
+      </ion-col>
+    </ion-row>
 
-      <ion-col col-12 style="background: white">
-        <div class="desc">
-          <ion-label>Description</ion-label>
-          <ion-textarea [(ngModel)]="data.description"></ion-textarea>
-        </div>
-        <div class="desc"></div>
-        <button
-          ion-button
-          color="danger"
-          class="edit-event"
-          full
-          round
-          (click)="editEvent()"
-        >
-          <span *ngIf="!isWaiting">Submit</span>
-          <ion-spinner
-            name="ios-small"
-            *ngIf="isWaiting"
-            color="light"
-          ></ion-spinner>
-        </button>
+    <ion-row class="custom-row" *ngIf="event.price">
+      <ion-col col-1 align-self-center>
+        <img src="assets/imgs/money-bag.svg" class="location-img" />
       </ion-col>
-      <hr class="hr" />
-      <ion-col col-12 style="background: white">
+      <ion-col col-11>
+        <p ion-text text-start>{{ event.price }} LE per person</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="custom-row">
+      <ion-col col-1 align-self-center>
+        <img src="assets/imgs/calender.svg" class="location-img" />
+      </ion-col>
+      <ion-col col-11>
+        <p ion-text text-start>
+          {{ setting.formatNormalDate(event.date) }} {{ event.time }}
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="custom-row">
+      <ion-col col-6 align-self-center>
+        <ion-row>
+          <ion-col col-2 align-self-center class="no-padding-left">
+            <img src="assets/imgs/user.svg" class="user-img" />
+          </ion-col>
+          <ion-col col-10>
+            <p>Min. {{ event.min }} people</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-6>
+        <ion-row>
+          <ion-col col-2 align-self-center class="no-padding-left">
+            <img src="assets/imgs/user.svg" class="user-img" />
+          </ion-col>
+          <ion-col col-10>
+            <p>Max. {{ event.max }} people</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <p ion-text class="desc-txt">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
         <ion-row>
           <ion-col col-6>
             <button
@@ -95,6 +100,7 @@
               outline
               round
               block
+              float-end
               class="custom-btn custom-chat-btn"
             >
               <ion-icon name="custom-chat"></ion-icon>
@@ -108,7 +114,7 @@
               round
               block
               (click)="goToTask()"
-              class="custom-btn"
+              class="custom-btn custom-task-btn"
             >
               <ion-icon name="custom-tasks"></ion-icon>
               <span class="bold">Tasks</span>
@@ -117,25 +123,36 @@
         </ion-row>
       </ion-col>
     </ion-row>
-  </ion-list>
+  </ion-grid>
 
-  <div class="bold synk-txt">5/7 people synked to activity</div>
+  <div class="bold synk-txt">
+    {{ event.goings_count }}/{{ event.max }} people synked to activity
+  </div>
   <ion-row class="find-persons-wrapper-row">
     <ion-col col-12 class="find-persons-wrapper-col">
       <ion-slides slidesPerView="4.4">
-        <ion-slide *ngFor="let person of Persons">
-          <img [src]="person.img" class="avatar-img" />
-          <div class="avatar-name">Sara hatam</div>
+        <ion-slide *ngFor="let going of goings">
+          <img src="assets/imgs/1.jpg" class="avatar-img" />
+          <div class="avatar-name">{{ going.user.name }}</div>
         </ion-slide>
       </ion-slides>
     </ion-col>
 
     <ion-col col-12>
-      <button ion-button round block color="secondary" class="invite-btn">
+      <button
+        ion-button
+        round
+        block
+        color="secondary"
+        (click)="inviteFriends()"
+        class="invite-btn"
+      >
         <span class="bold">INVITE FRIENDS</span>
       </button>
 
-      <div class="unsynk">UNSYNK FROM ACTIVITY</div>
+      <div class="unsynk" *ngIf="event.isSynked" (click)="unSync()">
+        UNSYNK FROM ACTIVITY
+      </div>
     </ion-col>
   </ion-row>
 </ion-content>

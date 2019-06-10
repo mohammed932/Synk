@@ -1,5 +1,11 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController
+} from "ionic-angular";
+import { CallNumber } from "@ionic-native/call-number";
 import { Persons } from "./mocks";
 import { ApiProvider } from "../../providers/api/api";
 import * as moment from "moment";
@@ -12,6 +18,7 @@ import { SettingProvider } from "../../providers/setting/setting";
 })
 export class ActivityDetailsPage {
   Persons: any[] = Persons;
+  goings: any;
   isWaiting: boolean = false;
   userData = JSON.parse(localStorage.getItem("userData"));
   data: any = { max_number: 1, min_number: 1 };
@@ -19,14 +26,31 @@ export class ActivityDetailsPage {
   constructor(
     public navCtrl: NavController,
     private setting: SettingProvider,
+    private modalCtrl: ModalController,
+    private callNumber: CallNumber,
     private api: ApiProvider,
     public navParams: NavParams
   ) {
     console.log("user Data : ", this.userData);
-
+    console.log("event is :", this.event);
+    this.getEventGoings();
     if (this.event) {
       this.data = this.event;
     }
+  }
+
+  inviteFriends() {
+    let modal = this.modalCtrl.create("InviteFriendsToEventPage", {
+      event: this.event
+    });
+    modal.present();
+  }
+
+  getEventGoings() {
+    this.api.eventGoings(this.event._id).subscribe(data => {
+      console.log("goings are :", data);
+      this.goings = data;
+    });
   }
 
   goToTask() {
@@ -34,25 +58,34 @@ export class ActivityDetailsPage {
   }
 
   editActivity() {
-    this.navCtrl.push("EditActivityPage");
+    let modal = this.modalCtrl.create("EditActivityPage", {
+      event: this.event
+    });
+    modal.onDidDismiss(data => {
+      console.log("return edit data modal :", data);
+    });
+    modal.present();
   }
   formatTime(time) {
     return moment(time, "HH:mm").format("hh:mm A");
   }
 
-  editEvent() {
-    this.isWaiting = true;
-    this.api.updateEvent(this.data).subscribe(
+  unSync() {
+    this.api.unSync(this.event._id).subscribe(
       data => {
-        console.log("data updated : ", data);
-        if (data.status) {
-          this.setting.presentToast(data.message);
-        }
-        this.isWaiting = false;
+        this.event.isSynked = false;
+        this.setting.showAlert("Now you unsync from event !");
       },
       err => {
-        this.isWaiting = false;
+        console.log("unsync err :", err);
       }
     );
+  }
+
+  call() {
+    this.callNumber
+      .callNumber(this.event.user.mobile, true)
+      .then(res => console.log("Launched dialer!", res))
+      .catch(err => console.log("Error launching dialer", err));
   }
 }

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Suggestion friends</ion-title>
+  </ion-navbar>
+  <ion-searchbar
+    [(ngModel)]="data.search"
+    showCancelButton="false"
+    placeholder="Search for suggestion friends"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)"
+  >
+  </ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="friends-wraaper" no-padding>
+    <ion-row *ngFor="let friend of Friends" class="friends-wraaper-row">
+      <ion-col no-padding col-3>
+        <img [src]="friend.img" class="friend-img" />
+      </ion-col>
+      <ion-col no-padding col-9 align-self-center>
+        <div class="bold">{{ friend.name }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

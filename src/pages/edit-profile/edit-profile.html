@@ -14,12 +14,16 @@
   <ion-list>
     <ion-item>
       <ion-label fixed>Full name</ion-label>
-      <ion-input type="text" text-right value="Sara Hatem"></ion-input>
+      <ion-input type="text" text-right [(ngModel)]="userData.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>Email address</ion-label>
-      <ion-input type="text" text-right value="sara@gmai.com"></ion-input>
+      <ion-input
+        type="text"
+        text-right
+        [(ngModel)]="userData.email"
+      ></ion-input>
     </ion-item>
 
     <button ion-item (click)="changePassword()">
@@ -28,19 +32,35 @@
 
     <ion-item>
       <ion-label>Gender</ion-label>
-      <ion-select [(ngModel)]="data.gender">
-        <ion-option value="f">Female</ion-option>
-        <ion-option value="m">Male</ion-option>
+      <ion-select [(ngModel)]="data.gender" [(ngModel)]="userData.gender">
+        <ion-option value="female">Female</ion-option>
+        <ion-option value="male">Male</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>Phone Number</ion-label>
-      <ion-input type="text" text-right value="01028734848"></ion-input>
+      <ion-input
+        type="text"
+        text-right
+        [(ngModel)]="userData.mobile"
+      ></ion-input>
     </ion-item>
 
-    <button ion-button color="primary" round block class="save-btn">
-      Save
+    <button
+      ion-button
+      color="primary"
+      round
+      block
+      class="save-btn"
+      (click)="updateUser()"
+    >
+      <span *ngIf="!isWaiting">Save</span>
+      <ion-spinner
+        name="ios-small"
+        *ngIf="isWaiting"
+        color="light"
+      ></ion-spinner>
     </button>
   </ion-list>
 </ion-content>

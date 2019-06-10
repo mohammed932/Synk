@@ -1,4 +1,4 @@
-export const ContactList: any[] = [
+export const contactList: any[] = [
   {
     name: "mohammed",
     phone: "01099499283",

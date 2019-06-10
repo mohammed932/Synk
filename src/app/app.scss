@@ -10,11 +10,15 @@
   font-size: 2rem;
   font-family: "Helvetica";
 }
-.toolbar-ios {
-  display: table !important;
-}
+
 .toolbar-ios ion-title {
   font-family: "Helvetica";
+}
+.no-padding-left {
+  padding-left: 0;
+}
+.scroll-content {
+  // padding: 12px;
 }
 // custom ionic icons
 ion-icon {
@@ -133,14 +137,20 @@ ion-label {
   padding-left: 48px;
 }
 
-// .custom-title {
-//   left: 35px !important;
-//   padding: 0;
-//   top: 1px;
-// }
+.my-error {
+  font-size: 1.2rem !important;
+  color: red;
+}
 
-// .custom-big-title {
-//   left: 40px !important;
-//   padding: 0;
-//   top: 1px;
-// }
+.searchbar-ios .searchbar-clear-icon {
+  right: 10px;
+}
+.searchbar-ios .searchbar-search-icon {
+  left: 15px;
+}
+
+.error-item {
+  .item-inner {
+    border-bottom: 0 solid transparent !important;
+  }
+}

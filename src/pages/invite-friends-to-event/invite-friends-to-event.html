@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Invite friends</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-row>
+    <ion-col>
+      <ion-searchbar
+        animated="true"
+        autocomplete="on"
+        debounce="100"
+        [(ngModel)]="data.search"
+        showCancelButton="false"
+        placeholder="Search"
+        (ionInput)="Search($event)"
+        (ionCancel)="onCancel($event)"
+      >
+      </ion-searchbar>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="contacts-grid">
+    <ion-row
+      class="friends-wrapper"
+      *ngFor="let friend of allFriends"
+      [style.background-color]="friend.active ? '#e6e6e6' : ''"
+    >
+      <ion-col col-2>
+        <img src="assets/imgs/user.svg" class="user-img" />
+      </ion-col>
+      <ion-col col-8>
+        <h6 ion-text text-start color="light">{{ friend.name }}</h6>
+      </ion-col>
+      <ion-col col-2 align-self-center>
+        <ion-checkbox
+          item-end
+          (ionChange)="checkContact($event, friend)"
+        ></ion-checkbox>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <button
+    ion-button
+    color="secondary"
+    class="invite-friends-btn"
+    full
+    round
+    (click)="inviteFriendsForEvent()"
+  >
+    <span *ngIf="!isWaiting">Invite Friends</span>
+    <ion-spinner name="ios-small" *ngIf="isWaiting" color="light"></ion-spinner>
+  </button>
+</ion-footer>

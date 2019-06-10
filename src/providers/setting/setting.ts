@@ -5,7 +5,7 @@ import { AlertController, ToastController } from "ionic-angular";
 import * as moment from "moment";
 @Injectable()
 export class SettingProvider {
-  URL: string = "http://mokhtar.eslamnasser.com/api/";
+  URL: string = "https://sync-application.herokuapp.com/";
   constructor(
     public http: HttpClient,
     private toastCtrl: ToastController,
@@ -42,6 +42,7 @@ export class SettingProvider {
   async showAlert(text) {
     this.alertCtrl
       .create({
+        title: "Sync",
         subTitle: text,
         buttons: ["Ok"]
       })

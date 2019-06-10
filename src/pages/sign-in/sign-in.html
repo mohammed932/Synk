@@ -5,41 +5,82 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label color="dark" stacked>Email</ion-label>
-      <ion-input
-        type="email"
-        [(ngModel)]="data.email"
-        placeholder="Email Address"
-      ></ion-input>
-    </ion-item>
+  <form [formGroup]="loginForm">
+    <ion-list>
+      <ion-item>
+        <ion-label color="dark" stacked>Email</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="data.email"
+          formControlName="email"
+          placeholder="Email Address"
+        ></ion-input>
+      </ion-item>
+      <ion-item
+        class="error-item"
+        *ngIf="
+          !loginForm.controls.email.valid &&
+          (loginForm.controls.email.dirty || loginForm.controls.email.touched)
+        "
+      >
+        <div class="form-control-feedback">
+          <div
+            *ngIf="loginForm.controls.email.errors.required"
+            class="my-error"
+          >
+            email is required.
+          </div>
+          <div *ngIf="loginForm.controls.email.errors.email" class="my-error">
+            email format incorrect.
+          </div>
+        </div>
+      </ion-item>
 
-    <ion-item>
-      <ion-label color="dark" stacked>Password</ion-label>
-      <ion-input
-        type="password"
-        [(ngModel)]="data.password"
-        placeholder="Password"
-      ></ion-input>
-    </ion-item>
-    <div class="forget-password">
-      Forget my password
-    </div>
-    <button
-      class="sign-in-btn"
-      (click)="Login()"
-      ion-button
-      color="primary"
-      round
-      full
-    >
-      <span *ngIf="!isWaiting">Sign In</span>
-      <ion-spinner
-        name="ios-small"
-        *ngIf="isWaiting"
-        color="light"
-      ></ion-spinner>
-    </button>
-  </ion-list>
+      <ion-item>
+        <ion-label color="dark" stacked>Password</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="data.password"
+          formControlName="password"
+          placeholder="Password"
+        ></ion-input>
+      </ion-item>
+      <ion-item
+        class="error-item"
+        *ngIf="
+          !loginForm.controls.password.valid &&
+          (loginForm.controls.password.dirty ||
+            loginForm.controls.password.touched)
+        "
+      >
+        <div class="form-control-feedback">
+          <div
+            *ngIf="loginForm.controls.password.errors.required"
+            class="my-error"
+          >
+            password is required.
+          </div>
+        </div>
+      </ion-item>
+      <div class="forget-password">
+        Forget my password
+      </div>
+      <button
+        class="sign-in-btn"
+        (click)="Login()"
+        [disabled]="!loginForm.valid"
+        ion-button
+        color="primary"
+        round
+        full
+      >
+        <span *ngIf="!isWaiting">Sign In</span>
+        <ion-spinner
+          name="ios-small"
+          *ngIf="isWaiting"
+          color="light"
+        ></ion-spinner>
+      </button>
+    </ion-list>
+  </form>
 </ion-content>

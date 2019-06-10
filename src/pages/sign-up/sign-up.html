@@ -1,11 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>Sign Up</ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -14,139 +9,278 @@
     <ion-row>
       <ion-slides>
         <!-- Slide 1 -->
+
         <ion-slide>
-          <ion-list>
-            <ion-item>
-              <ion-label color="dark" stacked>Full name</ion-label>
-              <ion-input
-                type="text"
-                [(ngModel)]="data.name"
-                placeholder="Full name"
-              ></ion-input>
-            </ion-item>
-
-            <ion-item>
-              <ion-label color="dark" stacked>Email address</ion-label>
-              <ion-input
-                type="email"
-                [(ngModel)]="data.email"
-                placeholder="xx@xx.com"
-              ></ion-input>
-            </ion-item>
-
-            <ion-row radio-group [(ngModel)]="data.gender">
-              <ion-col col-12>
-                <div class="select-gender">Select gender</div>
+          <form [formGroup]="signUpForm1">
+            <ion-row>
+              <ion-col col-12 (click)="presentActionSheet()">
+                <div class="user-img-wrapper" *ngIf="!data.imageUri">
+                  <div>
+                    <img src="assets/imgs/add-camera.png" class="add-img" />
+                    <div class="add-img-txt">Add Photo</div>
+                  </div>
+                </div>
+                <div *ngIf="data.imageUri">
+                  <img [src]="data.imageUri" class="user-img" />
+                </div>
               </ion-col>
-              <ion-item>
-                <ion-label>Male</ion-label>
-                <ion-radio value="male" checked="true"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Female</ion-label>
-                <ion-radio value="female"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Other</ion-label>
-                <ion-radio value="other"></ion-radio>
-              </ion-item>
             </ion-row>
+            <ion-list>
+              <ion-item>
+                <ion-label color="dark" stacked>Full name</ion-label>
+                <ion-input
+                  type="text"
+                  [(ngModel)]="data.name"
+                  placeholder="Full name"
+                  formControlName="name"
+                ></ion-input>
+              </ion-item>
+              <ion-item
+                class="error-item"
+                *ngIf="
+                  !signUpForm1.controls.name.valid &&
+                  (signUpForm1.controls.name.dirty ||
+                    signUpForm1.controls.name.touched)
+                "
+              >
+                <div class="form-control-feedback">
+                  <div
+                    *ngIf="signUpForm1.controls.name.errors.required"
+                    class="my-error"
+                  >
+                    your name is required
+                  </div>
+                </div>
+              </ion-item>
+              <ion-item>
+                <ion-label color="dark" stacked>Email address</ion-label>
+                <ion-input
+                  type="email"
+                  [(ngModel)]="data.email"
+                  placeholder="xx@xx.com"
+                  formControlName="email"
+                ></ion-input>
+              </ion-item>
 
-            <button
-              class="next-btn"
-              ion-button
-              color="primary"
-              (click)="next(1)"
-              round
-              full
-            >
-              Next
-            </button>
-          </ion-list>
+              <ion-item
+                class="error-item"
+                *ngIf="
+                  !signUpForm1.controls.email.valid &&
+                  (signUpForm1.controls.email.dirty ||
+                    signUpForm1.controls.email.touched)
+                "
+              >
+                <div class="form-control-feedback">
+                  <div
+                    *ngIf="signUpForm1.controls.email.errors.email"
+                    class="my-error"
+                  >
+                    email format is incorrect
+                  </div>
+                </div>
+              </ion-item>
+
+              <ion-row
+                radio-group
+                [(ngModel)]="data.gender"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <ion-col col-12>
+                  <div class="select-gender">Select gender</div>
+                </ion-col>
+                <ion-item>
+                  <ion-label>Male</ion-label>
+                  <ion-radio value="male" checked></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Female</ion-label>
+                  <ion-radio value="female"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Other</ion-label>
+                  <ion-radio value="other"></ion-radio>
+                </ion-item>
+              </ion-row>
+
+              <button
+                class="next-btn"
+                ion-button
+                color="primary"
+                [disabled]="!signUpForm1.valid"
+                (click)="next(1)"
+                round
+                full
+              >
+                Next
+              </button>
+            </ion-list>
+          </form>
         </ion-slide>
+
         <!-- Slide 2 -->
+
         <ion-slide>
-          <ion-row>
-            <ion-icon
-              class="back-btn"
-              name="arrow-back"
-              item-left
-              (click)="back(0)"
-            ></ion-icon>
-          </ion-row>
-          <ion-list>
-            <ion-item>
-              <ion-label color="dark" stacked>Password</ion-label>
-              <ion-input
-                type="password"
-                [(ngModel)]="data.password"
-                placeholder="pizzs34fd"
-              ></ion-input>
-            </ion-item>
+          <form [formGroup]="signUpForm2">
+            <ion-row>
+              <ion-icon
+                class="back-btn"
+                name="arrow-back"
+                item-left
+                (click)="back(0)"
+              ></ion-icon>
+            </ion-row>
+            <ion-list>
+              <ion-item>
+                <ion-label color="dark" stacked>Password</ion-label>
+                <ion-input
+                  type="password"
+                  [(ngModel)]="data.password"
+                  formControlName="password"
+                  placeholder="pizzs34fd"
+                ></ion-input>
+              </ion-item>
+              <ion-item
+                class="error-item"
+                *ngIf="
+                  !signUpForm2.controls.password.valid &&
+                  (signUpForm2.controls.password.dirty ||
+                    signUpForm2.controls.password.touched)
+                "
+              >
+                <div class="form-control-feedback">
+                  <div
+                    *ngIf="signUpForm2.controls.password.errors.required"
+                    class="my-error"
+                  >
+                    password is required
+                  </div>
+                  <div
+                    *ngIf="signUpForm2.controls.password.errors.minlength"
+                    class="my-error"
+                  >
+                    password must have 4 character at least.
+                  </div>
+                </div>
+              </ion-item>
+              <ion-item>
+                <ion-label color="dark" stacked>Confirm Password</ion-label>
+                <ion-input
+                  type="password"
+                  [(ngModel)]="data.password_confirm"
+                  formControlName="confirmPassword"
+                  placeholder="pizzs34fd"
+                ></ion-input>
+              </ion-item>
+              <ion-item
+                class="error-item"
+                *ngIf="
+                  !signUpForm2.controls.confirmPassword.valid &&
+                  (signUpForm2.controls.confirmPassword.dirty ||
+                    signUpForm2.controls.confirmPassword.touched)
+                "
+              >
+                <div class="form-control-feedback">
+                  <div
+                    *ngIf="signUpForm2.controls.confirmPassword.errors.required"
+                    class="my-error"
+                  >
+                    Confirm Password is required
+                  </div>
+                  <div
+                    *ngIf="
+                      signUpForm2.controls.confirmPassword.errors.mustMatch
+                    "
+                    class="my-error"
+                  >
+                    Passwords must match
+                  </div>
+                </div>
+              </ion-item>
 
-            <ion-item>
-              <ion-label color="dark" stacked>Confirm Password</ion-label>
-              <ion-input
-                type="password"
-                [(ngModel)]="data.password_confirm"
-                placeholder="pizzs34fd"
-              ></ion-input>
-            </ion-item>
-
-            <button
-              class="next-btn"
-              ion-button
-              color="primary"
-              (click)="next(2)"
-              round
-              full
-            >
-              Next
-            </button>
-          </ion-list>
+              <button
+                class="next-btn"
+                ion-button
+                color="primary"
+                (click)="next(2)"
+                [disabled]="!signUpForm2.valid"
+                round
+                full
+              >
+                Next
+              </button>
+            </ion-list>
+          </form>
         </ion-slide>
+
         <!-- Slide 3 -->
         <ion-slide>
-          <ion-row>
-            <ion-icon
-              class="back-btn"
-              name="arrow-back"
-              item-left
-              (click)="back(1)"
-            ></ion-icon>
-          </ion-row>
+          <form [formGroup]="signUpForm3">
+            <ion-row>
+              <ion-icon
+                class="back-btn"
+                name="arrow-back"
+                item-left
+                (click)="back(1)"
+              ></ion-icon>
+            </ion-row>
 
-          <ion-list>
-            <ion-item>
-              <ion-label color="dark" stacked>Phone number</ion-label>
-              <ion-input
-                type="tel"
-                [(ngModel)]="data.phone"
-                placeholder="0124534646"
-              ></ion-input>
-            </ion-item>
+            <ion-list>
+              <ion-item>
+                <ion-label color="dark" stacked>Phone number</ion-label>
+                <ion-input
+                  type="tel"
+                  [(ngModel)]="data.mobile"
+                  placeholder="0124534646"
+                  formControlName="phone"
+                ></ion-input>
+              </ion-item>
 
-            <div class="phone-txt">
-              Your phone number remains confidential unless you choose otherwise
-              upon activity creation.
-            </div>
+              <ion-item
+                *ngIf="
+                  !signUpForm3.controls.phone.valid &&
+                  (signUpForm3.controls.phone.dirty ||
+                    signUpForm3.controls.phone.touched)
+                "
+              >
+                <div class="form-control-feedback">
+                  <div
+                    *ngIf="signUpForm3.controls.phone.errors.required"
+                    class="my-error"
+                  >
+                    phone is required
+                  </div>
+                  <div
+                    *ngIf="signUpForm3.controls.phone.errors.minlength"
+                    class="my-error"
+                  >
+                    phone must have 10 character at least.
+                  </div>
+                </div>
+              </ion-item>
 
-            <button
-              class="next-btn"
-              ion-button
-              color="primary"
-              (click)="Done()"
-              round
-              full
-            >
-              <span *ngIf="!isWaiting">Done</span>
-              <ion-spinner
-                name="ios-small"
-                *ngIf="isWaiting"
-                color="light"
-              ></ion-spinner>
-            </button>
-          </ion-list>
+              <div class="phone-txt">
+                Your phone number remains confidential unless you choose
+                otherwise upon activity creation.
+              </div>
+
+              <button
+                class="next-btn"
+                ion-button
+                color="primary"
+                (click)="Done()"
+                [disabled]="!signUpForm3.valid"
+                round
+                full
+              >
+                <span *ngIf="!isWaiting">Done</span>
+                <ion-spinner
+                  name="ios-small"
+                  *ngIf="isWaiting"
+                  color="light"
+                ></ion-spinner>
+              </button>
+            </ion-list>
+          </form>
         </ion-slide>
       </ion-slides>
     </ion-row>

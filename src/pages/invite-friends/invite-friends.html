@@ -1,61 +1,67 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add Friends.</ion-title>
+    <ion-title>Invite friends</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="getContacts()">
-        <ion-icon name="add"></ion-icon>
+      <button ion-button (click)="skip()">
+        skip
       </button>
+
+      <!-- <button ion-button (click)="getContacts()">
+        contacts
+      </button> -->
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar
-    animated="true"
-    autocomplete="on"
-    debounce="100"
-    [(ngModel)]="data.search"
-    showCancelButton="false"
-    placeholder="Search"
-    (ionInput)="Search($event)"
-    (ionCancel)="onCancel($event)"
-  >
-  </ion-searchbar>
+  <ion-row>
+    <ion-col>
+      <ion-searchbar
+        animated="true"
+        autocomplete="on"
+        debounce="100"
+        [(ngModel)]="data.search"
+        showCancelButton="false"
+        placeholder="Search"
+        (ionInput)="Search($event)"
+        (ionCancel)="onCancel($event)"
+      >
+      </ion-searchbar>
+    </ion-col>
+  </ion-row>
 </ion-header>
 
 <ion-content>
-  <ion-list id="inviteContainer">
-    <ion-item
-      *ngFor="let contact of filterContacts"
-      (click)="openContact(contact)"
-    >
-      <div ion-text text-wrap color="dark">{{ contact.name }}</div>
-      <div ion-text color="dark">{{ contact.phone }}</div>
-
-      <ion-avatar item-left>
-        <img [src]="contact.img" />
-      </ion-avatar>
-
-      <button
-        block
-        class="invite-uninvite-btn"
-        ion-button
-        item-right
-        color="secondary"
-        *ngIf="!contact.exists"
-      >
-        Invite
-      </button>
-    </ion-item>
-  </ion-list>
+  <loading *ngIf="isLoading"></loading>
+  <ion-grid class="friends-wraaper" no-padding *ngIf="!isLoading">
+    <ion-row class="friends-wrapper-row" *ngFor="let contact of filterContacts">
+      <ion-col no-padding col-2>
+        <img [src]="contact.img" class="friend-img" />
+      </ion-col>
+      <ion-col no-padding col-7 align-self-center>
+        <div class="bold">{{ contact.name }}</div>
+      </ion-col>
+      <ion-col no-padding col-3 align-self-center>
+        <button
+          ion-button
+          color="primary"
+          round
+          block
+          [disabled]="contact.isActive"
+          (click)="inviteFriend(contact)"
+          class="accept-btn"
+          *ngIf="!contact.isAdded"
+        >
+          Invite
+        </button>
+        <button
+          ion-button
+          color="secondary"
+          round
+          block
+          class="accept-btn"
+          *ngIf="contact.isAdded"
+        >
+          Add
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-<ion-footer>
-  <button
-    ion-button
-    round
-    block
-    color="purple"
-    class="submit-btn"
-    (click)="submit()"
-  >
-    Submit
-  </button>
-</ion-footer>

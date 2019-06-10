@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, App } from "ionic-angular";
 
 @IonicPage()
 @Component({
@@ -7,11 +7,20 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
   templateUrl: "my-profile.html"
 })
 export class MyProfilePage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private app: App
+  ) {}
 
   Edit() {
     console.log("hey");
-
     this.navCtrl.push("EditProfilePage");
+  }
+
+  logout() {
+    localStorage.setItem("isLogin", JSON.stringify(false));
+    this.app.getRootNavs()[0].push("IntroductionPage");
+    // this.navCtrl.setRoot("IntroductionPage");
   }
 }

@@ -1,0 +1,43 @@
+page-invite-friends-to-event {
+  .contacts-grid {
+    // margin-top: 9rem;
+    // margin-bottom: 9rem;
+  }
+  .friends-wrapper {
+    width: 95%;
+    margin: auto;
+    border-bottom: 1px solid grey;
+    padding: 0.5rem;
+  }
+  .user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+  }
+  .text-ios-light {
+    color: #000;
+  }
+  .searchbar-ios {
+    background: transparent !important;
+  }
+  .searchbar-ios .searchbar-input {
+    background-color: #ececec !important;
+    color: black !important;
+  }
+  .searchbar-ios .searchbar-clear-icon {
+    right: 10px;
+  }
+  .searchbar-ios .searchbar-search-icon {
+    left: 15px;
+  }
+
+  .ion-ios-close:before {
+    color: black;
+  }
+
+  .invite-friends-btn {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 2rem;
+  }
+}

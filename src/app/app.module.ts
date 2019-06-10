@@ -8,12 +8,15 @@ import { DatePickerModule } from "datepicker-ionic2";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Keyboard } from "@ionic-native/keyboard";
+import { OneSignal } from "@ionic-native/onesignal";
 import { ApiProvider } from "../providers/api/api";
 import { globalInterceptor } from "../providers/global-headers/global-headers";
 import { SettingProvider } from "../providers/setting/setting";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { CallNumber } from "@ionic-native/call-number";
 import { Contacts } from "@ionic-native/contacts";
-
+import { Camera } from "@ionic-native/camera";
+import { ContactsProvider } from "../providers/contacts/contacts";
 @NgModule({
   declarations: [MyApp],
   imports: [
@@ -24,6 +27,7 @@ import { Contacts } from "@ionic-native/contacts";
     HttpClientModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: "",
+      mode: "ios",
       tabsHideOnSubPages: true
     })
   ],
@@ -41,7 +45,11 @@ import { Contacts } from "@ionic-native/contacts";
     },
     ApiProvider,
     Contacts,
-    SettingProvider
+    Camera,
+    CallNumber,
+    OneSignal,
+    SettingProvider,
+    ContactsProvider
   ]
 })
 export class AppModule {}

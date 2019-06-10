@@ -5,67 +5,78 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
+  <loading *ngIf="loading"></loading>
+  <ion-row [hidden]="loading" *ngFor="let task of tasks">
     <ion-col col-8 align-self-center>
-      <div class="bold">BUY DRINK</div>
+      <div class="bold">{{ task.title }}</div>
     </ion-col>
     <ion-col col-4>
       <div class="task-wrapper">
-        <img src="assets/imgs/1.jpg" class="task-img" />
-        <div class="voulnter-name">Ahmed Hatem</div>
+        <div *ngIf="task.taker">
+          <img src="assets/imgs/1.jpg" class="task-img" />
+          <div class="voulnter-name">
+            {{ task.taker.name }}
+          </div>
+        </div>
+
+        <button
+          ion-button
+          round
+          *ngIf="!task.taker"
+          color="secondary"
+          class="assign-btn"
+          (click)="assignTask(task)"
+        >
+          <span *ngIf="!task.active">Assign</span>
+          <ion-spinner
+            name="ios-small"
+            *ngIf="task.active"
+            color="light"
+          ></ion-spinner>
+        </button>
       </div>
-    </ion-col>
-    <hr class="hr" />
-
-    <ion-col col-8 align-self-center>
-      <div class="bold">Bake Cholclate Cake</div>
-    </ion-col>
-    <ion-col col-4>
-      <div class="task-wrapper">
-        <img src="assets/imgs/1.jpg" class="task-img" />
-        <div class="voulnter-name">Ahmed Salama</div>
-      </div>
-    </ion-col>
-    <hr class="hr" />
-
-    <ion-col col-8 align-self-center>
-      <div class="bold">Pick Friends Up From House</div>
-    </ion-col>
-    <ion-col col-4>
-      <button ion-button round color="secondary" class="assign-btn">
-        Assign
-      </button>
-    </ion-col>
-    <hr class="hr" />
-
-    <ion-col col-8 align-self-center>
-      <div class="bold">Make Reservation</div>
-    </ion-col>
-    <ion-col col-4>
-      <button ion-button round color="secondary" class="assign-btn">
-        Assign
-      </button>
-    </ion-col>
-    <hr class="hr" />
-
-    <ion-col col-8 align-self-center>
-      <ion-input placeholder="Type New Task Here"></ion-input>
-    </ion-col>
-    <ion-col col-4>
-      <button
-        ion-button
-        round
-        color="primary"
-        class="add-btn"
-        (click)="createTask()"
-      >
-        <span *ngIf="!isWaiting">Add</span>
-        <ion-spinner
-          name="ios-small"
-          *ngIf="isWaiting"
-          color="light"
-        ></ion-spinner>
-      </button>
     </ion-col>
   </ion-row>
+  <form [formGroup]="taskForm">
+    <ion-row>
+      <ion-col col-8 align-self-center>
+        <ion-input
+          [(ngModel)]="data.name"
+          formControlName="taskName"
+          placeholder="Type New Task Here"
+        ></ion-input>
+        <div
+          *ngIf="
+            !taskForm.controls.taskName.valid &&
+            (taskForm.controls.taskName.dirty ||
+              taskForm.controls.taskName.touched)
+          "
+        >
+          <div
+            *ngIf="taskForm.controls.taskName.errors.required"
+            class="my-error"
+          >
+            Task name is required
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <button
+          ion-button
+          round
+          color="primary"
+          [disabled]="!taskForm.valid"
+          class="add-btn"
+          (click)="createTask()"
+        >
+          <span *ngIf="!isWaiting">Add</span>
+          <ion-spinner
+            name="ios-small"
+            *ngIf="isWaiting"
+            color="light"
+          ></ion-spinner>
+        </button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

@@ -16,10 +16,10 @@ export class globalInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let token = JSON.parse(localStorage.getItem("access_token"));
+    let token = localStorage.getItem("access_token");
     const newRequest = req.clone({
       setHeaders: {
-        Authorization: `bearer ${token}`,
+        Authorization: `${token}`,
         "Content-Type": "application/json"
         // "Content-Language": `${
         //   localStorage.getItem("lang") ? localStorage.getItem("lang") : "en"

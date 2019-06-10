@@ -1,0 +1,32 @@
+<ion-row class="friends-wrapper-row">
+  <ion-col no-padding col-2>
+    <img [src]="user.img" class="friend-img" />
+  </ion-col>
+  <ion-col no-padding col-7 align-self-center>
+    <div class="bold">{{ user.name }}</div>
+  </ion-col>
+  <ion-col no-padding col-3 align-self-center>
+    <button
+      ion-button
+      color="primary"
+      round
+      block
+      [disabled]="user.isActive"
+      (click)="inviteAction(user)"
+      class="accept-btn"
+      *ngIf="!user.isAdded"
+    >
+      Invite
+    </button>
+    <button
+      ion-button
+      color="secondary"
+      round
+      block
+      class="accept-btn"
+      *ngIf="user.isAdded"
+    >
+      Add
+    </button>
+  </ion-col>
+</ion-row>

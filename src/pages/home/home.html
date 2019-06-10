@@ -1,124 +1,113 @@
 <ion-header>
   <ion-navbar color="gray">
     <ion-title>Happening.</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="toggleClick()">
+        <ion-toggle
+          #autoToggle
+          [(ngModel)]="data.toggle"
+          (ionChange)="changeStatus($event)"
+        ></ion-toggle>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-searchbar
     [(ngModel)]="data.search"
     showCancelButton="false"
     placeholder="Search"
-    (ionInput)="onInput($event)"
+    (ionInput)="search()"
     (ionCancel)="onCancel($event)"
   >
   </ion-searchbar>
 </ion-header>
 
-<ion-content>
-  <!-- <ion-row class="find-persons-wrapper-row">
-    <ion-col col-12 class="find-persons-wrapper-col">
-      <div class="bold">FRIENDS 20 MIN AWAY</div>
-      <ion-slides slidesPerView="4.4">
-        <ion-slide *ngFor="let person of Persons">
-          <img [src]="person.img" class="avatar-img" />
-          <div class="avatar-name">Sara hatam</div>
-        </ion-slide>
-      </ion-slides>
-    </ion-col>
-  </ion-row> -->
-
-  <ion-row>
-    <ion-col col-12>
-      <div class="bold">TODAY TUESDAY 10 NOV</div>
-    </ion-col>
-  </ion-row>
-
+<ion-content padding>
   <loading *ngIf="isLoading"></loading>
+  <div *ngIf="!isLoading">
+    <ion-grid class="card-grid" *ngFor="let event of allEvents">
+      <ion-row class="top-row" (click)="eventDetails(event)">
+        <ion-col col-6>
+          <h4>{{ event.title }}</h4>
+          <p style="margin: 0;">{{ event.user.name }} invited you</p>
+        </ion-col>
+        <ion-col col-6 style="line-height: 0;">
+          <h4 ion-text text-end *ngIf="event.time">{{ event.time }}</h4>
+          <p ion-text text-end class="happening-date">
+            {{ setting.formatNormalDate(date) }}
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="bottom-row">
+        <ion-col col-8 (click)="eventDetails(event)">
+          <div class="icon-txt-wrapper">
+            <img src="assets/imgs/location.svg" class="icon-img" />
+            <p class="location-txt">{{ event.location }}</p>
+          </div>
+          <div>
+            <img src="assets/imgs/user.svg" class="icon-img" />
+            <p class="location-txt">
+              {{ event.goings_count }}/{{ event.max }} people synked
+            </p>
+          </div>
+        </ion-col>
+        <ion-col col-4 *ngIf="event.goings_count != event.max">
+          <button
+            ion-button
+            color="secondary"
+            class="card-btn"
+            round
+            *ngIf="!event.isSynked"
+            (click)="makeGoing(event)"
+          >
+            <span *ngIf="!event.isInviteActive">Synk</span>
+            <ion-spinner
+              name="ios-small"
+              *ngIf="event.isInviteActive"
+              color="light"
+            ></ion-spinner>
+          </button>
+          <button
+            ion-button
+            color="primary"
+            class="card-btn"
+            *ngIf="event.isSynked"
+            round
+            (click)="inviteFriends(event)"
+          >
+            <span *ngIf="!event.active">Invite</span>
+            <ion-spinner
+              name="ios-small"
+              *ngIf="event.active"
+              color="light"
+            ></ion-spinner>
+          </button>
+        </ion-col>
+        <ion-col
+          col-4
+          align-self-center
+          *ngIf="event.goings_count == event.max"
+        >
+          <div class="completed">Completed</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <not-found *ngIf="allEvents.length == 0" txt="No events found."></not-found>
+    <ion-row *ngIf="allEvents.length == 0">
+      <button
+        class="add-event-btn"
+        (click)="createEvent()"
+        ion-button
+        color="primary"
+        round
+      >
+        Add event
+      </button>
+    </ion-row>
+  </div>
 
-  <ion-row *ngIf="!isLoading" class="all-eevnt-row-wrapper">
-    <ion-col col-12 no-padding class="all-eevnt-col-wrapper">
-      <ion-list>
-        <ion-item-sliding #item *ngFor="let event of Events">
-          <ion-item>
-            <ion-row
-              class="item-slide-row"
-              [class.customInvitedBg]="event.isInvited"
-            >
-              <ion-col col-12 no-padding>
-                <ion-row
-                  class="sec-1"
-                  [class.customInvitedBg]="event.isInvited"
-                >
-                  <ion-col col-6 (click)="eventDetails(event)">
-                    <div class="event-name">{{ event.name }}</div>
-                    <div class="invited-by">Sara hatem invited you</div>
-                  </ion-col>
-                  <ion-col col-6 (click)="eventDetails(event)">
-                    <div class="event-time" ion-text float-right>
-                      {{ formatTime(event.event_time) }}
-                    </div>
-                  </ion-col>
-                </ion-row>
-              </ion-col>
-              <ion-col
-                col-12
-                class="sec-2"
-                [class.customInvitedBg]="event.isInvited"
-              >
-                <ion-row>
-                  <ion-col col-9>
-                    <div
-                      item-start
-                      class="address"
-                      (click)="eventDetails(event)"
-                    >
-                      <ion-icon name="custom-Location"></ion-icon>
-                      {{ event.place }}
-                    </div>
-                    <div class="synked-people" (click)="eventDetails(event)">
-                      <ion-icon name="custom-people"></ion-icon>
-                      {{ event.going_count }}/{{ event.max_number }} people
-                      synked
-                    </div>
-                  </ion-col>
-                  <ion-col col-3 align-self-end>
-                    <button
-                      ion-button
-                      round
-                      block
-                      color="primary"
-                      class="my-btn"
-                      *ngIf="event.isSynked"
-                    >
-                      INVITE
-                    </button>
-                    <button
-                      ion-button
-                      round
-                      block
-                      *ngIf="!event.isSynked"
-                      color="primary"
-                      class="my-btn"
-                      (click)="synk(event)"
-                    >
-                      <span *ngIf="!event.waitingSynk">SYNK</span>
-                      <ion-spinner
-                        name="ios-small"
-                        *ngIf="event.waitingSynk"
-                        color="light"
-                      ></ion-spinner>
-                    </button>
-                  </ion-col>
-                </ion-row>
-              </ion-col>
-            </ion-row>
-          </ion-item>
-
-          <ion-item-options side="right">
-            <button ion-button color="red" (click)="unread(item)">
-              Delete
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-    </ion-col>
-  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingText="Loading..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

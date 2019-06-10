@@ -4,25 +4,35 @@ import {
   NavController,
   NavParams,
   ViewController,
+  App,
+  DateTime,
   AlertController,
+  Slides,
   Events
 } from "ionic-angular";
-import { Slides } from "ionic-angular";
-import { DateTime } from "ionic-angular";
 import * as _ from "lodash";
 import * as moment from "moment";
 import { ContactList, randomActivities } from "./mocks";
 import { ApiProvider } from "../../providers/api/api";
+import { SettingProvider } from "../../providers/setting/setting";
 @IonicPage()
 @Component({
   selector: "page-create-activity",
   templateUrl: "create-activity.html"
 })
 export class CreateActivityPage {
-  randomActivities: any[] = randomActivities;
-  contacts: any = ContactList;
+  randomActivities: any = randomActivities;
+  // friends: any = ContactList;
+  // newFriends: any = ContactList;
+  isModal: boolean = this.navParams.get("isModal");
+  friends: any[] = [];
+  newFriends: any[] = [];
   groupedContacts = [];
+  eventId: string;
+  inviteFriends: any = ([] = []);
+  isWaitingStepOne: boolean = false;
   isWaiting: boolean = false;
+  isSlideReachEnd: boolean = false;
   tabBarElement: any;
   slideIndex: number = 0;
   data: any = {
@@ -40,19 +50,15 @@ export class CreateActivityPage {
     public navCtrl: NavController,
     private viewCtrl: ViewController,
     private event: Events,
+    private app: App,
+    private setting: SettingProvider,
     private api: ApiProvider,
     private alertCtrl: AlertController,
     public navParams: NavParams
   ) {
     this.data.event_time = this.calculateTime("+2");
-    this.intializeCalender();
-    this.generateContacts();
+    this.getUserFriends();
     this.tabBarElement = document.querySelector(".tabbar.show-tabbar");
-  }
-
-  intializeCalender() {
-    this.initDate = moment()["_d"];
-    this.data.event_date = moment(this.initDate).format("YYYY-MM-DD");
   }
 
   ionViewWillEnter() {
@@ -63,7 +69,13 @@ export class CreateActivityPage {
   }
 
   dismiss() {
-    this.navCtrl.setRoot("TabsPage", { activityCreated: true });
+    if (!this.isModal) {
+      this.app.getRootNavs()[0].push("TabsPage");
+    } else {
+      this.viewCtrl.dismiss();
+    }
+
+    // this.navCtrl.setRoot("TabsPage");
   }
 
   navigateToNextSlide(num) {
@@ -79,28 +91,6 @@ export class CreateActivityPage {
     return moment(date).format("YYYY/MM/DD");
   }
 
-  generateContacts() {
-    this.groupContacts(this.contacts);
-  }
-
-  groupContacts(contacts) {
-    let sortedContacts = _.orderBy(contacts, ["name"], ["asc"]);
-    let currentLetter = false;
-    let currentContacts = [];
-    sortedContacts.forEach((value, index) => {
-      if (value.name.charAt(0) != currentLetter) {
-        currentLetter = value.name.charAt(0);
-        let newGroup = {
-          letter: currentLetter,
-          contacts: []
-        };
-        currentContacts = newGroup.contacts;
-        this.groupedContacts.push(newGroup);
-      }
-      currentContacts.push(value);
-    });
-  }
-
   calculateTime(offset: any) {
     let d = new Date();
     let nd = new Date(d.getTime() + 3600000 * offset);
@@ -109,7 +99,7 @@ export class CreateActivityPage {
 
   checkContact(event, contact) {
     contact.active = event._value;
-    this.data.friends_id.push(contact.id);
+    this.inviteFriends.push(contact._id);
   }
 
   step(index) {
@@ -127,12 +117,55 @@ export class CreateActivityPage {
         this.data.showArrowBack = true;
         break;
       case 4:
+        console.log("hi there");
+        console.log("data is :", this.data);
+        this.data.time = moment(this.data.event_time).format("hh:mm A");
+        // this.createEvent(index);
+        break;
+      case 5:
         this.data.showDoneBtn = true;
         this.data.showArrowBack = true;
         this.data.invite_status = 1;
         break;
     }
+
     this.navigateToNextSlide(index);
+    // if (index != 4) {
+    //   this.navigateToNextSlide(index);
+    // }
+  }
+
+  getUserFriends() {
+    this.api.userProfile().subscribe(
+      data => {
+        this.friends = data.friends;
+        this.newFriends = this.friends;
+        console.log("user profile data :", data);
+      },
+      err => {
+        console.log("err :", err);
+      }
+    );
+  }
+
+  createEvent(index) {
+    this.isWaitingStepOne = true;
+    this.data.price = Number(this.data.price);
+    this.data.max = Number(this.data.max);
+    this.data.min = Number(this.data.min);
+    this.api.createEvent(this.data).subscribe(
+      data => {
+        console.log("create event response :", data);
+        this.eventId = data._id;
+        this.isWaitingStepOne = false;
+        this.data.showArrowBack = true;
+        this.navigateToNextSlide(index);
+      },
+      err => {
+        console.log("create event error is :", err);
+        this.isWaitingStepOne = false;
+      }
+    );
   }
 
   back(index) {
@@ -148,6 +181,9 @@ export class CreateActivityPage {
       case 3:
         this.data.showDoneBtn = false;
         break;
+      case 4:
+        this.data.showDoneBtn = false;
+        break;
     }
     this.navigateToNextSlide(index);
   }
@@ -157,26 +193,38 @@ export class CreateActivityPage {
   }
 
   Done() {
-    // this.data.friends_id.join();
-    // console.log("final data is : ", this.data);
-    this.data.place = "place1";
-    this.data.description = "description1";
-    this.data.min_number = 2;
-    this.data.max_number = 40;
     this.isWaiting = true;
+    this.data.eventId = this.eventId;
+    this.data.invites = this.inviteFriends;
+    this.data.price = Number(this.data.price);
+    this.data.max = Number(this.data.max);
+    this.data.min = Number(this.data.min);
+    console.log("create data :", this.data);
+
     this.api.createEvent(this.data).subscribe(
       data => {
-        console.log("return data is : ", data);
-        if (data.status) {
-          this.event.publish("eventCreated");
-          this.dismiss();
-        }
+        console.log("create event response :", data);
+        this.setting.presentToast(data.message);
         this.isWaiting = false;
+        this.dismiss();
       },
       err => {
+        console.log("create event error is :", err);
         this.isWaiting = false;
       }
     );
+    // this.api.inviteFriendsToEvent(params).subscribe(
+    //   data => {
+    //     console.log("invite friends response is :", data);
+    //     this.setting.presentToast(data.message);
+    //     this.isWaiting = false;
+    //     this.dismiss();
+    //   },
+    //   err => {
+    //     this.isWaiting = false;
+    //     console.log("invite Friends To Event Error :", err);
+    //   }
+    // );
   }
   allSynkCommunity() {
     this.data.invite_status = 0;
@@ -184,5 +232,31 @@ export class CreateActivityPage {
     if (!this.isWaiting) {
       this.dismiss();
     }
+  }
+
+  selectActivity(activity) {
+    console.log("activity is:", activity);
+    this.data.title = activity.name;
+    this.data.activityColor = activity.color;
+  }
+  reachEnd() {
+    console.log("end reached");
+    this.isSlideReachEnd = true;
+  }
+  prevEnd() {
+    console.log("prevEnd");
+    this.isSlideReachEnd = false;
+  }
+
+  Search(event) {
+    this.newFriends = this.friends.filter(item => {
+      if (item.name != null && item.phone != null) {
+        return (
+          item.name.toLowerCase().indexOf(this.data.search.toLowerCase()) >
+            -1 ||
+          item.phone.toLowerCase().indexOf(this.data.search.toLowerCase()) > -1
+        );
+      }
+    });
   }
 }

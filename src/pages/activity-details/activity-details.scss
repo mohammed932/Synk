@@ -1,15 +1,31 @@
 page-activity-details {
-  .toolbar-ios {
-    padding: 30px;
-    padding-left: 4px;
-    padding-right: 4px;
-    min-height: 66px;
-  }
-  .toolbar-title-ios {
-  }
   .scroll-content {
     background: #f1eff0 !important;
+    padding: 0;
   }
+
+  .event-details-grid {
+    background: white;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    .custom-row {
+      // line-height: 0.5;
+    }
+    .user-img {
+      width: 1.9rem;
+    }
+    .desc-txt {
+      text-align: justify;
+    }
+    .custom-chat-btn {
+      float: left !important;
+    }
+    .custom-task-btn {
+      margin-right: 0;
+      float: right;
+    }
+  }
+  /////////////////////////////////////////////////
   .invited-by {
     font-size: 13px;
   }
@@ -19,15 +35,7 @@ page-activity-details {
   ion-icon[class*="custom-Location"] {
     color: #f9695a;
   }
-  .edit-event {
-    width: 90%;
-    margin: auto;
-    margin-bottom: 1rem;
-    margin-top: 4rem;
-  }
-  .item-ios.item-block .item-inner {
-    border-bottom: 0 !important;
-  }
+
   .hr {
     height: 1.15px;
     width: 86%;
@@ -41,32 +49,17 @@ page-activity-details {
   .button-outline {
     border-width: 2px;
   }
-  .desc {
-    width: 90%;
-    margin: auto;
-    color: gray;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-  }
 
-  .find-persons-wrapper-row {
-    background: white;
-    padding: 5px;
-    margin-top: 8px;
-  }
-  .find-persons-wrapper-col {
-    margin-bottom: 2rem;
-  }
-  .list {
-    margin: -1px 0 13px;
-  }
   .synk-txt {
     margin-left: 1rem;
   }
-  .avatar-img {
-    width: 65px;
-    height: 65px;
+  .small-avatar-img {
     border-radius: 100%;
+  }
+  .avatar-img {
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
   }
   .avatar-name {
     font-size: 13px;
@@ -78,17 +71,8 @@ page-activity-details {
     color: red;
     font-size: 16px;
   }
-  .list {
-    background: white;
-  }
-  .text {
-    font-size: 1.5rem;
-  }
   ion-avatar {
     margin: 8px 9px 8px 0 !important;
-  }
-  ion-icon.icon.icon-ios.ion-ios-custom-Location.item-icon {
-    margin-right: 6px !important;
   }
 
   .details-list {
@@ -96,14 +80,5 @@ page-activity-details {
   }
   .custom-btn {
     width: 93%;
-  }
-  .custom-chat-btn {
-    margin-left: 1rem;
-  }
-  .label-ios-light,
-  .item-input .label-ios-light,
-  .item-select .label-ios-light,
-  .item-datetime .label-ios-light {
-    color: black;
   }
 }

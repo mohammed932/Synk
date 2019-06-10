@@ -1,0 +1,53 @@
+<ion-grid class="card-grid">
+  <ion-row class="top-row" (click)="eventDetails()">
+    <ion-col col-6>
+      <h4>{{ event.title }}</h4>
+      <p style="margin: 0;">{{ event.user.name }} invited you</p>
+    </ion-col>
+    <ion-col col-6 style="line-height: 0;">
+      <h4 ion-text text-end *ngIf="event.time">{{ event.time }}</h4>
+      <p ion-text text-end class="happening-date">
+        {{ setting.formatNormalDate(date) }}
+      </p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="bottom-row">
+    <ion-col col-8 (click)="eventDetails()">
+      <div class="icon-txt-wrapper">
+        <img src="assets/imgs/location.svg" class="icon-img" />
+        <p class="location-txt">Starbucks , Tivoli , Helipolis</p>
+      </div>
+      <div>
+        <img src="assets/imgs/user.svg" class="icon-img" />
+        <p class="location-txt">10/10 people synked</p>
+      </div>
+    </ion-col>
+    <ion-col col-4>
+      <button
+        ion-button
+        color="secondary"
+        class="card-btn"
+        round
+        *ngIf="!event.synked"
+        (click)="makeGoing()"
+      >
+        Synk
+      </button>
+      <button
+        ion-button
+        color="secondary"
+        class="card-btn"
+        *ngIf="event.synked"
+        round
+        (click)="inviteFriends()"
+      >
+        <span *ngIf="!event.active">Invite</span>
+        <ion-spinner
+          name="ios-small"
+          *ngIf="event.active"
+          color="light"
+        ></ion-spinner>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

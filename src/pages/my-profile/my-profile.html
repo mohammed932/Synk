@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>My profile.</ion-title>
     <ion-buttons end>
@@ -7,25 +6,29 @@
         <div class="friend-requests">Edit Profile</div>
       </button>
     </ion-buttons>
-
-
+    <ion-buttons start>
+      <button ion-button icon-only (click)="logout()">
+        <div class="friend-requests">Logout</div>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content>
   <ion-row>
     <ion-col col-12>
-      <img src="assets/imgs/2.jpg" class="avatar-img">
-      <div class="user-name-wrapper"> <span class="username">Sara Hatam</span> <span class="total-synks">70 SynkS</span>
+      <img src="assets/imgs/2.jpg" class="avatar-img" />
+      <div class="user-name-wrapper">
+        <span class="username">Sara Hatam</span>
+        <span class="total-synks">70 SynkS</span>
       </div>
     </ion-col>
 
     <ion-col col-12>
       <div class="user-bio">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s
       </div>
     </ion-col>
   </ion-row>
@@ -37,18 +40,17 @@
   <ion-col col-12>
     <div class="crown-wrapper">
       <div class="crwon-img-wrapper">
-        <img src="assets/imgs/crown.svg" class="crown-1">
+        <img src="assets/imgs/crown.svg" class="crown-1" />
         <div class="crown-txt">30 Synks</div>
       </div>
       <div class="crwon-img-wrapper">
-        <img src="assets/imgs/crown.svg" class="crown-2">
+        <img src="assets/imgs/crown.svg" class="crown-2" />
         <div class="crown-txt">100 Synks</div>
       </div>
       <div class="crwon-img-wrapper">
-        <img src="assets/imgs/crown.svg" class="crown-3">
+        <img src="assets/imgs/crown.svg" class="crown-3" />
         <div class="crown-txt">30 Synks</div>
       </div>
     </div>
-
   </ion-col>
 </ion-content>

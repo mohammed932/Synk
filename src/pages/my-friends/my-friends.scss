@@ -37,8 +37,9 @@ page-my-friends {
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
-  .friends-wraaper-row:first-child {
-    margin-top: 10px;
+  .friends-wraaper-row {
+    border-bottom: 1px solid #d8d8d8;
+    padding: 0.6rem;
   }
 
   .contact-title {
@@ -47,11 +48,6 @@ page-my-friends {
     margin-top: 5px;
     margin-bottom: 5px;
     font-weight: bold;
-  }
-  .friends-wraaper-row {
-    .hr:last-child {
-      border: 0 !important;
-    }
   }
 
   .searchbar-ios {
