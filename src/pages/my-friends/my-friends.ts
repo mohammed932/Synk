@@ -8,15 +8,9 @@ import { ApiProvider } from "../../providers/api/api";
   templateUrl: "my-friends.html"
 })
 export class MyFriendsPage {
-  Friends: any[] = [
-    { img: "assets/imgs/1.jpg", name: "Mohammed Mokhtar", isAdded: false },
-    { img: "assets/imgs/2.jpg", name: "Sara Hatam", isAdded: true },
-    { img: "assets/imgs/3.jpg", name: "Ahmed Magdy", isAdded: false },
-    { img: "assets/imgs/1.jpg", name: "Mohammed Mokhtar", isAdded: true },
-    { img: "assets/imgs/2.jpg", name: "Sara Hatam", isAdded: false },
-    { img: "assets/imgs/3.jpg", name: "Ahmed Magdy", isAdded: true }
-  ];
-
+  friends: any;
+  newFriends: any;
+  isLoading: boolean = true;
   data: any = {};
 
   constructor(
@@ -36,10 +30,29 @@ export class MyFriendsPage {
   }
 
   getMyFriends() {
-    this.api.userProfile().subscribe(data => {
-      console.log("my data :", data);
+    this.api.userProfile().subscribe(
+      data => {
+        console.log("my data :", data);
+        this.friends = data.friends;
+        this.newFriends = this.friends;
+        this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  search(event) {
+    this.newFriends = this.friends.filter(item => {
+      if (item.name != null) {
+        return (
+          item.name.toLowerCase().indexOf(this.data.search.toLowerCase()) > -1
+        );
+      }
     });
   }
+
   onCancel(event) {
     console.log("zoz");
   }

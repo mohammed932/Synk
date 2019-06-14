@@ -9,14 +9,9 @@ import { ApiProvider } from "../../providers/api/api";
 })
 export class SuggestionFriendsPage {
   data: any = {};
-  Friends: any[] = [
-    { img: "assets/imgs/1.jpg", name: "ahmed ali", isAdded: false },
-    { img: "assets/imgs/2.jpg", name: "Mona abdalla", isAdded: true },
-    { img: "assets/imgs/3.jpg", name: "Ahmed omar", isAdded: false },
-    { img: "assets/imgs/1.jpg", name: "fady khaled", isAdded: true },
-    { img: "assets/imgs/2.jpg", name: "Sara Hatam", isAdded: false },
-    { img: "assets/imgs/3.jpg", name: "Ahmed Magdy", isAdded: true }
-  ];
+  isLoading: boolean = true;
+  originalFriends: any;
+  copyFriends: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,11 +25,25 @@ export class SuggestionFriendsPage {
   getSuggestionFriends() {
     this.api.suggestionFriends().subscribe(
       data => {
+        this.originalFriends = data;
+        this.copyFriends = this.originalFriends;
+        this.isLoading = false;
         console.log("suggestion friends data :", data);
       },
       err => {
+        this.isLoading = false;
         console.log("suggestion friends err :", err);
       }
     );
+  }
+
+  search(event) {
+    this.copyFriends = this.originalFriends.filter(item => {
+      if (item.name != null) {
+        return (
+          item.name.toLowerCase().indexOf(this.data.search.toLowerCase()) > -1
+        );
+      }
+    });
   }
 }

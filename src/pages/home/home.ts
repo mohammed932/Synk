@@ -129,9 +129,6 @@ export class HomePage {
       }
     );
   }
-  formatTime(time) {
-    return moment(time, "HH:mm").format("hh:mm A");
-  }
 
   inviteFriends(event) {
     let modal = this.modalCtrl.create("InviteFriendsToEventPage", {
@@ -176,5 +173,15 @@ export class HomePage {
       this.events = data.events;
       this.allEvents = this.events;
     });
+  }
+  formatTime(time) {
+    return time.replace(/^0+/, "");
+  }
+
+  inviteFriendsToApp() {
+    let modal = this.modalCtrl.create("InviteFriendsPage", {
+      isHaveCloseBtn: true
+    });
+    modal.present();
   }
 }

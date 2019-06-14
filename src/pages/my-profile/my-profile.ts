@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams, App } from "ionic-angular";
   templateUrl: "my-profile.html"
 })
 export class MyProfilePage {
+  userData: any = JSON.parse(localStorage.getItem("userData"));
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -20,6 +21,7 @@ export class MyProfilePage {
 
   logout() {
     localStorage.setItem("isLogin", JSON.stringify(false));
+    localStorage.setItem("access_token", "");
     this.app.getRootNavs()[0].push("IntroductionPage");
     // this.navCtrl.setRoot("IntroductionPage");
   }

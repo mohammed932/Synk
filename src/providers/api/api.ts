@@ -159,6 +159,11 @@ export class ApiProvider {
     );
   }
 
+  forgetPassword(params): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.post(`${this.settingService.URL}forget_password`, params);
+  }
+
   searchEvents(title): Observable<any> {
     let userId = localStorage.getItem("userId");
     return this.http.get(

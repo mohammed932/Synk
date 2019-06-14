@@ -19,6 +19,7 @@ import { SettingProvider } from "../../providers/setting/setting";
 export class ActivityDetailsPage {
   Persons: any[] = Persons;
   goings: any;
+  tabBarElement: any;
   isWaiting: boolean = false;
   userData = JSON.parse(localStorage.getItem("userData"));
   data: any = { max_number: 1, min_number: 1 };
@@ -31,12 +32,20 @@ export class ActivityDetailsPage {
     private api: ApiProvider,
     public navParams: NavParams
   ) {
+    this.tabBarElement = document.querySelector(".tabbar.show-tabbar");
     console.log("user Data : ", this.userData);
     console.log("event is :", this.event);
     this.getEventGoings();
     if (this.event) {
       this.data = this.event;
     }
+  }
+
+  ionViewWillEnter() {
+    this.tabBarElement.style.display = "none";
+  }
+  ionViewWillLeave() {
+    this.tabBarElement.style.display = "flex";
   }
 
   inviteFriends() {
@@ -66,9 +75,6 @@ export class ActivityDetailsPage {
     });
     modal.present();
   }
-  formatTime(time) {
-    return moment(time, "HH:mm").format("hh:mm A");
-  }
 
   unSync() {
     this.api.unSync(this.event._id).subscribe(
@@ -81,7 +87,13 @@ export class ActivityDetailsPage {
       }
     );
   }
-
+  formatTime(time) {
+    if (time) {
+      return time.replace(/^0+/, "");
+    } else {
+      return "";
+    }
+  }
   call() {
     this.callNumber
       .callNumber(this.event.user.mobile, true)

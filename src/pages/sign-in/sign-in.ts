@@ -50,11 +50,17 @@ export class SignInPage {
   setDeviceToken() {
     let params = {
       one_signal_token: localStorage.getItem("device_token")
+        ? localStorage.getItem("device_token")
+        : ""
     };
     console.log("one signal token :", JSON.stringify(params));
 
     this.api.setDeviceToken(params).subscribe(data => {
       console.log("set one signal token response is :", data);
     });
+  }
+
+  openForgetPassword() {
+    this.navCtrl.push("ForgetPasswordPage");
   }
 }

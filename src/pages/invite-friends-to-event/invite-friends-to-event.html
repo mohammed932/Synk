@@ -25,7 +25,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="contacts-grid">
+  <loading *ngIf="isLoading"></loading>
+  <ion-grid *ngIf="!isLoading" class="contacts-grid">
     <ion-row
       class="friends-wrapper"
       *ngFor="let friend of allFriends"

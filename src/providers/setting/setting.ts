@@ -19,6 +19,9 @@ export class SettingProvider {
     return moment(date).format("MM/DD/YYYY");
   }
 
+  formatDateWithDayName(date) {
+    return moment(date).format("ddd DD MMM");
+  }
   presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,

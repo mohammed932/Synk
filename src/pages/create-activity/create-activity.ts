@@ -70,12 +70,12 @@ export class CreateActivityPage {
 
   dismiss() {
     if (!this.isModal) {
-      this.app.getRootNavs()[0].push("TabsPage");
+      this.navCtrl.popToRoot();
+      this.navCtrl.setRoot("TabsPage");
+      // this.app.getRootNavs()[0].push("TabsPage");
     } else {
       this.viewCtrl.dismiss();
     }
-
-    // this.navCtrl.setRoot("TabsPage");
   }
 
   navigateToNextSlide(num) {
@@ -128,11 +128,7 @@ export class CreateActivityPage {
         this.data.invite_status = 1;
         break;
     }
-
     this.navigateToNextSlide(index);
-    // if (index != 4) {
-    //   this.navigateToNextSlide(index);
-    // }
   }
 
   getUserFriends() {
@@ -192,8 +188,13 @@ export class CreateActivityPage {
     console.log("eventevent :", event);
   }
 
-  Done() {
+  Done(isAllCommunity) {
     this.isWaiting = true;
+    if (isAllCommunity == "all") {
+      this.data.is_public = true;
+    } else {
+      this.data.is_public = false;
+    }
     this.data.eventId = this.eventId;
     this.data.invites = this.inviteFriends;
     this.data.price = Number(this.data.price);
@@ -213,25 +214,6 @@ export class CreateActivityPage {
         this.isWaiting = false;
       }
     );
-    // this.api.inviteFriendsToEvent(params).subscribe(
-    //   data => {
-    //     console.log("invite friends response is :", data);
-    //     this.setting.presentToast(data.message);
-    //     this.isWaiting = false;
-    //     this.dismiss();
-    //   },
-    //   err => {
-    //     this.isWaiting = false;
-    //     console.log("invite Friends To Event Error :", err);
-    //   }
-    // );
-  }
-  allSynkCommunity() {
-    this.data.invite_status = 0;
-    this.Done();
-    if (!this.isWaiting) {
-      this.dismiss();
-    }
   }
 
   selectActivity(activity) {

@@ -246,7 +246,7 @@
                 round
                 color="secondary"
                 class="done-btn"
-                (click)="allSynkCommunity()"
+                (click)="Done('all')"
               >
                 <span *ngIf="!isWaiting">SYNK COMMUNITY</span>
                 <ion-spinner
@@ -307,7 +307,7 @@
         class="done-btn"
         round
         block
-        (click)="Done()"
+        (click)="Done('some')"
       >
         <span *ngIf="!isWaiting">Done</span>
         <ion-spinner

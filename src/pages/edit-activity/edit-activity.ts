@@ -116,10 +116,18 @@ export class EditActivityPage {
   }
   editEvent() {
     this.isWaiting = true;
-    this.event.price = Number(this.event.price);
-    this.event.min = Number(this.event.min);
-    this.event.max = Number(this.event.max);
-    this.api.updateEvent(this.event).subscribe(
+    let params = {
+      price: Number(this.event.price),
+      min: Number(this.event.min),
+      max: Number(this.event.max),
+      date: moment(this.event.date).format("YYYY-MM-DD"),
+      location: this.event.location,
+      title: this.event.title,
+      _id: this.event._id,
+      time: this.event.time
+    };
+    console.log(params);
+    this.api.updateEvent(params).subscribe(
       data => {
         console.log("update event data");
         this.setting.showAlert("event updated successfully !");

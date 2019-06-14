@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   Platform,
-  LoadingController
+  LoadingController,
+  ViewController
 } from "ionic-angular";
 import { contactList } from "./mocks";
 import { ContactsProvider } from "../../providers/contacts/contacts";
@@ -21,17 +22,18 @@ export class InviteFriendsPage {
   originalContacts: any;
   loader: any;
   isLoading: boolean = true;
+  isHaveCloseBtn: boolean = this.navParams.get("isHaveCloseBtn");
   data: any = {};
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private platform: Platform,
+    private viewCtrl: ViewController,
     private loadingCtrl: LoadingController,
     private contacts: Contacts,
     private api: ApiProvider,
     private contact: ContactsProvider
   ) {
-    // this.getContacts();
     if (this.platform.is("cordova")) {
       this.getContacts();
     }
@@ -41,6 +43,10 @@ export class InviteFriendsPage {
   //   this.contactList = this.contact.getContacts();
   //   console.log("contactList are :", this.contactList);
   // }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 
   getContacts(): void {
     let contactList: any[] = [];

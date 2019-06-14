@@ -61,6 +61,7 @@ export class TasksPage {
       },
       err => {
         this.isWaiting = false;
+        this.setting.showAlert(err.error.message);
         console.log("create task error :", err);
       }
     );
@@ -82,16 +83,4 @@ export class TasksPage {
       }
     );
   }
-
-  // createTask() {
-  //   let task = {
-  //     name: this.data.name,
-  //     img: "assets/imgs/1.jpg",
-  //     assignTo: "Kimo efat"
-  //   };
-  //   if (this.data.name) {
-  //     this.tasks.push(task);
-  //     this.data.name = "";
-  //   }
-  // }
 }

@@ -17,6 +17,7 @@ export class InviteFriendsToEventPage {
   friends: any;
   allFriends: any[] = [];
   isWaiting: boolean = false;
+  isLoading: boolean = true;
   inviteFriends: any[] = [];
   event: any = this.navParams.get("event");
   data: any = {};
@@ -31,11 +32,17 @@ export class InviteFriendsToEventPage {
   }
 
   getUserData() {
-    this.api.userProfile().subscribe(data => {
-      this.friends = data.friends;
-      this.allFriends = this.friends;
-      console.log("user data : ", data);
-    });
+    this.api.userProfile().subscribe(
+      data => {
+        this.friends = data.friends;
+        this.isLoading = false;
+        this.allFriends = this.friends;
+        console.log("user data : ", data);
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
   }
 
   checkContact(event, friend) {
@@ -76,7 +83,9 @@ export class InviteFriendsToEventPage {
     this.api.inviteFriendsForEvent(params).subscribe(
       data => {
         console.log("invite friends response : ", data);
-        this.setting.showAlert(data.message);
+        this.setting.showAlert(data.message).then(() => {
+          this.dismiss();
+        });
         this.isWaiting = false;
       },
       err => {

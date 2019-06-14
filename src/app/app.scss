@@ -148,7 +148,9 @@ ion-label {
 .searchbar-ios .searchbar-search-icon {
   left: 15px;
 }
-
+.no-padding-top {
+  padding-top: 0;
+}
 .error-item {
   .item-inner {
     border-bottom: 0 solid transparent !important;

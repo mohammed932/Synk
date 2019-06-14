@@ -9,6 +9,16 @@
           (ionChange)="changeStatus($event)"
         ></ion-toggle>
       </button>
+      <div style="margin-top: 0.6rem;">My Activity</div>
+    </ion-buttons>
+    <ion-buttons start>
+      <button
+        ion-button
+        (click)="inviteFriendsToApp()"
+        class="invite-friends-btn"
+      >
+        Invite Friends
+      </button>
     </ion-buttons>
   </ion-navbar>
   <ion-searchbar
@@ -26,15 +36,20 @@
   <div *ngIf="!isLoading">
     <ion-grid class="card-grid" *ngFor="let event of allEvents">
       <ion-row class="top-row" (click)="eventDetails(event)">
-        <ion-col col-6>
+        <ion-col col-7>
           <h4>{{ event.title }}</h4>
-          <p style="margin: 0;">{{ event.user.name }} invited you</p>
+          <p style="margin: 0;">invited by</p>
         </ion-col>
-        <ion-col col-6 style="line-height: 0;">
-          <h4 ion-text text-end *ngIf="event.time">{{ event.time }}</h4>
+        <ion-col col-5 style="line-height: 0;">
+          <h4 ion-text text-end *ngIf="event.time">
+            {{ formatTime(event.time) }}
+          </h4>
           <p ion-text text-end class="happening-date">
-            {{ setting.formatNormalDate(date) }}
+            {{ setting.formatDateWithDayName(date) }}
           </p>
+        </ion-col>
+        <ion-col col-12 class="no-padding-top">
+          <div>{{ event.user.name }}</div>
         </ion-col>
       </ion-row>
       <ion-row class="bottom-row">
@@ -91,7 +106,10 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <not-found *ngIf="allEvents.length == 0" txt="No events found."></not-found>
+    <not-found
+      *ngIf="allEvents.length == 0"
+      txt="No activities found."
+    ></not-found>
     <ion-row *ngIf="allEvents.length == 0">
       <button
         class="add-event-btn"
@@ -100,7 +118,7 @@
         color="primary"
         round
       >
-        Add event
+        Add Activity
       </button>
     </ion-row>
   </div>

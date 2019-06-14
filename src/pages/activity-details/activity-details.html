@@ -3,9 +3,9 @@
     <ion-title>
       <div>Coffee</div>
     </ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="userData._id == event.user._id">
       <button ion-button icon-only (click)="editActivity()">
-        <ion-icon name="custom-edit"></ion-icon>
+        <ion-icon name="ios-create-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -14,16 +14,16 @@
 <ion-content>
   <ion-grid class="event-details-grid">
     <ion-row class="custom-row">
-      <ion-col col-1 align-self-center>
+      <ion-col col-2 align-self-center>
         <img src="assets/imgs/user.svg" class="small-avatar-img" />
       </ion-col>
-      <ion-col col-6>
-        <p>invited by {{ event.user.name }}</p>
+      <ion-col col-5>
+        <div>invited by {{ event.user.name }}</div>
       </ion-col>
       <ion-col col-5>
-        <p ion-text text-end color="primary" (click)="call()">
+        <div ion-text text-end color="primary" (click)="call()">
           {{ event.user.mobile }}
-        </p>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row class="custom-row">
@@ -31,10 +31,10 @@
         <img src="assets/imgs/location.svg" class="location-img" />
       </ion-col>
       <ion-col col-7>
-        <p ion-text text-start>{{ event.location }}</p>
+        <div ion-text text-start>{{ event.location }}</div>
       </ion-col>
       <ion-col col-4>
-        <p ion-text text-end>Take me there</p>
+        <div ion-text text-end color="blue">Take me there</div>
       </ion-col>
     </ion-row>
 
@@ -43,7 +43,7 @@
         <img src="assets/imgs/money-bag.svg" class="location-img" />
       </ion-col>
       <ion-col col-11>
-        <p ion-text text-start>{{ event.price }} LE per person</p>
+        <div ion-text text-start>{{ event.price }} LE per person</div>
       </ion-col>
     </ion-row>
 
@@ -52,9 +52,10 @@
         <img src="assets/imgs/calender.svg" class="location-img" />
       </ion-col>
       <ion-col col-11>
-        <p ion-text text-start>
-          {{ setting.formatNormalDate(event.date) }} {{ event.time }}
-        </p>
+        <div ion-text text-start>
+          {{ setting.formatDateWithDayName(event.date) }}
+          {{ formatTime(event.time) }}
+        </div>
       </ion-col>
     </ion-row>
 
@@ -62,20 +63,20 @@
       <ion-col col-6 align-self-center>
         <ion-row>
           <ion-col col-2 align-self-center class="no-padding-left">
-            <img src="assets/imgs/user.svg" class="user-img" />
+            <img src="assets/imgs/custom-user.svg" class="user-img" />
           </ion-col>
           <ion-col col-10>
-            <p>Min. {{ event.min }} people</p>
+            <div>Min. {{ event.min }} people</div>
           </ion-col>
         </ion-row>
       </ion-col>
       <ion-col col-6>
         <ion-row>
           <ion-col col-2 align-self-center class="no-padding-left">
-            <img src="assets/imgs/user.svg" class="user-img" />
+            <img src="assets/imgs/custom-user.svg" class="user-img" />
           </ion-col>
           <ion-col col-10>
-            <p>Max. {{ event.max }} people</p>
+            <div>Max. {{ event.max }} people</div>
           </ion-col>
         </ion-row>
       </ion-col>
@@ -83,11 +84,11 @@
 
     <ion-row>
       <ion-col col-12>
-        <p ion-text class="desc-txt">
+        <div ion-text class="desc-txt">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer
-        </p>
+        </div>
       </ion-col>
     </ion-row>
 
