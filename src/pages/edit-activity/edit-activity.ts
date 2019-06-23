@@ -117,7 +117,7 @@ export class EditActivityPage {
   editEvent() {
     this.isWaiting = true;
     let params = {
-      price: Number(this.event.price),
+      price: this.event.price ? Number(this.event.price) : 0,
       min: Number(this.event.min),
       max: Number(this.event.max),
       date: moment(this.event.date).format("YYYY-MM-DD"),

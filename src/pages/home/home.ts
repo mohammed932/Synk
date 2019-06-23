@@ -81,13 +81,16 @@ export class HomePage {
   getUserData() {
     this.api.userProfile().subscribe(data => {
       this.userSynkedEvents = data.synced_events;
-      this.allEvents.forEach(event => {
-        if (this.userSynkedEvents.includes(event._id)) {
-          event.isSynked = true;
-        } else {
-          event.isSynked = false;
-        }
-      });
+      if (this.userSynkedEvents.length != 0) {
+        this.allEvents.forEach(event => {
+          if (this.userSynkedEvents.includes(event._id)) {
+            event.isSynked = true;
+          } else {
+            event.isSynked = false;
+          }
+        });
+      }
+
       this.isLoading = false;
       console.log("userSynkedEvents : ", this.userSynkedEvents);
     });
@@ -114,6 +117,9 @@ export class HomePage {
   }
 
   getSynkedEvents() {
+    console.log("====================================");
+    console.log("a7a currentPage: ", this.currentPage);
+    console.log("====================================");
     this.api.getSynkedEvents().subscribe(
       data => {
         console.log("synked events : ", data);
@@ -138,12 +144,10 @@ export class HomePage {
   }
 
   doInfinite(scroll) {
-    console.log("occasions scroll");
     this.currentPage += 1;
     if (this.currentPage <= this.pagesCount) {
       this.api.getEvents(this.currentPage, this.limit).subscribe(data => {
         this.allEvents = this.allEvents.concat(data.events);
-
         this.allEvents.forEach(event => {
           if (this.userSynkedEvents.includes(event._id)) {
             event.isSynked = true;
@@ -174,6 +178,7 @@ export class HomePage {
       this.allEvents = this.events;
     });
   }
+
   formatTime(time) {
     return time.replace(/^0+/, "");
   }

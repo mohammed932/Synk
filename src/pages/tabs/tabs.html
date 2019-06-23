@@ -2,6 +2,10 @@
   <ion-tab [root]="tab1Root" tabIcon="custom-happening"></ion-tab>
   <ion-tab [root]="tab2Root" tabIcon="custom-Friends"></ion-tab>
   <ion-tab [root]="tab3Root" tabIcon="custom-add"></ion-tab>
-  <ion-tab [root]="tab4Root" tabIcon="custom-Notifications"></ion-tab>
+  <ion-tab
+    [root]="tab4Root"
+    tabIcon="custom-Notifications"
+    [tabBadge]="count"
+  ></ion-tab>
   <ion-tab [root]="tab5Root" tabIcon="custom-people"></ion-tab>
 </ion-tabs>

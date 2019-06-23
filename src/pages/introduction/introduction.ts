@@ -17,22 +17,7 @@ export class IntroductionPage {
     public navCtrl: NavController,
     private modalCtrl: ModalController,
     public navParams: NavParams
-  ) {
-    // if (this.tabBarElement) {
-    //   this.tabBarElement = document.querySelector(".tabbar.show-tabbar");
-    // }
-  }
-
-  // ionViewWillEnter() {
-  //   if (this.tabBarElement) {
-  //     this.tabBarElement.style.display = "none";
-  //   }
-  // }
-  // ionViewWillLeave() {
-  //   if (this.tabBarElement) {
-  //     this.tabBarElement.style.display = "flex";
-  //   }
-  // }
+  ) {}
 
   goToSignIn() {
     this.navCtrl.push("SignInPage");

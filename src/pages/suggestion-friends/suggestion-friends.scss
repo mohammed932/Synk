@@ -49,7 +49,13 @@ page-suggestion-friends {
     border-bottom: 1px solid #d8d8d8;
     padding: 0.6rem;
   }
-
+  .not-found {
+    background: #f1eff0;
+    padding-top: 3rem;
+  }
+  .add-btn {
+    height: 1.8em !important;
+  }
   .searchbar-ios {
     padding: 0 8px;
     min-height: 44px;

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, NgZone } from "@angular/core";
 import {
   IonicPage,
   NavController,
@@ -12,7 +12,12 @@ import { SettingProvider } from "../../providers/setting/setting";
 import { FormBuilder, Validators } from "@angular/forms";
 import { MustMatch } from "./must_match";
 import { Camera, CameraOptions } from "@ionic-native/camera";
-
+import { File } from "@ionic-native/file";
+import {
+  FileTransfer,
+  FileUploadOptions,
+  FileTransferObject
+} from "@ionic-native/file-transfer";
 @IonicPage()
 @Component({
   selector: "page-sign-up",
@@ -23,6 +28,7 @@ export class SignUpPage {
   data: any = {
     gender: "male"
   };
+  base64Img: any = null;
   signUpForm1;
   signUpForm2;
   signUpForm3;
@@ -32,7 +38,10 @@ export class SignUpPage {
     private api: ApiProvider,
     private actionSheetCtrl: ActionSheetController,
     public builder: FormBuilder,
+    private ngzone: NgZone,
+    private transfer: FileTransfer,
     private setting: SettingProvider,
+    private file: File,
     private viewCtrl: ViewController,
     private camera: Camera,
     public navParams: NavParams
@@ -105,7 +114,7 @@ export class SignUpPage {
     const options: CameraOptions = {
       quality: 80,
       saveToPhotoAlbum: false,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType:
@@ -119,14 +128,64 @@ export class SignUpPage {
     this.camera.getPicture(options).then(
       imageData => {
         console.log("imageData : ", imageData);
-        this.data.imageUri = "data:image/jpeg;base64," + imageData;
+        this.data.imageUri = imageData;
+        this.convertFileToImg(imageData);
       },
       err => {
         // Handle error
       }
     );
   }
+  convertFileToImg(imageData) {
+    this.file
+      .resolveLocalFilesystemUrl(imageData)
+      .then((entry: any) => {
+        entry.file(file1 => {
+          var reader = new FileReader();
+          reader.onload = (encodedFile: any) => {
+            var src = encodedFile.target.result;
+            this.ngzone.run(() => {
+              this.base64Img = src;
+              console.log("base64Img is :", this.base64Img);
+            });
+          };
+          reader.readAsDataURL(file1);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
+  sendDataToServerUsingFileTransfer() {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    let options: FileUploadOptions = {
+      fileKey: "profile_image",
+      fileName: `user_img.jpeg`,
+      chunkedMode: false,
+      httpMethod: "POST",
+      mimeType: "image/jpeg",
+      params: { data: JSON.stringify(this.data) }
+    };
+
+    fileTransfer
+      .upload(this.data.imageUri, `${this.setting.URL}register`, options)
+      .then(
+        data => {
+          console.log("upload image profile data data :", data);
+          this.isWaiting = false;
+          localStorage.setItem("userData", data.response);
+          localStorage.setItem("access_token", data.response["token"]);
+          localStorage.setItem("userId", data.response["_id"]);
+          localStorage.setItem("isLogin", JSON.stringify(true));
+          this.navCtrl.setRoot("InviteFriendsPage");
+        },
+        err => {
+          console.log(err);
+          this.isWaiting = false;
+        }
+      );
+  }
   next(index) {
     this.navigateToNextSlide(index);
   }
@@ -141,19 +200,28 @@ export class SignUpPage {
 
   Done() {
     this.isWaiting = true;
+    if (this.data.imageUri) {
+      this.sendDataToServerUsingFileTransfer();
+    } else {
+      this.sendDataToServerWithoutFileTransfer();
+    }
+  }
+  sendDataToServerWithoutFileTransfer() {
     this.api.signUp(this.data).subscribe(
       data => {
         this.isWaiting = false;
-        localStorage.setItem("userId", data.id);
-        localStorage.setItem("isLogin", JSON.stringify(false));
-        this.navCtrl.setRoot("SignInPage");
+        localStorage.setItem("userData", JSON.stringify(data));
+        localStorage.setItem("access_token", data.token);
+        localStorage.setItem("userId", data._id);
+        localStorage.setItem("isLogin", JSON.stringify(true));
+        this.navCtrl.setRoot("InviteFriendsPage");
       },
       err => {
+        this.setting.showAlert(err.error.message);
         this.setting.showAlert(err.error.message);
         this.isWaiting = false;
         console.log("registration error is :", err);
       }
     );
-    console.log("sign up data : ", this.data);
   }
 }

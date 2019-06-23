@@ -94,6 +94,10 @@ export class ActivityDetailsPage {
       return "";
     }
   }
+
+  openUserProfile(id) {
+    this.navCtrl.push("UserProfilePage", { userId: id });
+  }
   call() {
     this.callNumber
       .callNumber(this.event.user.mobile, true)

@@ -42,7 +42,7 @@
         </ion-col>
         <ion-col col-5 style="line-height: 0;">
           <h4 ion-text text-end *ngIf="event.time">
-            {{ formatTime(event.time) }}
+            {{ formatTime(setting.timeAmPm(event.time)) }}
           </h4>
           <p ion-text text-end class="happening-date">
             {{ setting.formatDateWithDayName(date) }}
@@ -59,7 +59,7 @@
             <p class="location-txt">{{ event.location }}</p>
           </div>
           <div>
-            <img src="assets/imgs/user.svg" class="icon-img" />
+            <img src="assets/imgs/custom-user.svg" class="icon-img" />
             <p class="location-txt">
               {{ event.goings_count }}/{{ event.max }} people synked
             </p>
@@ -123,7 +123,10 @@
     </ion-row>
   </div>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll
+    *ngIf="!this.data.toggle"
+    (ionInfinite)="doInfinite($event)"
+  >
     <ion-infinite-scroll-content
       loadingText="Loading..."
     ></ion-infinite-scroll-content>

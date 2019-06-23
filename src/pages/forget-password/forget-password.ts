@@ -22,6 +22,8 @@ export class ForgetPasswordPage {
     this.isWaiting = true;
     this.api.forgetPassword(this.data).subscribe(
       data => {
+        this.setting.showAlert(data.message);
+        this.navCtrl.pop();
         this.isWaiting = false;
       },
       err => {

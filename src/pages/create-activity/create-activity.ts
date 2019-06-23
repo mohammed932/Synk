@@ -39,6 +39,10 @@ export class CreateActivityPage {
     showDoneBtn: false,
     showArrowBack: false,
     friends_id: [],
+    location: "",
+    min: "",
+    max: "",
+    price: "",
     invite_status: 0,
     event_date: moment(new Date()).format("YYYY-MM-DD")
   };
@@ -117,10 +121,8 @@ export class CreateActivityPage {
         this.data.showArrowBack = true;
         break;
       case 4:
-        console.log("hi there");
         console.log("data is :", this.data);
         this.data.time = moment(this.data.event_time).format("hh:mm A");
-        // this.createEvent(index);
         break;
       case 5:
         this.data.showDoneBtn = true;

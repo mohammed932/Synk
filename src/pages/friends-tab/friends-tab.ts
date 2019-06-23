@@ -9,6 +9,5 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 export class FriendsTabPage {
   tab1Root = "MyFriendsPage";
   tab2Root = "SuggestionFriendsPage";
-
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 }

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ userData?.name }} profile.</ion-title>
+    <ion-buttons end *ngIf="userData">
+      <button
+        ion-button
+        (click)="addFriend()"
+        [disabled]="isWaiting"
+        *ngIf="!userData?.is_friend && !userData?.has_friend_request"
+      >
+        <span *ngIf="!isWaiting"> Add friend</span>
+        <ion-spinner
+          name="ios-small"
+          *ngIf="isWaiting"
+          color="light"
+        ></ion-spinner>
+      </button>
+      <div
+        *ngIf="!userData?.is_friend && userData?.has_friend_request"
+        ion-text
+        color="primary"
+      >
+        Pending
+      </div>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <loading *ngIf="isLoading"></loading>
+  <ion-row *ngIf="!isLoading">
+    <ion-col col-12>
+      <img
+        [src]="
+          userData.profile_image ? userData.profile_image : setting.DEFAULT_IMG
+        "
+        class="avatar-img"
+      />
+      <div class="user-name-wrapper">
+        <span class="username">{{ userData.name }}</span>
+        <span class="total-synks">{{ userData.goings_count }} SynkS</span>
+      </div>
+    </ion-col>
+
+    <ion-col col-12>
+      <div class="user-bio">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-content>

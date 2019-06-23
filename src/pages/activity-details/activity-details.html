@@ -28,6 +28,17 @@
     </ion-row>
     <ion-row class="custom-row">
       <ion-col col-1 align-self-center>
+        <img src="assets/imgs/calender.svg" class="location-img" />
+      </ion-col>
+      <ion-col col-11>
+        <div ion-text text-start>
+          {{ setting.formatDateWithDayName(event.date) }}
+          {{ formatTime(setting.timeAmPm(event.time)) }}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="custom-row">
+      <ion-col col-1 align-self-center>
         <img src="assets/imgs/location.svg" class="location-img" />
       </ion-col>
       <ion-col col-7>
@@ -44,18 +55,6 @@
       </ion-col>
       <ion-col col-11>
         <div ion-text text-start>{{ event.price }} LE per person</div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="custom-row">
-      <ion-col col-1 align-self-center>
-        <img src="assets/imgs/calender.svg" class="location-img" />
-      </ion-col>
-      <ion-col col-11>
-        <div ion-text text-start>
-          {{ setting.formatDateWithDayName(event.date) }}
-          {{ formatTime(event.time) }}
-        </div>
       </ion-col>
     </ion-row>
 
@@ -82,12 +81,11 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="event.description">
       <ion-col col-12>
+        <p ion-text color="danger">Activity Note:</p>
         <div ion-text class="desc-txt">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer
+          {{ event.description }}
         </div>
       </ion-col>
     </ion-row>
@@ -104,7 +102,7 @@
               float-end
               class="custom-btn custom-chat-btn"
             >
-              <ion-icon name="custom-chat"></ion-icon>
+              <!-- <ion-icon name="custom-chat"></ion-icon> -->
               <span class="bold">Chat</span>
             </button>
           </ion-col>
@@ -117,7 +115,7 @@
               (click)="goToTask()"
               class="custom-btn custom-task-btn"
             >
-              <ion-icon name="custom-tasks"></ion-icon>
+              <!-- <ion-icon name="custom-tasks"></ion-icon> -->
               <span class="bold">Tasks</span>
             </button>
           </ion-col>
@@ -132,7 +130,10 @@
   <ion-row class="find-persons-wrapper-row">
     <ion-col col-12 class="find-persons-wrapper-col">
       <ion-slides slidesPerView="4.4">
-        <ion-slide *ngFor="let going of goings">
+        <ion-slide
+          *ngFor="let going of goings"
+          (click)="openUserProfile(going.user._id)"
+        >
           <img src="assets/imgs/1.jpg" class="avatar-img" />
           <div class="avatar-name">{{ going.user.name }}</div>
         </ion-slide>

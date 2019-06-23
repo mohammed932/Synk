@@ -6,8 +6,13 @@
 
 <ion-content>
   <ion-row>
-    <ion-col col-12>
-      <img src="assets/imgs/1.jpg" class="avatar-img" />
+    <ion-col col-12 (click)="openActionSheet()">
+      <img
+        *ngIf="!base64Img"
+        [src]="userData.profile_image ? userData.profile_image : defaultImg"
+        class="avatar-img"
+      />
+      <img *ngIf="base64Img" [src]="base64Img" class="avatar-img" />
     </ion-col>
   </ion-row>
 

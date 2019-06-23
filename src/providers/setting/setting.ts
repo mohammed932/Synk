@@ -6,6 +6,7 @@ import * as moment from "moment";
 @Injectable()
 export class SettingProvider {
   URL: string = "https://sync-application.herokuapp.com/";
+  DEFAULT_IMG = "assets/imgs/user.svg";
   constructor(
     public http: HttpClient,
     private toastCtrl: ToastController,
@@ -40,6 +41,10 @@ export class SettingProvider {
       }
     }
     this.showAlert(text);
+  }
+
+  timeAmPm(time) {
+    return moment(time, "hh mm").format("LT");
   }
 
   async showAlert(text) {

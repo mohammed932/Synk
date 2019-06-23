@@ -17,7 +17,10 @@
 <ion-content>
   <ion-row>
     <ion-col col-12>
-      <img src="assets/imgs/1.jpg" class="avatar-img" />
+      <img
+        [src]="userData.profile_image ? userData.profile_image : defaultImg"
+        class="avatar-img"
+      />
       <div class="user-name-wrapper">
         <span class="username">{{ userData.name }}</span>
         <span class="total-synks">{{ userData.goings_count }} SynkS</span>

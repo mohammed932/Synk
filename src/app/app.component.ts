@@ -9,9 +9,7 @@ import { OneSignal } from "@ionic-native/onesignal";
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = "SignInPage";
-  // rootPage: any = "TabsPage";
-  // rootPage: any = "MyFriendsPage";
+  rootPage: any = "SignUpPage";
 
   constructor(
     private platform: Platform,
@@ -65,6 +63,8 @@ export class MyApp {
 
   checkDefaultRoute() {
     let isLogin = JSON.parse(localStorage.getItem("isLogin"));
+    console.log("isLoginisLogin :", isLogin);
+
     if (isLogin) {
       this.rootPage = "TabsPage";
     } else {

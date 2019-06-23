@@ -14,15 +14,18 @@
           <form [formGroup]="signUpForm1">
             <ion-row>
               <ion-col col-12 (click)="presentActionSheet()">
-                <div class="user-img-wrapper" *ngIf="!data.imageUri">
+                <div class="user-img-wrapper" *ngIf="!base64Img">
                   <div>
                     <img src="assets/imgs/add-camera.png" class="add-img" />
                     <div class="add-img-txt">Add Photo</div>
                   </div>
                 </div>
-                <div *ngIf="data.imageUri">
-                  <img [src]="data.imageUri" class="user-img" />
+                <div *ngIf="base64Img" class="base64-img">
+                  <img [src]="base64Img" class="add-img" />
                 </div>
+                <!-- <div *ngIf="data.imageUri">
+                  <img [src]="data.imageUri" class="user-img" />
+                </div> -->
               </ion-col>
             </ion-row>
             <ion-list>

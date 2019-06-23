@@ -8,11 +8,16 @@ import { IonicPage, NavController, NavParams, App } from "ionic-angular";
 })
 export class MyProfilePage {
   userData: any = JSON.parse(localStorage.getItem("userData"));
+  defaultImg: any = "assets/imgs/1.jpg";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private app: App
   ) {}
+
+  ionViewWillEnter() {
+    this.userData = JSON.parse(localStorage.getItem("userData"));
+  }
 
   Edit() {
     console.log("hey");

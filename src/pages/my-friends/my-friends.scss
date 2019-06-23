@@ -32,6 +32,7 @@ page-my-friends {
   }
   .friends-wraaper {
     background: white;
+    margin-bottom: 6rem;
   }
   .searchbar {
     margin-top: 1rem;
@@ -75,5 +76,10 @@ page-my-friends {
 
   .searchbar-ios.searchbar-left-aligned .searchbar-input {
     padding-left: 48px;
+  }
+
+  .not-found {
+    background: #f1eff0;
+    padding-top: 3rem;
   }
 }

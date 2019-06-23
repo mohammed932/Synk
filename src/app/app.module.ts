@@ -17,6 +17,8 @@ import { CallNumber } from "@ionic-native/call-number";
 import { Contacts } from "@ionic-native/contacts";
 import { Camera } from "@ionic-native/camera";
 import { ContactsProvider } from "../providers/contacts/contacts";
+import { FileTransfer } from "@ionic-native/file-transfer";
+import { File } from "@ionic-native/file";
 @NgModule({
   declarations: [MyApp],
   imports: [
@@ -46,6 +48,8 @@ import { ContactsProvider } from "../providers/contacts/contacts";
     ApiProvider,
     Contacts,
     Camera,
+    FileTransfer,
+    File,
     CallNumber,
     OneSignal,
     SettingProvider,

@@ -31,6 +31,24 @@ export class ApiProvider {
     return this.http.put(`${this.settingService.URL}users/${userId}`, params);
   }
 
+  updateNotification(params): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.put(
+      `${this.settingService.URL}users/${userId}/notifications/${
+        params.notificationId
+      }`,
+      params
+    );
+  }
+
+  changePassword(params): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.put(
+      `${this.settingService.URL}users/${userId}/change_password`,
+      params
+    );
+  }
+
   setDeviceToken(params): Observable<any> {
     let userId = localStorage.getItem("userId");
     return this.http.put(`${this.settingService.URL}users/${userId}`, params);
@@ -53,6 +71,13 @@ export class ApiProvider {
         params.eventId
       }/tasks`,
       params
+    );
+  }
+
+  countUnseenNotifications(): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.get(
+      `${this.settingService.URL}users/${userId}/notifications/count`
     );
   }
 
@@ -100,6 +125,24 @@ export class ApiProvider {
     );
   }
 
+  friendRequest(friendId): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.post(
+      `${this.settingService.URL}users/${userId}/friend_requests/${friendId}`,
+      {}
+    );
+  }
+
+  acceptRequest(requestId): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.post(
+      `${
+        this.settingService.URL
+      }users/${userId}/friend_requests/accept/${requestId}`,
+      {}
+    );
+  }
+
   getEventTasks(eventId): Observable<any> {
     let userId = localStorage.getItem("userId");
     return this.http.get(
@@ -116,6 +159,13 @@ export class ApiProvider {
     );
   }
 
+  getFriendRequests(): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.get(
+      `${this.settingService.URL}users/${userId}/friend_requests`
+    );
+  }
+
   getSynkedEvents(): Observable<any> {
     let userId = localStorage.getItem("userId");
     return this.http.get(
@@ -124,6 +174,10 @@ export class ApiProvider {
   }
   userProfile(): Observable<any> {
     let userId = localStorage.getItem("userId");
+    return this.http.get(`${this.settingService.URL}users/${userId}`);
+  }
+
+  userSpecificProfile(userId): Observable<any> {
     return this.http.get(`${this.settingService.URL}users/${userId}`);
   }
 
@@ -146,6 +200,19 @@ export class ApiProvider {
     let userId = localStorage.getItem("userId");
     return this.http.get(
       `${this.settingService.URL}users/${userId}/events/${eventId}/goings`
+    );
+  }
+
+  searchFriends(search): Observable<any> {
+    return this.http.get(`${this.settingService.URL}users/find/${search}`);
+  }
+
+  getUserNotifications(page, limit): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.get(
+      `${
+        this.settingService.URL
+      }users/${userId}/notifications?page=${page}&limit=${limit}`
     );
   }
 

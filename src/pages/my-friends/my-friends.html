@@ -3,7 +3,7 @@
     <ion-title>My Friends.</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="friendRequests()">
-        <div class="friend-requests">3 Friend Requests</div>
+        <div class="friend-requests">{{ count }} Friend Requests</div>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -12,7 +12,7 @@
     [(ngModel)]="data.search"
     showCancelButton="false"
     placeholder="Search for friends"
-    (ionInput)="search($event)"
+    (ionInput)="search()"
     (ionCancel)="onCancel($event)"
   >
   </ion-searchbar>
@@ -21,7 +21,11 @@
 <ion-content>
   <loading *ngIf="isLoading"></loading>
   <ion-grid *ngIf="!isLoading" class="friends-wraaper" no-padding>
-    <ion-row *ngFor="let friend of newFriends" class="friends-wraaper-row">
+    <ion-row
+      *ngFor="let friend of friends"
+      class="friends-wraaper-row"
+      (click)="openUserProfile(friend._id)"
+    >
       <ion-col no-padding col-3>
         <img src="assets/imgs/user.svg" class="friend-img" />
       </ion-col>
@@ -29,5 +33,10 @@
         <div class="bold">{{ friend.name }}</div>
       </ion-col>
     </ion-row>
+    <not-found
+      class="not-found"
+      *ngIf="friends.length == 0"
+      txt="No friends found."
+    ></not-found>
   </ion-grid>
 </ion-content>

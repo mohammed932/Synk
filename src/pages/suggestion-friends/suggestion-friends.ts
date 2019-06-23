@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { ApiProvider } from "../../providers/api/api";
 
 @IonicPage()
@@ -10,14 +10,21 @@ import { ApiProvider } from "../../providers/api/api";
 export class SuggestionFriendsPage {
   data: any = {};
   isLoading: boolean = true;
-  originalFriends: any;
+  friends: any;
   copyFriends: any;
   constructor(
     public navCtrl: NavController,
+    private event: Events,
     public navParams: NavParams,
     private api: ApiProvider
   ) {
     this.getSuggestionFriends();
+  }
+
+  checkEvents() {
+    this.event.subscribe("acceptRequest", () => {
+      this.getSuggestionFriends();
+    });
   }
 
   onInput(event) {}
@@ -25,8 +32,7 @@ export class SuggestionFriendsPage {
   getSuggestionFriends() {
     this.api.suggestionFriends().subscribe(
       data => {
-        this.originalFriends = data;
-        this.copyFriends = this.originalFriends;
+        this.friends = data;
         this.isLoading = false;
         console.log("suggestion friends data :", data);
       },
@@ -37,13 +43,43 @@ export class SuggestionFriendsPage {
     );
   }
 
-  search(event) {
-    this.copyFriends = this.originalFriends.filter(item => {
-      if (item.name != null) {
-        return (
-          item.name.toLowerCase().indexOf(this.data.search.toLowerCase()) > -1
-        );
+  openUserProfile(id) {
+    this.navCtrl.push("UserProfilePage", { userId: id });
+  }
+
+  search() {
+    this.isLoading = true;
+    if (this.data.search) {
+      this.api.searchFriends(this.data.search).subscribe(
+        data => {
+          this.friends = data;
+          console.log("ff:", this.friends);
+
+          this.isLoading = false;
+        },
+        err => {
+          this.isLoading = false;
+          console.log("search friends err :", err);
+        }
+      );
+    } else {
+      this.getSuggestionFriends();
+    }
+  }
+
+  addFriend(friend) {
+    friend.isActive = true;
+    this.api.friendRequest(friend._id).subscribe(
+      data => {
+        console.log("friend request data :", data);
+        friend.isActive = false;
+        friend.has_friend_request_sent = true;
+      },
+      err => {
+        console.log("friend request err:", err);
+        friend.isActive = false;
       }
-    });
+    );
+    console.log("friend :", friend);
   }
 }
