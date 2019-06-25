@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { ApiProvider } from "../../providers/api/api";
+import { SettingProvider } from "../../providers/setting/setting";
 
 @IonicPage()
 @Component({
@@ -16,10 +17,12 @@ export class MyFriendsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private event: Events,
+    private setting: SettingProvider,
     private api: ApiProvider
   ) {
     this.getMyFriends();
     this.getFriendRequestCount();
+    this.checkEvents();
   }
 
   checkEvents() {

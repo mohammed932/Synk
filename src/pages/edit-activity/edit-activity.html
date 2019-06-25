@@ -203,6 +203,7 @@
                 ion-button
                 color="primary"
                 class="next-btn"
+                [disabled]="isWaiting"
                 (click)="editEvent()"
                 full
                 round

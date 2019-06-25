@@ -221,7 +221,7 @@ export class CreateActivityPage {
   selectActivity(activity) {
     console.log("activity is:", activity);
     this.data.title = activity.name;
-    this.data.activityColor = activity.color;
+    this.data.color = activity.color;
   }
   reachEnd() {
     console.log("end reached");

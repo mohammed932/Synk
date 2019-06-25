@@ -34,7 +34,11 @@
 <ion-content padding>
   <loading *ngIf="isLoading"></loading>
   <div *ngIf="!isLoading">
-    <ion-grid class="card-grid" *ngFor="let event of allEvents">
+    <ion-grid
+      [ngStyle]="{ 'background-color': event.color ? event.color : '#e87261' }"
+      class="card-grid"
+      *ngFor="let event of allEvents"
+    >
       <ion-row class="top-row" (click)="eventDetails(event)">
         <ion-col col-7>
           <h4>{{ event.title }}</h4>

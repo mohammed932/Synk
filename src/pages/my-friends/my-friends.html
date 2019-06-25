@@ -27,7 +27,12 @@
       (click)="openUserProfile(friend._id)"
     >
       <ion-col no-padding col-3>
-        <img src="assets/imgs/user.svg" class="friend-img" />
+        <img
+          [src]="
+            friend.profile_image ? friend.profile_image : setting.DEFAULT_IMG
+          "
+          class="friend-img"
+        />
       </ion-col>
       <ion-col no-padding col-9 align-self-center>
         <div class="bold">{{ friend.name }}</div>

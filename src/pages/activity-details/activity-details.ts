@@ -72,6 +72,7 @@ export class ActivityDetailsPage {
     });
     modal.onDidDismiss(data => {
       console.log("return edit data modal :", data);
+      this.event = data;
     });
     modal.present();
   }

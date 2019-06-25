@@ -231,10 +231,12 @@ export class ApiProvider {
     return this.http.post(`${this.settingService.URL}forget_password`, params);
   }
 
-  searchEvents(title): Observable<any> {
+  searchEvents(title, page, limit): Observable<any> {
     let userId = localStorage.getItem("userId");
     return this.http.get(
-      `${this.settingService.URL}users/${userId}/events?title=${title}`
+      `${
+        this.settingService.URL
+      }users/${userId}/events?title=${title}&page=${page}&limit=${limit}`
     );
   }
 }

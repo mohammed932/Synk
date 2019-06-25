@@ -108,7 +108,8 @@ export class EditActivityPage {
 
   selectActivity(activity) {
     this.event.title = activity.name;
-    this.event.activityColor = activity.color;
+    this.data.color = activity.color;
+    this.event.color = activity.color;
   }
 
   dismiss() {
@@ -121,11 +122,13 @@ export class EditActivityPage {
       min: Number(this.event.min),
       max: Number(this.event.max),
       date: moment(this.event.date).format("YYYY-MM-DD"),
+      color: this.event.color,
       location: this.event.location,
       title: this.event.title,
       _id: this.event._id,
       time: this.event.time
     };
+
     console.log(params);
     this.api.updateEvent(params).subscribe(
       data => {

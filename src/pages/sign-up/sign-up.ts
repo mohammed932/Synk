@@ -172,12 +172,19 @@ export class SignUpPage {
       .upload(this.data.imageUri, `${this.setting.URL}register`, options)
       .then(
         data => {
-          console.log("upload image profile data data :", data);
+          console.log(
+            "upload image profile data data :",
+            JSON.stringify(data.response)
+          );
+
+          let response = JSON.parse(data.response);
+          console.log("my accessssss token :", response.token);
           this.isWaiting = false;
-          localStorage.setItem("userData", data.response);
-          localStorage.setItem("access_token", data.response["token"]);
-          localStorage.setItem("userId", data.response["_id"]);
+          localStorage.setItem("userData", JSON.stringify(response));
+          localStorage.setItem("access_token", response.token);
+          localStorage.setItem("userId", response._id);
           localStorage.setItem("isLogin", JSON.stringify(true));
+          this.dismiss();
           this.navCtrl.setRoot("InviteFriendsPage");
         },
         err => {
@@ -214,8 +221,10 @@ export class SignUpPage {
         localStorage.setItem("access_token", data.token);
         localStorage.setItem("userId", data._id);
         localStorage.setItem("isLogin", JSON.stringify(true));
+        this.dismiss();
         this.navCtrl.setRoot("InviteFriendsPage");
       },
+
       err => {
         this.setting.showAlert(err.error.message);
         this.setting.showAlert(err.error.message);

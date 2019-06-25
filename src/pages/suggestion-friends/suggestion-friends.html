@@ -17,7 +17,12 @@
   <ion-grid *ngIf="!isLoading" class="friends-wraaper" no-padding>
     <ion-row *ngFor="let friend of friends" class="friends-wraaper-row">
       <ion-col no-padding col-3 (click)="openUserProfile(friend._id)">
-        <img src="assets/imgs/user.svg" class="friend-img" />
+        <img
+          [src]="
+            friend.profile_image ? friend.profile_image : setting.DEFAULT_IMG
+          "
+          class="friend-img"
+        />
       </ion-col>
       <ion-col
         no-padding

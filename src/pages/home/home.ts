@@ -4,6 +4,7 @@ import {
   NavController,
   NavParams,
   Events,
+  Content,
   Toggle,
   ModalController
 } from "ionic-angular";
@@ -18,6 +19,7 @@ import { SettingProvider } from "../../providers/setting/setting";
 })
 export class HomePage {
   message: string = "type your response";
+  @ViewChild(Content) content: Content;
   response: string = "Response";
   name: string = "Client";
   currentPage = 0;
@@ -96,8 +98,10 @@ export class HomePage {
     });
   }
 
-  eventDetails(event) {
-    this.navCtrl.push("ActivityDetailsPage", { event: event });
+  async eventDetails(event) {
+    this.navCtrl.push("ActivityDetailsPage", { event: event }).then(data => {
+      console.log("my awesoime data : ", data);
+    });
   }
 
   makeGoing(event) {
@@ -117,9 +121,6 @@ export class HomePage {
   }
 
   getSynkedEvents() {
-    console.log("====================================");
-    console.log("a7a currentPage: ", this.currentPage);
-    console.log("====================================");
     this.api.getSynkedEvents().subscribe(
       data => {
         console.log("synked events : ", data);
@@ -146,17 +147,26 @@ export class HomePage {
   doInfinite(scroll) {
     this.currentPage += 1;
     if (this.currentPage <= this.pagesCount) {
-      this.api.getEvents(this.currentPage, this.limit).subscribe(data => {
-        this.allEvents = this.allEvents.concat(data.events);
-        this.allEvents.forEach(event => {
-          if (this.userSynkedEvents.includes(event._id)) {
-            event.isSynked = true;
-          } else {
-            event.isSynked = false;
-          }
+      if (!this.data.search) {
+        this.api.getEvents(this.currentPage, this.limit).subscribe(data => {
+          this.allEvents = this.allEvents.concat(data.events);
+          this.allEvents.forEach(event => {
+            if (this.userSynkedEvents.includes(event._id)) {
+              event.isSynked = true;
+            } else {
+              event.isSynked = false;
+            }
+          });
+          scroll.complete();
         });
-        scroll.complete();
-      });
+      } else {
+        this.api
+          .searchEvents(this.data.search, this.currentPage, this.limit)
+          .subscribe(data => {
+            this.allEvents = this.allEvents.concat(data.events);
+            scroll.complete();
+          });
+      }
     } else {
       scroll.complete();
     }
@@ -172,11 +182,22 @@ export class HomePage {
 
   search() {
     console.log("new data :", this.data.search);
-    this.api.searchEvents(this.data.search).subscribe(data => {
-      console.log("search events data :", data);
-      this.events = data.events;
-      this.allEvents = this.events;
-    });
+    this.isLoading = true;
+    this.currentPage = 0;
+    this.api
+      .searchEvents(this.data.search, this.currentPage, this.limit)
+      .subscribe(
+        data => {
+          console.log("search events data :", data);
+          this.events = data.events;
+          this.content.scrollToTop(1000);
+          this.isLoading = false;
+          this.allEvents = this.events;
+        },
+        err => {
+          this.isLoading = false;
+        }
+      );
   }
 
   formatTime(time) {

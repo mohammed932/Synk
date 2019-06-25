@@ -28,6 +28,6 @@ export class MyProfilePage {
     localStorage.setItem("isLogin", JSON.stringify(false));
     localStorage.setItem("access_token", "");
     this.app.getRootNavs()[0].push("IntroductionPage");
-    // this.navCtrl.setRoot("IntroductionPage");
+    this.navCtrl.setRoot("IntroductionPage");
   }
 }

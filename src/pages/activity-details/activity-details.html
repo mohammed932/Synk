@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="danger">
     <ion-title>
-      <div>Coffee</div>
+      <div>{{ event.title }}</div>
     </ion-title>
     <ion-buttons end *ngIf="userData._id == event.user._id">
       <button ion-button icon-only (click)="editActivity()">

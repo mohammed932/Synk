@@ -33,7 +33,12 @@
       [style.background-color]="friend.active ? '#e6e6e6' : ''"
     >
       <ion-col col-2>
-        <img src="assets/imgs/user.svg" class="user-img" />
+        <img
+          [src]="
+            friend.profile_image ? friend.profile_image : setting.DEFAULT_IMG
+          "
+          class="user-img"
+        />
       </ion-col>
       <ion-col col-8>
         <h6 ion-text text-start color="light">{{ friend.name }}</h6>

@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>Sign Up</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -9,7 +14,6 @@
     <ion-row>
       <ion-slides>
         <!-- Slide 1 -->
-
         <ion-slide>
           <form [formGroup]="signUpForm1">
             <ion-row>
@@ -271,7 +275,7 @@
                 ion-button
                 color="primary"
                 (click)="Done()"
-                [disabled]="!signUpForm3.valid"
+                [disabled]="!signUpForm3.valid || isWaiting"
                 round
                 full
               >

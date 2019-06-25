@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { ApiProvider } from "../../providers/api/api";
+import { SettingProvider } from "../../providers/setting/setting";
 
 @IonicPage()
 @Component({
@@ -15,10 +16,12 @@ export class SuggestionFriendsPage {
   constructor(
     public navCtrl: NavController,
     private event: Events,
+    private setting: SettingProvider,
     public navParams: NavParams,
     private api: ApiProvider
   ) {
     this.getSuggestionFriends();
+    this.checkEvents();
   }
 
   checkEvents() {

@@ -93,14 +93,14 @@ export const ContactList = [
 ];
 
 export const randomActivities = [
-  { name: "Yoga", color: "#38ceb6" },
-  { name: "Coffee", color: "#ff5c53" },
+  { name: "Yoga", color: "#ff5c53" },
+  { name: "Coffee", color: "#6276f9" },
   { name: "Dish Party", color: "#484647" },
   { name: "Feluka ride", color: "#6276f9" },
-  { name: "Bar hopping", color: "#42d3d4" },
-  { name: "Tennis", color: "#4ad53c" },
-  { name: "Bowling", color: "#484647" },
-  { name: "Shopping", color: "#38ceb6" },
+  { name: "Bar hopping", color: "#484647" },
+  { name: "Tennis", color: "#ff5c53" },
+  { name: "Bowling", color: "#6276f9" },
+  { name: "Shopping", color: "#484647" },
   { name: "ICe skating", color: "#6276f9" },
   { name: "Pottery", color: "#ff5c53" }
 ];

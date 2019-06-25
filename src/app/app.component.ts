@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { Platform } from "ionic-angular";
+import { Component, ViewChild } from "@angular/core";
+import { Platform, Nav } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Keyboard } from "@ionic-native/keyboard";
@@ -10,7 +10,7 @@ import { OneSignal } from "@ionic-native/onesignal";
 })
 export class MyApp {
   rootPage: any = "SignUpPage";
-
+  @ViewChild(Nav) nav: Nav;
   constructor(
     private platform: Platform,
     private statusBar: StatusBar,
@@ -49,7 +49,9 @@ export class MyApp {
       console.log("notification msg : ", JSON.stringify(msg));
     });
 
-    this.oneSignal.handleNotificationOpened().subscribe(msg => {});
+    this.oneSignal.handleNotificationOpened().subscribe(msg => {
+      this.nav.push("ActivityDetailsPage");
+    });
 
     //  this.oneSignal.handleNotificationOpened(notificationOpenedCallback)
     this.oneSignal.endInit();
