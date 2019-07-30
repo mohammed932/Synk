@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav } from "ionic-angular";
+import { Platform, Nav, Events } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Keyboard } from "@ionic-native/keyboard";
@@ -14,6 +14,7 @@ export class MyApp {
   constructor(
     private platform: Platform,
     private statusBar: StatusBar,
+    private event: Events,
     private oneSignal: OneSignal,
     private keyboard: Keyboard,
     private splashScreen: SplashScreen
@@ -46,11 +47,13 @@ export class MyApp {
     // When a push notification is received handle
     // how the application will respond
     this.oneSignal.handleNotificationReceived().subscribe(msg => {
+      this.event.publish("notificationReceive");
       console.log("notification msg : ", JSON.stringify(msg));
     });
 
     this.oneSignal.handleNotificationOpened().subscribe(msg => {
-      this.nav.push("ActivityDetailsPage");
+      this.event.publish("notificationReceive");
+      // this.nav.push("ActivityDetailsPage");
     });
 
     //  this.oneSignal.handleNotificationOpened(notificationOpenedCallback)

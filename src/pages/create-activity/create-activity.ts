@@ -4,11 +4,9 @@ import {
   NavController,
   NavParams,
   ViewController,
-  App,
   DateTime,
   AlertController,
-  Slides,
-  Events
+  Slides
 } from "ionic-angular";
 import * as _ from "lodash";
 import * as moment from "moment";
@@ -22,8 +20,7 @@ import { SettingProvider } from "../../providers/setting/setting";
 })
 export class CreateActivityPage {
   randomActivities: any = randomActivities;
-  // friends: any = ContactList;
-  // newFriends: any = ContactList;
+
   isModal: boolean = this.navParams.get("isModal");
   friends: any[] = [];
   newFriends: any[] = [];
@@ -53,8 +50,6 @@ export class CreateActivityPage {
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
-    private event: Events,
-    private app: App,
     private setting: SettingProvider,
     private api: ApiProvider,
     private alertCtrl: AlertController,
@@ -110,8 +105,13 @@ export class CreateActivityPage {
     this.slideIndex = index;
     switch (index) {
       case 1:
-        this.data.showArrowBack = true;
-        this.datePicker.open();
+        if (this.data.title) {
+          this.data.showArrowBack = true;
+          this.datePicker.open();
+        } else {
+          this.setting.showAlert("You must add activity title");
+          return;
+        }
         break;
       case 2:
         this.data.showArrowBack = true;
@@ -122,7 +122,19 @@ export class CreateActivityPage {
         break;
       case 4:
         console.log("data is :", this.data);
-        this.data.time = moment(this.data.event_time).format("hh:mm A");
+        if (this.data.min > this.data.max) {
+          console.log("min > max");
+          this.setting.showAlert("Max people must be bigger than Min people");
+          return;
+        } else if (this.data.max && !this.data.min) {
+          this.setting.showAlert("You must add Min people");
+          return;
+        } else if (this.data.min && !this.data.max) {
+          this.setting.showAlert("You must add Max people");
+          return;
+        } else {
+          this.data.time = moment(this.data.event_time).format("hh:mm A");
+        }
         break;
       case 5:
         this.data.showDoneBtn = true;
@@ -191,6 +203,29 @@ export class CreateActivityPage {
   }
 
   Done(isAllCommunity) {
+    let alert = this.alertCtrl.create({
+      title: "Confirm Create Activity",
+      message: "Do you want to create  this activity?",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "Confirm",
+          handler: () => {
+            this.callServer(isAllCommunity);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  callServer(isAllCommunity) {
     this.isWaiting = true;
     if (isAllCommunity == "all") {
       this.data.is_public = true;
@@ -212,6 +247,11 @@ export class CreateActivityPage {
         this.dismiss();
       },
       err => {
+        if (!_.has(err.error, "details")) {
+          this.setting.showAlert(err.error.message);
+        } else {
+          this.setting.showAlert(err.error.details[0].message);
+        }
         console.log("create event error is :", err);
         this.isWaiting = false;
       }
@@ -234,11 +274,11 @@ export class CreateActivityPage {
 
   Search(event) {
     this.newFriends = this.friends.filter(item => {
-      if (item.name != null && item.phone != null) {
+      if (item.name != null && item.mobile != null) {
         return (
           item.name.toLowerCase().indexOf(this.data.search.toLowerCase()) >
             -1 ||
-          item.phone.toLowerCase().indexOf(this.data.search.toLowerCase()) > -1
+          item.mobile.toLowerCase().indexOf(this.data.search.toLowerCase()) > -1
         );
       }
     });

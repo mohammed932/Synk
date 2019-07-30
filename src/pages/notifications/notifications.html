@@ -10,7 +10,7 @@
     <button
       [class.not-read]="!notification.is_clicked"
       ion-item
-      (click)="updateNotification(notification)"
+      (click)="openNotification(notification)"
       *ngFor="let notification of notifications"
     >
       <ion-row>
@@ -18,7 +18,14 @@
           <div class="time">{{ notification.time }}</div>
         </ion-col>
         <ion-col col-2>
-          <img src="assets/imgs/1.jpg" class="noti-icon" />
+          <img
+            [src]="
+              notification.data.user.profile_image
+                ? notification.data.user.profile_image
+                : setting.DEFAULT_IMG
+            "
+            class="noti-icon"
+          />
         </ion-col>
         <ion-col col-10 class="noti-txt">
           <span>{{ notification.message }}</span>

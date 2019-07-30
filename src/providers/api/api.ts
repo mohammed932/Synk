@@ -159,6 +159,13 @@ export class ApiProvider {
     );
   }
 
+  getEvent(id): Observable<any> {
+    let userId = localStorage.getItem("userId");
+    return this.http.get(
+      `${this.settingService.URL}users/${userId}/events/${id}`
+    );
+  }
+
   getFriendRequests(): Observable<any> {
     let userId = localStorage.getItem("userId");
     return this.http.get(

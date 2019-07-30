@@ -11,6 +11,7 @@ import { randomActivities } from "../create-activity/mocks";
 import * as moment from "moment";
 import { ApiProvider } from "../../providers/api/api";
 import { SettingProvider } from "../../providers/setting/setting";
+import * as _ from "lodash";
 
 @IonicPage()
 @Component({
@@ -128,16 +129,18 @@ export class EditActivityPage {
       _id: this.event._id,
       time: this.event.time
     };
-
-    console.log(params);
     this.api.updateEvent(params).subscribe(
       data => {
-        console.log("update event data");
         this.setting.showAlert("event updated successfully !");
         this.viewCtrl.dismiss(data);
         this.isWaiting = false;
       },
       err => {
+        if (!_.has(err.error, "details")) {
+          this.setting.showAlert(err.error.message);
+        } else {
+          this.setting.showAlert(err.error.details[0].message);
+        }
         this.isWaiting = false;
         console.log("update event err :", err);
       }

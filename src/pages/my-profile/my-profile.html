@@ -7,7 +7,7 @@
       </button>
     </ion-buttons>
     <ion-buttons start>
-      <button ion-button icon-only (click)="logout()">
+      <button ion-button icon-only (click)="confirmLogout()">
         <div class="friend-requests">Logout</div>
       </button>
     </ion-buttons>
@@ -18,7 +18,9 @@
   <ion-row>
     <ion-col col-12>
       <img
-        [src]="userData.profile_image ? userData.profile_image : defaultImg"
+        [src]="
+          userData.profile_image ? userData.profile_image : setting.DEFAULT_IMG
+        "
         class="avatar-img"
       />
       <div class="user-name-wrapper">
@@ -27,11 +29,9 @@
       </div>
     </ion-col>
 
-    <ion-col col-12>
+    <ion-col col-12 *ngIf="userData.about">
       <div class="user-bio">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s
+        {{ userData.about }}
       </div>
     </ion-col>
   </ion-row>

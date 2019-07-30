@@ -27,7 +27,6 @@ export class EditProfilePage {
   };
   base64Img: any = null;
   isWaiting: boolean = false;
-  defaultImg: any = "assets/imgs/1.jpg";
   userData: any = JSON.parse(localStorage.getItem("userData"));
   constructor(
     public navCtrl: NavController,

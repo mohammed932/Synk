@@ -8,7 +8,7 @@ import {
 } from "ionic-angular";
 import { ApiProvider } from "../../providers/api/api";
 import { SettingProvider } from "../../providers/setting/setting";
-
+import * as _ from "lodash";
 @IonicPage()
 @Component({
   selector: "page-change-password",
@@ -39,8 +39,12 @@ export class ChangePasswordPage {
         this.isWaiting = false;
       },
       err => {
+        if (!_.has(err.error, "details")) {
+          this.setting.showAlert(err.error.message);
+        } else {
+          this.setting.showAlert(err.error.details[0].message);
+        }
         this.isWaiting = false;
-        this.setting.showAlert(err.error.message);
       }
     );
   }
@@ -50,6 +54,5 @@ export class ChangePasswordPage {
     localStorage.setItem("access_token", "");
     this.dismiss();
     this.app.getRootNavs()[0].push("IntroductionPage");
-    // this.navCtrl.setRoot("IntroductionPage");
   }
 }

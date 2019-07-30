@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar color="danger">
     <ion-title>
-      <div>{{ event.title }}</div>
+      <div *ngIf="event.title">{{ event.title }}</div>
     </ion-title>
-    <ion-buttons end *ngIf="userData._id == event.user._id">
+    <ion-buttons end *ngIf="userData._id == event?.user?._id">
       <button ion-button icon-only (click)="editActivity()">
         <ion-icon name="ios-create-outline"></ion-icon>
       </button>
@@ -12,15 +12,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="event-details-grid">
+  <loading *ngIf="isLoading"></loading>
+  <ion-grid *ngIf="!isLoading" class="event-details-grid">
     <ion-row class="custom-row">
       <ion-col col-2 align-self-center>
-        <img src="assets/imgs/user.svg" class="small-avatar-img" />
+        <img
+          [src]="
+            event.user.profile_image
+              ? event.user.profile_image
+              : setting.DEFAULT_IMG
+          "
+          class="small-avatar-img"
+        />
       </ion-col>
-      <ion-col col-5>
-        <div>invited by {{ event.user.name }}</div>
+      <ion-col col-5 align-self-center>
+        <div *ngIf="!event.isSynked">invited by {{ event.user.name }}</div>
+        <div *ngIf="event.isSynked">Created by you.</div>
       </ion-col>
-      <ion-col col-5>
+      <ion-col col-5 align-self-center>
         <div ion-text text-end color="primary" (click)="call()">
           {{ event.user.mobile }}
         </div>
@@ -37,7 +46,7 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row class="custom-row">
+    <ion-row class="custom-row" *ngIf="event.location">
       <ion-col col-1 align-self-center>
         <img src="assets/imgs/location.svg" class="location-img" />
       </ion-col>
@@ -75,7 +84,12 @@
             <img src="assets/imgs/custom-user.svg" class="user-img" />
           </ion-col>
           <ion-col col-10>
-            <div>Max. {{ event.max }} people</div>
+            <div>
+              Max. <span *ngIf="event.max > 0">{{ event.max }} people</span>
+              <span *ngIf="event.max == 0" ion-text color="primary"
+                >Unlimited</span
+              >
+            </div>
           </ion-col>
         </ion-row>
       </ion-col>
@@ -123,9 +137,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
   <div class="bold synk-txt">
-    {{ event.goings_count }}/{{ event.max }} people synked to activity
+    {{ event.goings_count }}
+    <span *ngIf="event.max > 0">/{{ event.max }}</span> people synked to
+    activity
   </div>
   <ion-row class="find-persons-wrapper-row">
     <ion-col col-12 class="find-persons-wrapper-col">
@@ -134,7 +149,14 @@
           *ngFor="let going of goings"
           (click)="openUserProfile(going.user._id)"
         >
-          <img src="assets/imgs/1.jpg" class="avatar-img" />
+          <img
+            [src]="
+              going.user.profile_image
+                ? going.user.profile_image
+                : setting.DEFAULT_IMG
+            "
+            class="avatar-img"
+          />
           <div class="avatar-name">{{ going.user.name }}</div>
         </ion-slide>
       </ion-slides>
@@ -145,6 +167,23 @@
         ion-button
         round
         block
+        *ngIf="!event.isSynked && !event.is_completed"
+        color="primary"
+        (click)="makeGoing()"
+        class="invite-btn"
+      >
+        <span class="bold" *ngIf="!isSynkWaiting">Synk to activity</span>
+        <ion-spinner
+          name="ios-small"
+          *ngIf="isSynkWaiting"
+          color="light"
+        ></ion-spinner>
+      </button>
+      <button
+        ion-button
+        round
+        *ngIf="event.isSynked && !event.is_completed"
+        block
         color="secondary"
         (click)="inviteFriends()"
         class="invite-btn"
@@ -153,7 +192,12 @@
       </button>
 
       <div class="unsynk" *ngIf="event.isSynked" (click)="unSync()">
-        UNSYNK FROM ACTIVITY
+        <span *ngIf="!isSynkWaiting">UNSYNK FROM ACTIVITY</span>
+        <ion-spinner
+          name="ios-small"
+          *ngIf="isSynkWaiting"
+          color="light"
+        ></ion-spinner>
       </div>
     </ion-col>
   </ion-row>

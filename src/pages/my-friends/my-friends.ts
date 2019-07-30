@@ -28,6 +28,7 @@ export class MyFriendsPage {
   checkEvents() {
     this.event.subscribe("acceptRequest", () => {
       this.getMyFriends();
+      this.getFriendRequestCount();
     });
   }
 

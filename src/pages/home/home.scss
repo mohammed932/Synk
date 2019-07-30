@@ -89,6 +89,10 @@ page-home {
   }
   .invite-friends-btn {
     font-size: 1.4rem;
+    color: #00dae3 !important;
+    text-decoration: underline;
+    position: relative !important;
+    top: 2rem;
   }
 
   .card-grid {
@@ -103,6 +107,7 @@ page-home {
       // line-height: 0;
       color: white;
       padding: 0.5rem;
+      padding-bottom: 0;
     }
     .bottom-row {
       // background: #e98575;
@@ -111,6 +116,7 @@ page-home {
       font-size: 1.4rem;
       border-radius: 1rem;
       padding: 0.4rem;
+      padding-top: 0;
     }
     h4 {
       font-size: 2.8rem;

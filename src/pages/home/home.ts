@@ -23,7 +23,7 @@ export class HomePage {
   response: string = "Response";
   name: string = "Client";
   currentPage = 0;
-  limit: number = 3;
+  limit: number = 4;
   pagesCount: number;
   events: any[] = [];
   @ViewChild("autoToggle") autoToggle: Toggle;
@@ -49,6 +49,7 @@ export class HomePage {
   checkEvents() {
     this.event.subscribe("eventCreated", () => {
       this.getAllEvents;
+      console.log("hey again");
     });
   }
 
@@ -87,6 +88,7 @@ export class HomePage {
         this.allEvents.forEach(event => {
           if (this.userSynkedEvents.includes(event._id)) {
             event.isSynked = true;
+            event.color = "#00dae3";
           } else {
             event.isSynked = false;
           }
@@ -96,6 +98,27 @@ export class HomePage {
       this.isLoading = false;
       console.log("userSynkedEvents : ", this.userSynkedEvents);
     });
+  }
+
+  search() {
+    console.log("new data :", this.data.search);
+    this.isLoading = true;
+    this.currentPage = 0;
+    this.api
+      .searchEvents(this.data.search, this.currentPage, this.limit)
+      .subscribe(
+        data => {
+          console.log("search events data :", data);
+          this.events = data.events;
+          // this.content.scrollToTop(1000);
+          this.isLoading = false;
+          this.allEvents = this.events;
+          this.getUserData();
+        },
+        err => {
+          this.isLoading = false;
+        }
+      );
   }
 
   async eventDetails(event) {
@@ -108,9 +131,9 @@ export class HomePage {
     event.isInviteActive = true;
     this.api.makeGoing(event).subscribe(
       data => {
-        console.log("make going response :", data);
         event.goings_count += 1;
         event.isSynked = true;
+        event.color = "#00dae3";
         event.isInviteActive = false;
       },
       err => {
@@ -128,6 +151,7 @@ export class HomePage {
         this.allEvents = this.events;
         this.allEvents.forEach(event => {
           event.isSynked = true;
+          event.color = "#00dae3";
         });
         this.isLoading = false;
       },
@@ -145,31 +169,38 @@ export class HomePage {
   }
 
   doInfinite(scroll) {
+    console.log("iam scroll now");
+
     this.currentPage += 1;
     if (this.currentPage <= this.pagesCount) {
       if (!this.data.search) {
         this.api.getEvents(this.currentPage, this.limit).subscribe(data => {
-          this.allEvents = this.allEvents.concat(data.events);
-          this.allEvents.forEach(event => {
-            if (this.userSynkedEvents.includes(event._id)) {
-              event.isSynked = true;
-            } else {
-              event.isSynked = false;
-            }
-          });
+          this.callInfinitApi(data);
           scroll.complete();
         });
       } else {
         this.api
           .searchEvents(this.data.search, this.currentPage, this.limit)
           .subscribe(data => {
-            this.allEvents = this.allEvents.concat(data.events);
+            this.callInfinitApi(data);
             scroll.complete();
           });
       }
     } else {
       scroll.complete();
     }
+  }
+
+  callInfinitApi(data) {
+    this.allEvents = this.allEvents.concat(data.events);
+    this.allEvents.forEach(event => {
+      if (this.userSynkedEvents.includes(event._id)) {
+        event.isSynked = true;
+        event.color = "#00dae3";
+      } else {
+        event.isSynked = false;
+      }
+    });
   }
   createEvent() {
     let modal = this.modalCtrl.create("CreateActivityPage", { isModal: true });
@@ -178,26 +209,6 @@ export class HomePage {
       this.search();
     });
     modal.present();
-  }
-
-  search() {
-    console.log("new data :", this.data.search);
-    this.isLoading = true;
-    this.currentPage = 0;
-    this.api
-      .searchEvents(this.data.search, this.currentPage, this.limit)
-      .subscribe(
-        data => {
-          console.log("search events data :", data);
-          this.events = data.events;
-          this.content.scrollToTop(1000);
-          this.isLoading = false;
-          this.allEvents = this.events;
-        },
-        err => {
-          this.isLoading = false;
-        }
-      );
   }
 
   formatTime(time) {

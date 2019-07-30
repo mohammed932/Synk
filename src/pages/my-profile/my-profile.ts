@@ -1,5 +1,12 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, App } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  App,
+  AlertController
+} from "ionic-angular";
+import { SettingProvider } from "../../providers/setting/setting";
 
 @IonicPage()
 @Component({
@@ -8,10 +15,11 @@ import { IonicPage, NavController, NavParams, App } from "ionic-angular";
 })
 export class MyProfilePage {
   userData: any = JSON.parse(localStorage.getItem("userData"));
-  defaultImg: any = "assets/imgs/1.jpg";
   constructor(
     public navCtrl: NavController,
+    private alertCtrl: AlertController,
     public navParams: NavParams,
+    private setting: SettingProvider,
     private app: App
   ) {}
 
@@ -22,6 +30,29 @@ export class MyProfilePage {
   Edit() {
     console.log("hey");
     this.navCtrl.push("EditProfilePage");
+  }
+
+  confirmLogout() {
+    let alert = this.alertCtrl.create({
+      title: "Confirm Logout",
+      message: "Do you want to logout?",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "Confirm",
+          handler: () => {
+            this.logout();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   logout() {

@@ -9,7 +9,9 @@
     <ion-col col-12 (click)="openActionSheet()">
       <img
         *ngIf="!base64Img"
-        [src]="userData.profile_image ? userData.profile_image : defaultImg"
+        [src]="
+          userData.profile_image ? userData.profile_image : setting.DEFAULT_IMG
+        "
         class="avatar-img"
       />
       <img *ngIf="base64Img" [src]="base64Img" class="avatar-img" />
@@ -50,6 +52,15 @@
         text-right
         [(ngModel)]="userData.mobile"
       ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea
+        placeholder="Add Description"
+        [(ngModel)]="userData.about"
+        rows="6"
+      >
+      </ion-textarea>
     </ion-item>
 
     <button

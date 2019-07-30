@@ -18,6 +18,8 @@ import {
   FileUploadOptions,
   FileTransferObject
 } from "@ionic-native/file-transfer";
+import * as _ from "lodash";
+
 @IonicPage()
 @Component({
   selector: "page-sign-up",
@@ -178,7 +180,6 @@ export class SignUpPage {
           );
 
           let response = JSON.parse(data.response);
-          console.log("my accessssss token :", response.token);
           this.isWaiting = false;
           localStorage.setItem("userData", JSON.stringify(response));
           localStorage.setItem("access_token", response.token);
@@ -207,6 +208,7 @@ export class SignUpPage {
 
   Done() {
     this.isWaiting = true;
+    this.data.mobile = `+2${this.data.mobile}`;
     if (this.data.imageUri) {
       this.sendDataToServerUsingFileTransfer();
     } else {
@@ -226,8 +228,11 @@ export class SignUpPage {
       },
 
       err => {
-        this.setting.showAlert(err.error.message);
-        this.setting.showAlert(err.error.message);
+        if (!_.has(err.error, "details")) {
+          this.setting.showAlert(err.error.message);
+        } else {
+          this.setting.showAlert(err.error.details[0].message);
+        }
         this.isWaiting = false;
         console.log("registration error is :", err);
       }

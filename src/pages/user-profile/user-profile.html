@@ -42,11 +42,9 @@
       </div>
     </ion-col>
 
-    <ion-col col-12>
+    <ion-col col-12 *ngIf="userData.about">
       <div class="user-bio">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s
+        {{ userData.about }}
       </div>
     </ion-col>
   </ion-row>

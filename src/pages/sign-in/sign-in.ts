@@ -40,7 +40,11 @@ export class SignInPage {
         this.isWaiting = false;
       },
       err => {
-        // this.setting.showAlert(err.error.message);
+        if (!_.has(err.error, "details")) {
+          this.setting.showAlert(err.error.message);
+        } else {
+          this.setting.showAlert(err.error.details[0].message);
+        }
         console.log("login error is :", err);
         this.isWaiting = false;
       }

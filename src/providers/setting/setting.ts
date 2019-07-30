@@ -47,6 +47,10 @@ export class SettingProvider {
     return moment(time, "hh mm").format("LT");
   }
 
+  toLowerCase(txt) {
+    return txt.toLowerCase();
+  }
+
   async showAlert(text) {
     this.alertCtrl
       .create({

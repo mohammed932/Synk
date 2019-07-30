@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { Notifications } from "./mocks";
 import { ApiProvider } from "../../providers/api/api";
+import { SettingProvider } from "../../providers/setting/setting";
 @IonicPage()
 @Component({
   selector: "page-notifications",
@@ -16,11 +17,18 @@ export class NotificationsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private setting: SettingProvider,
+    private event: Events,
     private api: ApiProvider
   ) {
     this.getNotifications();
+    this.checkEvents();
   }
-
+  checkEvents() {
+    this.event.subscribe("notificationReceive", () => {
+      this.getNotifications();
+    });
+  }
   ionViewWillEnter() {
     localStorage.setItem("notificationCount", JSON.stringify(0));
   }
@@ -39,7 +47,45 @@ export class NotificationsPage {
     );
   }
 
-  updateNotification(notification) {
+  getActivity(id) {
+    this.api.getEvent(id).subscribe(data => {
+      return data;
+    });
+  }
+
+  async openNotification(notification) {
+    switch (notification.type) {
+      case "going":
+        this.navCtrl.push("ActivityDetailsPage", {
+          eventId: notification.data.event._id
+        });
+        break;
+      case "activity_invitation":
+        this.navCtrl.push("ActivityDetailsPage", {
+          eventId: notification.data.event._id
+        });
+        break;
+      case "new_activity":
+        this.navCtrl.push("ActivityDetailsPage", {
+          eventId: notification.data.event._id
+        });
+        break;
+      case "activity_updated":
+        this.navCtrl.push("ActivityDetailsPage", {
+          eventId: notification.data.event._id
+        });
+        break;
+      case "friend_request":
+        this.navCtrl.setRoot("TabsPage", { index: 1 });
+        break;
+
+      default:
+        break;
+    }
+    this.readNotification(notification);
+  }
+
+  readNotification(notification) {
     let params = {
       notificationId: notification._id,
       is_clicked: true

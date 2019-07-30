@@ -9,7 +9,9 @@
           (ionChange)="changeStatus($event)"
         ></ion-toggle>
       </button>
-      <div style="margin-top: 0.6rem;">My Activity</div>
+      <div style="margin-top: 0.6rem;" ion-text color="primary">
+        My Activities
+      </div>
     </ion-buttons>
     <ion-buttons start>
       <button
@@ -42,37 +44,61 @@
       <ion-row class="top-row" (click)="eventDetails(event)">
         <ion-col col-7>
           <h4>{{ event.title }}</h4>
-          <p style="margin: 0;">invited by</p>
+          <p style="margin: 0;">
+            created by {{ event.user.name | truncate: 10:"..." }}
+          </p>
         </ion-col>
         <ion-col col-5 style="line-height: 0;">
           <h4 ion-text text-end *ngIf="event.time">
-            {{ formatTime(setting.timeAmPm(event.time)) }}
+            {{ setting.toLowerCase(formatTime(setting.timeAmPm(event.time))) }}
           </h4>
-          <p ion-text text-end class="happening-date">
+          <p ion-text text-end class="happening-date" *ngIf="event.date">
             {{ setting.formatDateWithDayName(date) }}
           </p>
-        </ion-col>
-        <ion-col col-12 class="no-padding-top">
-          <div>{{ event.user.name }}</div>
         </ion-col>
       </ion-row>
       <ion-row class="bottom-row">
         <ion-col col-8 (click)="eventDetails(event)">
           <div class="icon-txt-wrapper">
-            <img src="assets/imgs/location.svg" class="icon-img" />
-            <p class="location-txt">{{ event.location }}</p>
+            <img
+              src="assets/imgs/location.svg"
+              class="icon-img"
+              *ngIf="!event.isSynked"
+            />
+            <img
+              src="assets/imgs/location-yellow.svg"
+              class="icon-img"
+              *ngIf="event.isSynked"
+            />
+            <p class="location-txt" *ngIf="event.location">
+              {{ event.location }}
+            </p>
+            <p class="location-txt" *ngIf="!event.location">Tba</p>
           </div>
           <div>
-            <img src="assets/imgs/custom-user.svg" class="icon-img" />
-            <p class="location-txt">
+            <img
+              src="assets/imgs/custom-user.svg"
+              *ngIf="!event.isSynked"
+              class="icon-img"
+            />
+            <img
+              src="assets/imgs/user-yellow.svg"
+              *ngIf="event.isSynked"
+              class="icon-img"
+            />
+
+            <p class="location-txt" *ngIf="event.max != 0">
               {{ event.goings_count }}/{{ event.max }} people synked
+            </p>
+            <p class="location-txt" *ngIf="event.max == 0">
+              {{ event.goings_count }} people synked
             </p>
           </div>
         </ion-col>
         <ion-col col-4 *ngIf="event.goings_count != event.max">
           <button
             ion-button
-            color="secondary"
+            color="primary"
             class="card-btn"
             round
             *ngIf="!event.isSynked"
@@ -87,7 +113,7 @@
           </button>
           <button
             ion-button
-            color="primary"
+            color="yellow"
             class="card-btn"
             *ngIf="event.isSynked"
             round
@@ -101,12 +127,16 @@
             ></ion-spinner>
           </button>
         </ion-col>
-        <ion-col
-          col-4
-          align-self-center
-          *ngIf="event.goings_count == event.max"
-        >
-          <div class="completed">Completed</div>
+        <ion-col col-4 align-self-center>
+          <div
+            class="completed"
+            *ngIf="event.goings_count == event.max && event.max != 0"
+          >
+            Completed
+          </div>
+          <!-- <div class="completed" *ngIf="event.max == 0 && !event.isSynked">
+            Open
+          </div> -->
         </ion-col>
       </ion-row>
     </ion-grid>
